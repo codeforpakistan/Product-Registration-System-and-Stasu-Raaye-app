@@ -1,0 +1,75 @@
+<resources>
+    <string name="app_name">Halal Food Authority OSS</string>
+    <string name="feedback">Feedback</string>
+    <string name="complaint">Complaint</string>
+    <string name="training">Training</string>
+    <string name="business_registration">Business Registration</string>
+    <string name="your_name">Your name</string>
+    <string name="father_name">Father Name</string>
+    <string name="contact_number">Contact Number</string>
+    <string name="cnic_front_side">CNIC Front Side</string>
+    <string name="category">Category</string>
+    <string name="business_district">Business District</string>
+    <string name="business_address">Business Address</string>
+    <string name="name_of_product">Name Of Product</string>
+    <string name="business_name">Business Name</string>
+    <string name="food_test_result">Food Test Result</string>
+    <string name="urdu">Urdu</string>
+    <string name="upload">Upload</string>
+    <string name="next">NEXT</string>
+    <string name="cnic_number_without_dashes">CNIC(without dashes)</string>
+    <string name="cnic_number">CNIC</string>
+    <string name="business_detail">Business Detail</string>
+    <string name="submit">Submit</string>
+    <string name="name">Name</string>
+    <string name="password">Password</string>
+    <string name="login">LOGIN</string>
+    <string name="sign_up">SIGN UP?</string>
+    <string name="enter_name">Enter Name</string>
+    <string name="enter_number">Enter Number</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="register">REGISTER</string>
+    <string name="latitude">Latitude</string>
+    <string name="search_here">Search Location Here</string>
+
+    <string-array name="district">
+        <item>Loading...</item>
+    </string-array>
+    <string-array name="category">
+        <item>Loading...</item>
+    </string-array>
+    <string-array name="Complaint_Category">
+        <item>Select Category</item>
+        <item>Food Safety</item>
+        <item>Hygiene</item>
+        <item>Adulteration</item>
+        <item>Corruption</item>
+        <item>Serivice matter</item>
+    </string-array>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCWP7qm8q0ctWka5SLB-QgK3ogYLOTyxdk</string>
+    <string name="safe_food_healthy_people">Safe Food, Healthy People</string>
+    <string name="Owner_profile_image">Owner Profile Image</string>
+    <string name="cnic_front_image">CNIC Front Image</string>
+    <string name="complaint_details">Complaint Details</string>
+    <string name="product_registration">Product Registration</string>
+    <string name="product_name">Product Name</string>
+    <string name="business_licence_number">Business Licence Number</string>
+    <string name="business_license">Business License</string>
+    <string name="profile">Profile</string>
+    <string name="complaint_form">Complaint Form</string>
+    <string name="business_list">Business List</string>
+    <string name="my_complaints">My Complaints</string>
+    <string name="district">District</string>
+    <string name="license_number">License Number</string>
+    <string name="owner_name">Owner Name</string>
+    <string name="complaint_title">Complaint Title</string>
+    <string name="my_products">My Products</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="edit_photo">Edit Photo</string>
+    <string name="profile_name">Profile Name</string>
+    <string name="update">Update</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+
+</resources>

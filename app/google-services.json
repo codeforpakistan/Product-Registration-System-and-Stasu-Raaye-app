@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "571853908013",
+    "project_id": "halal-food-authority-oss",
+    "storage_bucket": "halal-food-authority-oss.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:571853908013:android:0c6a73e5294b985a0af0a4",
+        "android_client_info": {
+          "package_name": "com.example.halalfoodauthorityoss"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "571853908013-g69qgq4hj8l4aj79u7u09iraqqsiod2l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.halalfoodauthorityoss",
+            "certificate_hash": "b79e165879f54debaebeeebba4676ee029ed958e"
+          }
+        },
+        {
+          "client_id": "571853908013-06vseff4qfo6pdpg6ub2mvalv9asnnrv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPj__OPU-Kf2pEkHYp7ix45V_n_YLBC8g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "571853908013-06vseff4qfo6pdpg6ub2mvalv9asnnrv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
