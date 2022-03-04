@@ -1,5 +1,6 @@
 package com.example.halalfoodauthorityoss;
 
+import com.example.halalfoodauthorityoss.model.SearchResponseModel;
 import com.example.halalfoodauthorityoss.model.UserResponseModel;
 import com.example.halalfoodauthorityoss.model.LoginResponse;
 import com.example.halalfoodauthorityoss.model.Model;
@@ -133,4 +134,6 @@ public interface Interface {
             @Part("address") String address,
             @Part("cpass") String cpass
     );
+    @POST("search_businesses")
+    Call<SearchResponseModel> SearchResult();
 }

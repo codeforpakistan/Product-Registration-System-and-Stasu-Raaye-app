@@ -36,6 +36,9 @@ public class Model implements Serializable {
     public String business_id;
     @SerializedName("application_id")
     public String application_id;
+    @SerializedName("business_name")
+    public String business_name;
+
 
     /*BusinessDetailResponse*/
     @SerializedName("owner_name")
@@ -176,6 +179,14 @@ public class Model implements Serializable {
         LicNo = licNo;
         ExpireDate = expireDate;
         IssueDate = issueDate;
+        this.distric_name = distric_name;
+    }
+
+    public Model(String business_id, String business_name, String address, String register_Date, String distric_name) {
+        this.business_id = business_id;
+        this.business_name = business_name;
+        Address = address;
+        Register_Date = register_Date;
         this.distric_name = distric_name;
     }
 

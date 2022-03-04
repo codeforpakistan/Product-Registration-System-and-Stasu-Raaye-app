@@ -10,22 +10,22 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:requestLegacyExternalStorage="true"
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/security_config"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HalalFoodAuthorityOSS"
         android:usesCleartextTraffic="true">
+        <activity android:name=".searchresult.SearchResult"></activity>
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".loginsignupforgot.UpdateProfile"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".loginsignupforgot.UpdateProfile" />
         <activity android:name=".complaint.Complaint_Details" />
         <activity android:name=".useractivity.Business_License_Details" />
         <activity android:name=".complaint.MyComplaints" />
