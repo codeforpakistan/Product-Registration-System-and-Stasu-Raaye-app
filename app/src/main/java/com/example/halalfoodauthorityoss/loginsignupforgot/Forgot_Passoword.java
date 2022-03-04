@@ -1,5 +1,6 @@
 package com.example.halalfoodauthorityoss.loginsignupforgot;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -150,21 +151,28 @@ public class Forgot_Passoword extends AppCompatActivity {
         finish();
     }
 
-    private void DialogBOX() {
-        AlertDialog alertDialog = new AlertDialog.Builder(Forgot_Passoword.this).create();
-        alertDialog.setTitle("Alert!");
-        alertDialog.setMessage("Password Has Been Sent On Your Number!");
-        alertDialog.setCancelable(false);
+    private void DialogBOX(String c_mobile) {
+        Dialog dialoguebox = new Dialog(Forgot_Passoword.this);
+        dialoguebox.setContentView(R.layout.dialogue_box);
+        dialoguebox.setCancelable(true);
+        TextView txtalert = dialoguebox.findViewById(R.id.txtalert);
+        TextView message = dialoguebox.findViewById(R.id.txtmessage);
+        TextView ok = dialoguebox.findViewById(R.id.ok);
+        String number = c_mobile.substring(8, 11);
 
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
+        txtalert.setText("Alert!");
+        message.setText("Password has been sent on your number ********"+number);
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialoguebox.dismiss();
                 Intent intent = new Intent(Forgot_Passoword.this, Login.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
             }
         });
-        alertDialog.show();
+        dialoguebox.show();
     }
 
     public void Forgot() {
@@ -179,18 +187,16 @@ public class Forgot_Passoword extends AppCompatActivity {
                 Model model = response.body();
                 if (!model.equals(null)) {
                     if (model.getSuccess().equals("Valid user")) {
-                        Toast.makeText(Forgot_Passoword.this, "Mobile Number:" + model.getC_mobile(), Toast.LENGTH_SHORT).show();
-                        Toast.makeText(Forgot_Passoword.this, "Password:" + model.getCpass(), Toast.LENGTH_SHORT).show();
-                        DialogBOX();
+                        DialogBOX(model.c_mobile);
                     } else {
-                        Toast.makeText(Forgot_Passoword.this, "CNIC Doesn't Found", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Forgot_Passoword.this, "CNIC doesn't matched", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<Model> call, Throwable t) {
-                Toast.makeText(Forgot_Passoword.this, "I am Out", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Forgot_Passoword.this, "No Response", Toast.LENGTH_SHORT).show();
             }
         });
     }

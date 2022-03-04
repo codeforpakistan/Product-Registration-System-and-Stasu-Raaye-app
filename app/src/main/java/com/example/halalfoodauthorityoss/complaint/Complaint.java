@@ -1,5 +1,6 @@
 package com.example.halalfoodauthorityoss.complaint;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -33,6 +34,8 @@ import com.example.halalfoodauthorityoss.BaseClass;
 import com.example.halalfoodauthorityoss.CoreActivity;
 import com.example.halalfoodauthorityoss.R;
 import com.example.halalfoodauthorityoss.adapter.ImagesAdapter;
+import com.example.halalfoodauthorityoss.loginsignupforgot.Forgot_Passoword;
+import com.example.halalfoodauthorityoss.loginsignupforgot.Login;
 import com.example.halalfoodauthorityoss.model.AppData;
 import com.example.halalfoodauthorityoss.model.Model;
 import com.google.android.material.snackbar.Snackbar;
@@ -142,7 +145,7 @@ public class Complaint extends AppCompatActivity {
                                 DialogBOX();
                             } else {
                                 progressDialog.dismiss();
-                                Toast.makeText(Complaint.this, "Complaint Not Submitted", Toast.LENGTH_LONG).show();
+                                Toast.makeText(Complaint.this, "Complaint no submitted", Toast.LENGTH_LONG).show();
                             }
                         } else {
                             Toast.makeText(Complaint.this, "Not Successful", Toast.LENGTH_SHORT).show();
@@ -152,7 +155,7 @@ public class Complaint extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<Model> call, Throwable t) {
                         progressDialog.dismiss();
-                        Toast.makeText(Complaint.this, "Out", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Complaint.this, "No Response", Toast.LENGTH_LONG).show();
                     }
                 });
             }
@@ -198,20 +201,26 @@ public class Complaint extends AppCompatActivity {
     }
 
     private void DialogBOX() {
-        AlertDialog alertDialog = new AlertDialog.Builder(Complaint.this).create();
-        alertDialog.setTitle("Complaint");
-        alertDialog.setMessage("Your Complaint Has Been Submitted!");
-        alertDialog.setCancelable(false);
+        Dialog dialoguebox = new Dialog(Complaint.this);
+        dialoguebox.setContentView(R.layout.dialogue_box);
+        dialoguebox.setCancelable(true);
+        TextView txtalert = dialoguebox.findViewById(R.id.txtalert);
+        TextView message = dialoguebox.findViewById(R.id.txtmessage);
+        TextView ok = dialoguebox.findViewById(R.id.ok);
 
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(Complaint.this, CoreActivity.class);
+        txtalert.setText("Complaint!");
+        message.setText("Your Complaint has been submitted.");
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialoguebox.dismiss();
+                Intent intent = new Intent(Complaint.this, MyComplaints.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
             }
         });
-        alertDialog.show();
+        dialoguebox.show();
     }
 
     private void displayDistrict() {

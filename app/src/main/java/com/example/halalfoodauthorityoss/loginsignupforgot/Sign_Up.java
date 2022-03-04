@@ -1,7 +1,7 @@
 package com.example.halalfoodauthorityoss.loginsignupforgot;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -17,7 +17,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.halalfoodauthorityoss.BaseClass;
@@ -40,7 +39,7 @@ public class Sign_Up extends AppCompatActivity {
     Spinner distspinner;
     TextView register;
     CheckBox checkBox;
-    String name, cnic="", number, password, confirmpassword;
+    String name, cnic = "", number, password, confirmpassword;
     ImageView ic_back;
     List<String> ListDistrictName;
     List<String> ListDistrictID;
@@ -126,8 +125,7 @@ public class Sign_Up extends AppCompatActivity {
                 password = edtpassword.getText().toString().trim();
                 confirmpassword = edtconfirmpassword.getText().toString().trim();
 
-                if (cnicNo.length()<13 || cnicNo.length()>13 || cnicNo.equals(""))
-                {
+                if (cnicNo.length() < 13 || cnicNo.length() > 13 || cnicNo.equals("")) {
                     edtcnic.setError("Invalid CNIC");
                     return;
                 }
@@ -175,7 +173,7 @@ public class Sign_Up extends AppCompatActivity {
                 Call<Model> call = BaseClass
                         .getInstance()
                         .getApi()
-                          .Sign_Up(cnic,password,name,Did,number);
+                        .Sign_Up(cnic, password, name, Did, number);
 
                 call.enqueue(new Callback<Model>() {
                     @Override
@@ -206,19 +204,24 @@ public class Sign_Up extends AppCompatActivity {
     }
 
     private void DialogBOX() {
-        AlertDialog alertDialog = new AlertDialog.Builder(Sign_Up.this).create();
-        alertDialog.setTitle("Your Profile has been Created!");
-        alertDialog.setCancelable(false);
 
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
+        Dialog dialoguebox = new Dialog(Sign_Up.this);
+        dialoguebox.setContentView(R.layout.dialogue_box);
+        dialoguebox.setCancelable(true);
+        TextView message = dialoguebox.findViewById(R.id.txtmessage);
+        TextView ok = dialoguebox.findViewById(R.id.ok);
+        message.setText("Your Profile has been Created.");
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialoguebox.dismiss();
                 Intent intent = new Intent(Sign_Up.this, Login.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
             }
         });
-        alertDialog.show();
+        dialoguebox.show();
     }
 
     private void initialization() {

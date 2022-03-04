@@ -21,7 +21,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.halalfoodauthorityoss.BaseClass;
 import com.example.halalfoodauthorityoss.CoreActivity;
@@ -44,8 +43,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Profile_Images extends AppCompatActivity {
-
-    RecyclerView nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn;
 
     ImageView cnicImage, profileImage;
     Button btnNext;

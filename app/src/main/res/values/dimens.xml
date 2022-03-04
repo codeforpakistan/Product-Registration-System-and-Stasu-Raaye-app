@@ -34,4 +34,5 @@
     <dimen name="dp3">3dp</dimen>
     <dimen name="dp35">35dp</dimen>
     <dimen name="dp95">95dp</dimen>
+    <dimen name="sp14">14sp</dimen>
 </resources>

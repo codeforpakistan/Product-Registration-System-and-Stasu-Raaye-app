@@ -71,12 +71,9 @@ public class Complaint_Details extends AppCompatActivity {
                 Dialog rankDialog = new Dialog(Complaint_Details.this);
                 rankDialog.setContentView(R.layout.rating_dialogue);
                 rankDialog.setCancelable(true);
-
                 RatingBar ratingBar = rankDialog.findViewById(R.id.dialog_ratingbar);
                 TextView feedback = rankDialog.findViewById(R.id.feedback);
                 RadioGroup radioGroup = rankDialog.findViewById(R.id.radioGroup);
-//                RadioButton yes = rankDialog.findViewById(R.id.yes);
-//                RadioButton no = rankDialog.findViewById(R.id.no);
                 radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                     public void onCheckedChanged(RadioGroup group, int checkedId) {
                         switch (checkedId) {
