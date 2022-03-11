@@ -37,7 +37,7 @@
             <ImageView
                 android:id="@+id/icSearch"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/dp30"
+                android:layout_height="@dimen/dp40"
                 android:layout_weight=".3"
                 android:layout_margin="4dp"
                 android:src="@drawable/ic_search"/>
@@ -45,10 +45,10 @@
             <ImageView
                 android:id="@+id/icFilter"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/dp30"
+                android:layout_height="@dimen/dp40"
                 android:layout_weight=".3"
                 android:layout_margin="4dp"
-                android:src="@drawable/ic_add_photo"/>
+                android:src="@drawable/ic_filter_icon"/>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

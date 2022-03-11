@@ -3,7 +3,6 @@ package com.example.halalfoodauthorityoss.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +13,9 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.halalfoodauthorityoss.R;
-import com.example.halalfoodauthorityoss.complaint.Complaint_Details;
 import com.example.halalfoodauthorityoss.model.Model;
 import com.example.halalfoodauthorityoss.useractivity.Business_License_Details;
 import com.example.halalfoodauthorityoss.useractivity.MyBusinesses;
-import com.example.halalfoodauthorityoss.useractivity.MyProducts;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -89,7 +86,7 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.ViewHo
             buss_Prod_Name=itemView.findViewById(R.id.buss_Prod_Name);
             date=itemView.findViewById(R.id.date);
           //  licenseDetail=itemView.findViewById(R.id.licenseDetail);
-            mlayout=itemView.findViewById(R.id.mlayout);
+            mlayout=itemView.findViewById(R.id.Linearlayout);
         }
     }
 }

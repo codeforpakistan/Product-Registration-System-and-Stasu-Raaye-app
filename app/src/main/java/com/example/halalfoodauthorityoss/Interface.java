@@ -1,9 +1,11 @@
 package com.example.halalfoodauthorityoss;
 
-import com.example.halalfoodauthorityoss.model.SearchResponseModel;
-import com.example.halalfoodauthorityoss.model.UserResponseModel;
+import com.example.halalfoodauthorityoss.model.Business_Reviews_Response_Model;
+import com.example.halalfoodauthorityoss.model.FeedBack_Attachements;
 import com.example.halalfoodauthorityoss.model.LoginResponse;
 import com.example.halalfoodauthorityoss.model.Model;
+import com.example.halalfoodauthorityoss.model.SearchResponseModel;
+import com.example.halalfoodauthorityoss.model.UserResponseModel;
 
 import java.util.List;
 
@@ -134,6 +136,35 @@ public interface Interface {
             @Part("address") String address,
             @Part("cpass") String cpass
     );
+
     @POST("search_businesses")
     Call<SearchResponseModel> SearchResult();
+
+    @Multipart
+    @POST("business_rating_add")
+    Call<Model> Add_Rating(
+            @Part("cust_id") int cust_id,
+            @Part("business_id") int business_id,
+            @Part("feedback") String feedback,
+            @Part("premises_hygiene") String premises_hygiene,
+            @Part("equipment_hygiene") String equipment_hygiene,
+            @Part("staff_personal_hygiene") String staff_personal_hygiene,
+            @Part("food_hygiene") String food_hygiene,
+            @Part("food_quality") String food_quality,
+            @Part MultipartBody.Part[] image
+    );
+
+    @FormUrlEncoded
+    @POST("business_detail")
+    Call<Business_Reviews_Response_Model> Business_Details(
+            @Field("cust_id") int cust_id,
+            @Field("business_id") int business_id
+    );
+
+    @FormUrlEncoded
+    @POST("business_rating_attachments")
+    Call<FeedBack_Attachements> GetFeedbackAttachments(
+            @Field("cust_id") int cust_id,
+            @Field("business_rating_id") int business_rating_id
+    );
 }

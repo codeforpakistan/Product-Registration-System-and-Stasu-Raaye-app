@@ -122,7 +122,7 @@ public class Complaint_Details extends AppCompatActivity {
                                     if (model.getSuccess().equals("1")) {
                                         int rating_value = 0;
                                         int satisfaction = 111;
-                                        Toast.makeText(Complaint_Details.this, "Feeback Submit", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(Complaint_Details.this, "Feeback Submitted", Toast.LENGTH_SHORT).show();
                                     } else {
                                         Toast.makeText(Complaint_Details.this, "Not Submitted", Toast.LENGTH_SHORT).show();
                                     }

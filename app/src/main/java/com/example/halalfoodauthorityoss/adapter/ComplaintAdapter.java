@@ -73,7 +73,7 @@ public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.View
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            mlayout=itemView.findViewById(R.id.mlayout);
+            mlayout=itemView.findViewById(R.id.Linearlayout);
             count=itemView.findViewById(R.id.count);
             businessName=itemView.findViewById(R.id.bussName);
             complaintType=itemView.findViewById(R.id.complaintType);

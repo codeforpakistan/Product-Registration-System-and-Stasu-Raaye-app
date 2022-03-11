@@ -1,13 +1,11 @@
 package com.example.halalfoodauthorityoss.adapter;
 
+import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,22 +13,21 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.halalfoodauthorityoss.R;
-import com.example.halalfoodauthorityoss.complaint.Complaint_Details;
+import com.example.halalfoodauthorityoss.businesslicense.Bussiness_Details;
+import com.example.halalfoodauthorityoss.businesslicense.Personal_Detail;
 import com.example.halalfoodauthorityoss.model.Model;
+import com.example.halalfoodauthorityoss.searchresult.Feedback_Reviews;
 import com.example.halalfoodauthorityoss.searchresult.SearchResult;
-import com.example.halalfoodauthorityoss.useractivity.Business_License_Details;
-import com.example.halalfoodauthorityoss.useractivity.MyBusinesses;
-import com.example.halalfoodauthorityoss.useractivity.MyProducts;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Search_Business_Adapter extends RecyclerView.Adapter<Search_Business_Adapter.ViewHolder> {
+    public static int business_id;
     List<Model> list=new ArrayList<>();
     Context context;
 
-    public Search_Business_Adapter(List<Model> list, SearchResult context) {
+    public Search_Business_Adapter(List<Model> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -47,20 +44,24 @@ public class Search_Business_Adapter extends RecyclerView.Adapter<Search_Busines
 
         Model model = list.get(position);
 
-        holder.txtBussName.setText(model.bussnie_name);
+        holder.txtBussName.setText(model.business_name);
         holder.txtDistrict.setText(model.distric_name);
-        holder.txtAddress.setText(model.Address);
-       /* holder.mlayout.setOnClickListener(new View.OnClickListener() {
+        holder.txtRating.setText(model.AverageRating);
+        String firstWord = model.Register_Date;
+        if(firstWord.contains(" ")){
+            firstWord= firstWord.substring(0, firstWord.indexOf(" "));
+            holder.regDate.setText("Registered Since: "+firstWord);
+        }
+
+        holder.mLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("ModelBusiness", (Serializable) model);
-                Intent intent = new Intent(context, Business_License_Details.class);
-                intent.putExtras(bundle);
+                Intent intent = new Intent(context, Feedback_Reviews.class);
+                business_id= Integer.parseInt(model.business_id);
                 context.startActivity(intent);
 
             }
-        });*/
+        });
 
     }
 
@@ -71,16 +72,17 @@ public class Search_Business_Adapter extends RecyclerView.Adapter<Search_Busines
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView txtBussName,txtDistrict,txtAddress;
-        LinearLayout mlayout;
+        TextView txtBussName,txtDistrict,regDate,txtRating;
+        View mLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             txtBussName=itemView.findViewById(R.id.txtBussName);
             txtDistrict=itemView.findViewById(R.id.txtDistrict);
-            txtAddress=itemView.findViewById(R.id.txtAddress);
-            mlayout=itemView.findViewById(R.id.mlayout);
+            regDate=itemView.findViewById(R.id.regDate);
+            txtRating=itemView.findViewById(R.id.txtRating);
+            mLayout=itemView.findViewById(R.id.mLayout);
         }
     }
 }

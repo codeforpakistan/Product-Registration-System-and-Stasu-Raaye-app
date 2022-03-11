@@ -7,7 +7,7 @@
     >
 
     <LinearLayout
-        android:id="@+id/mlayout"
+        android:id="@+id/Linearlayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp70"
         android:layout_marginStart="@dimen/dp16"

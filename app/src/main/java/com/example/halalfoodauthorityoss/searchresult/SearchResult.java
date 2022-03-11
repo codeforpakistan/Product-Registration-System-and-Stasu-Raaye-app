@@ -52,7 +52,7 @@ public class SearchResult extends AppCompatActivity {
                     if (searchResponseModel.success.equals("1")) {
                         for (int i = 0; i < size; i++) {
                             modelList.add(new Model(list.get(i).business_id, list.get(i).business_name, list.get(i).Address,
-                                    list.get(i).Register_Date, list.get(i).distric_name
+                                    list.get(i).Register_Date, list.get(i).distric_name,list.get(i).AverageRating
                             ));
                         }
                         recyclerView.setHasFixedSize(true);

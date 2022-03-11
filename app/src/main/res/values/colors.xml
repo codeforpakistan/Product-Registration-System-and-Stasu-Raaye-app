@@ -16,4 +16,6 @@
     <color name="brown">#46000000</color>
     <color name="offwhite">#0C000000</color>
     <color name="green">#2A830A</color>
+    <color name="grey">#EDEDEB</color>
+    <color name="darkgrey">#989898</color>
 </resources>

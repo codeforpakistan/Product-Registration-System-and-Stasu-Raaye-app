@@ -44,18 +44,16 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ViewHolder
             String path = "https://halalfoods.testportal.famzsolutions.com/assets/img/complaint/" + selectedImage;
             Glide.with(context).load(path).into(holder.images);
             Log.d("Images", path);
+            return;
         }
-        else {
+        if (action.equals("feedbackImages")) {
+            String path = "https://halalfoods.testportal.famzsolutions.com/" + selectedImage;
+            Glide.with(context).load(path).into(holder.images);
+            Log.d("Images", path);
+            return;
+        } else {
             holder.images.setImageURI(selectedImage);
         }
-
-        /*try {
-            bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(),selectedImage);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-
-       // holder.images.setImageURI(selectedImage);
     }
 
     @Override
@@ -70,7 +68,7 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ViewHolder
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            images=itemView.findViewById(R.id.images);
+            images = itemView.findViewById(R.id.images);
 
         }
     }

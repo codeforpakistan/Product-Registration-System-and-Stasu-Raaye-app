@@ -5,15 +5,14 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:id="@+id/mlayout"
+        android:id="@+id/Linearlayout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp150"
+        android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="@dimen/dp16"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
-        android:background="@drawable/search_result_card"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,58 +20,122 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp90"
-            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:background="@drawable/business_border"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/txtBussName"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textMultiLine"
-                android:layout_margin="@dimen/dp8"
-                android:text="Business Name"
-                android:textColor="@color/black"
-                android:textSize="@dimen/dp16"
-                android:textStyle="bold" />
+                android:weightSum="2"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/txtDistrict"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="District"
-                android:inputType="textMultiLine"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sp16"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/txtDistrict"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:layout_margin="@dimen/dp12"
+                    android:text="Peshawar"
+                    android:gravity="center_vertical"
+                    android:drawablePadding="@dimen/dp8"
+                    android:drawableLeft="@drawable/ic_location"
+                    android:layout_weight="1.8"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp14"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_star"
+                    android:drawablePadding="0dp"
+                    android:layout_weight="0.1"
+                    android:gravity="end"
+                    android:layout_margin="@dimen/dp12"
+                    android:inputType="textMultiLine"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp14"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp70"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtBussName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:paddingBottom="@dimen/dp16"
+                    android:paddingTop="@dimen/dp8"
+                    android:gravity="center"
+                    android:layout_marginLeft="@dimen/dp32"
+                    android:layout_marginRight="@dimen/dp32"
+                    android:text="Business Name"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp20"
+                    android:textStyle="bold" />
+
+                <!-- <TextView
+                     android:id="@+id/txtDistrict"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="District"
+                     android:inputType="textMultiLine"
+                     android:textColor="@color/black"
+                     android:textSize="@dimen/sp16"
+                     android:textStyle="bold" />-->
+
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="@dimen/dp70"
+
+            android:background="@drawable/ic_banner_bottom"
+            >
 
             <TextView
-                android:id="@+id/txtAddress"
+                android:id="@+id/regDate"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Address"
+                android:layout_height="@dimen/dp60"
                 android:gravity="center"
                 android:inputType="textMultiLine"
-                android:layout_margin="@dimen/dp8"
-                android:textColor="@color/brown"
-                android:textSize="@dimen/dp16"
+                android:textSize="@dimen/sp14"
                 android:textStyle="bold" />
         </LinearLayout>
+
     </LinearLayout>
 
     <ImageView
-        android:layout_width="@dimen/dp50"
-        android:layout_height="@dimen/dp50"
+        android:layout_width="@dimen/dp40"
+        android:layout_height="@dimen/dp40"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:src="@drawable/ic_forward_circle"
-        app:layout_constraintBottom_toBottomOf="@+id/mlayout"
+        app:layout_constraintBottom_toBottomOf="@+id/Linearlayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/mlayout" />
+        app:layout_constraintTop_toTopOf="@+id/Linearlayout"
+        app:layout_constraintVertical_bias="0.64" />
+
+    <View
+        android:id="@+id/mLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/Linearlayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/Linearlayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
