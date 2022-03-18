@@ -12,16 +12,17 @@
 
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/security_config"
         android:requestLegacyExternalStorage="true"
-        android:hardwareAccelerated="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HalalFoodAuthorityOSS"
         android:usesCleartextTraffic="true">
-        <activity android:name=".searchresult.User_Rating"></activity>
+        <activity android:name=".loginsignupforgot.Authentication"></activity>
+        <activity android:name=".searchresult.User_Rating" />
         <activity android:name=".searchresult.Feedback_Reviews" />
         <activity android:name=".searchresult.SearchResult" />
         <activity
@@ -34,86 +35,23 @@
         <activity android:name=".complaint.MyComplaints" />
         <activity android:name=".useractivity.MyProducts" />
         <activity android:name=".useractivity.MyBusinesses" />
-        <activity android:name=".complaint.Complaint">
-
-            <!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
-        </activity>
+        <activity android:name=".complaint.Complaint"/>
         <activity android:name=".productregistration.ProductRegistration" />
         <activity android:name=".Splash_Screen">
-
-            <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            -->
         </activity>
-        <activity android:name=".businesslicense.Bussiness_Details">
-
-            <!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
-        </activity>
-        <activity android:name=".businesslicense.Profile_Images">
-
-            <!--
-                <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
-        </activity>
-        <activity android:name=".businesslicense.Personal_Detail">
-
-            <!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
-        </activity>
-        <activity android:name=".CoreActivity">
-
-            <!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
-        </activity>
+        <activity android:name=".businesslicense.Bussiness_Details"/>
+        <activity android:name=".businesslicense.Profile_Images"/>
+        <activity android:name=".businesslicense.Personal_Detail"/>
+        <activity android:name=".CoreActivity"/>
         <activity android:name=".loginsignupforgot.Forgot_Passoword" />
         <activity android:name=".loginsignupforgot.Sign_Up" />
-        <activity android:name=".loginsignupforgot.Login">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".MainActivity">
-
-            <!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
-        </activity>
+        <activity android:name=".loginsignupforgot.Login"/>
+        <activity android:name=".MainActivity"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

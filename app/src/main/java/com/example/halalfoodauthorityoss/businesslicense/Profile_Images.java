@@ -410,7 +410,7 @@ public class Profile_Images extends AppCompatActivity {
                     .Add_Owner(getIntent().getStringExtra("name"), getIntent().getStringExtra("fathername"), getIntent().getStringExtra("cnic"),
                             getIntent().getStringExtra("contact"), profileimageFile, getIntent().getStringExtra("businessaddress"),
                             getIntent().getStringExtra("businessname")
-                            , BID, Lat, Long, cnicimageFile, DID,"male","owner", AppData.id);
+                            , BID, Lat, Long, cnicimageFile, DID,"male","Android_user", AppData.id);
             call.enqueue(new Callback<Model>() {
                 @Override
                 public void onResponse(Call<Model> call, Response<Model> response) {
@@ -435,7 +435,7 @@ public class Profile_Images extends AppCompatActivity {
                 public void onFailure(Call<Model> call, Throwable t) {
                     Log.d("errror", call.toString());
                     Log.d("errror1", call.request().toString());
-                    Toast.makeText(Profile_Images.this, "Out", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Profile_Images.this, "No Response", Toast.LENGTH_LONG).show();
                     progressDialog.dismiss();
                 }
             });

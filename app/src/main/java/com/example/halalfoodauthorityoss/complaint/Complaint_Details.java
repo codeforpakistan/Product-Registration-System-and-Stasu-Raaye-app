@@ -131,7 +131,7 @@ public class Complaint_Details extends AppCompatActivity {
 
                             @Override
                             public void onFailure(Call<Model> call, Throwable t) {
-                                Toast.makeText(Complaint_Details.this, "out", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Complaint_Details.this, "No Response", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -182,7 +182,7 @@ public class Complaint_Details extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<UserResponseModel> call, Throwable t) {
-                Toast.makeText(Complaint_Details.this, "out", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Complaint_Details.this, "No Response", Toast.LENGTH_SHORT).show();
                 Log.d("aaaaaa", call.request().toString());
             }
         });

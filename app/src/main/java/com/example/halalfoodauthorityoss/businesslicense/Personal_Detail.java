@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import com.example.halalfoodauthorityoss.CoreActivity;
 import com.example.halalfoodauthorityoss.R;
 import com.example.halalfoodauthorityoss.model.Model;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.regex.Pattern;
 
@@ -34,6 +36,7 @@ public class Personal_Detail extends AppCompatActivity {
     TextInputEditText edtname, edtcnic, edtcontact, edtfathername;
     CheckBox checkBox;
     String cnic = "";
+    TextInputLayout layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,19 @@ public class Personal_Detail extends AppCompatActivity {
         setContentView(R.layout.activity_personal_details);
 
         initialization();
+
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (checkBox.isChecked())
+                {
+                    layout.setHint("AFG No(without-dashes)");
+                }
+                else {
+                    layout.setHint("CNIC(without-dashes)");
+                }
+            }
+        });
 
         edtcnic.addTextChangedListener(new TextWatcher() {
             @Override
@@ -206,6 +222,7 @@ public class Personal_Detail extends AppCompatActivity {
         edtcontact = findViewById(R.id.edtcontact);
         edtcnic = findViewById(R.id.edtcnic);
         checkBox = findViewById(R.id.checkBox);
+        layout = findViewById(R.id.layout);
 
         CNIC_PATTERN = Pattern.compile("^" + "[0-9]{5}-[0-9]{7}-[0-9]{1}" + "$");
         AFG_CNIC_PATTERN = Pattern.compile("^" + "[0-9]{4}-[0-9]{4}-[0-9]{5}" + "$");

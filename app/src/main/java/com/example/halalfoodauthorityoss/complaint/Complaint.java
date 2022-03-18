@@ -248,7 +248,7 @@ public class Complaint extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Model>> call, Throwable t) {
-                Toast.makeText(Complaint.this, "out", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Complaint.this, "No Response", Toast.LENGTH_SHORT).show();
                 Log.d("errror2", call.request().toString());
 
             }

@@ -43,7 +43,7 @@
                 android:background="@drawable/topbackground"
                 android:gravity="center"
                 android:paddingRight="@dimen/dp24"
-                android:text="@string/product_registration"
+                android:text="@string/register_product"
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp20"
                 android:textStyle="bold"
@@ -53,6 +53,25 @@
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:gravity="center"
+        android:padding="@dimen/dp8"
+        android:text="Enter your License number and register your product with that business."
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp16"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -66,36 +85,71 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-        app:layout_constraintVertical_bias="0.100000024">
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        app:layout_constraintVertical_bias="0.25">
 
-        <!--Business Name-->
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="@dimen/dp16"
-            android:layout_marginRight="@dimen/dp8"
-            android:hint="@string/business_licence_number">
+            android:orientation="horizontal"
+            android:weightSum="2">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edtBusinessName"
-                android:layout_width="match_parent"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:textSize="@dimen/sp16" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="@dimen/dp8"
+                android:layout_weight="1.4"
+                android:hint="@string/business_licence_number">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtLicNo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:textSize="@dimen/sp16" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/Verify"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp35"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.6"
+                android:background="@drawable/edt_bg_white"
+                android:gravity="center"
+                android:text="Verify"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp16"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <!--Business Name-->
         <!--BusinessName TextView-->
         <TextView
+            android:id="@+id/txtInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Business Name"
             android:layout_marginLeft="8dp"
-            android:textSize="@dimen/dp16"
-            android:paddingLeft="@dimen/dp16"
             android:layout_marginTop="@dimen/dp8"
-            android:layout_marginRight="@dimen/dp8"/>
+            android:layout_marginRight="@dimen/dp8"
+            android:paddingLeft="@dimen/sp14"
+            android:textStyle="bold"
+            android:visibility="gone"
+            android:text="Your product will be register with that business"
+            android:textSize="@dimen/dp16" />
+        <TextView
+            android:id="@+id/txtBusinessName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="@dimen/dp8"
+            android:visibility="gone"
+            android:layout_marginRight="@dimen/dp8"
+            android:paddingLeft="@dimen/dp16"
+            android:textStyle="bold"
+            android:text="Business Name"
+            android:textSize="@dimen/dp16" />
         <!--Name Of Product-->
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -114,7 +168,7 @@
                 android:textSize="@dimen/sp16" />
         </com.google.android.material.textfield.TextInputLayout>
         <!--Category-->
-        <RelativeLayout
+       <!-- <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="@dimen/dp60"
             android:layout_marginLeft="@dimen/dp8"
@@ -139,10 +193,10 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="8dp"
                 android:src="@drawable/ic_dropdown" />
-        </RelativeLayout>
+        </RelativeLayout>-->
 
         <!--Food test Result-->
-  <!--      <LinearLayout
+        <!--      <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dp8"
@@ -205,7 +259,7 @@
         </LinearLayout>-->
 
         <TextView
-            android:id="@+id/btnSubmit"
+            android:id="@+id/btnRegister"
             android:layout_width="220dp"
             android:layout_height="@dimen/dp50"
             android:layout_marginStart="32dp"
@@ -216,7 +270,7 @@
             android:layout_marginBottom="@dimen/dp16"
             android:background="@drawable/btnborder"
             android:gravity="center"
-            android:text="SUBMIT"
+            android:text="@string/register"
             android:textColor="@color/white"
             android:textSize="@dimen/sp18"
             android:textStyle="bold" />

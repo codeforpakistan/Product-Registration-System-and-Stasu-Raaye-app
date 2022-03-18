@@ -13,9 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.halalfoodauthorityoss.BaseClass;
 import com.example.halalfoodauthorityoss.R;
 import com.example.halalfoodauthorityoss.adapter.Search_Business_Adapter;
+import com.example.halalfoodauthorityoss.fragments.Home;
 import com.example.halalfoodauthorityoss.model.Model;
 import com.example.halalfoodauthorityoss.model.SearchResponseModel;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +33,6 @@ public class SearchResult extends AppCompatActivity {
     Search_Business_Adapter search_business_adapter;
     List<Model> modelList = new ArrayList<>();
     ProgressDialog progressDialog;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,16 +43,19 @@ public class SearchResult extends AppCompatActivity {
         Call<SearchResponseModel> call = BaseClass
                 .getInstance()
                 .getApi()
-                .SearchResult();
+                .SearchResult(Home.category_id,Home.district_id, Home.name);
 
         call.enqueue(new Callback<SearchResponseModel>() {
             @Override
             public void onResponse(Call<SearchResponseModel> call, Response<SearchResponseModel> response) {
+                if (response.isSuccessful()) {
                 SearchResponseModel searchResponseModel = response.body();
                 List<Model> list = searchResponseModel.getBusinesses();
+                if (list!=null)
+                {
                 int size = list.size();
-                if (response.isSuccessful()) {
                     if (searchResponseModel.success.equals("1")) {
+                        Toast.makeText(SearchResult.this, ""+searchResponseModel.message, Toast.LENGTH_SHORT).show();
                         for (int i = 0; i < size; i++) {
                             modelList.add(new Model(list.get(i).business_id, list.get(i).business_name, list.get(i).Address,
                                     list.get(i).Register_Date, list.get(i).distric_name,list.get(i).AverageRating
@@ -62,16 +68,23 @@ public class SearchResult extends AppCompatActivity {
                         recyclerView.setAdapter(search_business_adapter);
                         progressDialog.dismiss();
                     } else {
+                        progressDialog.dismiss();
                         Toast.makeText(SearchResult.this, "No Record Found", Toast.LENGTH_LONG).show();
                     }
+                }else {
+                    progressDialog.dismiss();
+                    Toast.makeText(SearchResult.this, "No Record Found", Toast.LENGTH_LONG).show();
+                }
                 } else {
                     Toast.makeText(SearchResult.this, "Not Successful", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
                 }
             }
 
             @Override
             public void onFailure(Call<SearchResponseModel> call, Throwable t) {
                 Toast.makeText(SearchResult.this, "No Response", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
                 Log.d("aaaaaa", call.request().toString());
             }
         });
@@ -90,4 +103,11 @@ public class SearchResult extends AppCompatActivity {
         progressDialog.show();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Home.category_id=0;
+        Home.district_id=0;
+        Home.name=" ";
+    }
 }

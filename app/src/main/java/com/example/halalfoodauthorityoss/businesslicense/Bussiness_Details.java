@@ -221,7 +221,7 @@ public class Bussiness_Details extends FragmentActivity implements OnMapReadyCal
 
                         @Override
                         public void onFailure(Call<Model> call, Throwable t) {
-                            Toast.makeText(Bussiness_Details.this, "out", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Bussiness_Details.this, "No Response", Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -300,7 +300,7 @@ public class Bussiness_Details extends FragmentActivity implements OnMapReadyCal
 
             @Override
             public void onFailure(Call<List<Model>> call, Throwable t) {
-                Toast.makeText(Bussiness_Details.this, "out", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Bussiness_Details.this, "No Response", Toast.LENGTH_SHORT).show();
                 Log.d("errror2", call.request().toString());
 
             }
@@ -333,7 +333,7 @@ public class Bussiness_Details extends FragmentActivity implements OnMapReadyCal
 
             @Override
             public void onFailure(Call<List<Model>> call, Throwable t) {
-                Toast.makeText(Bussiness_Details.this, "out", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Bussiness_Details.this, "No Response", Toast.LENGTH_SHORT).show();
                 Log.d("errror1", call.request().toString());
 
             }

@@ -1,9 +1,11 @@
 package com.example.halalfoodauthorityoss.model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.File;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Model implements Serializable {
     @SerializedName("name")
@@ -42,6 +44,24 @@ public class Model implements Serializable {
     public String AverageRating;
     @SerializedName("business_rating_id")
     public String business_rating_id;
+    @SerializedName("id")
+    public String id;
+    @SerializedName("district_name")
+    public String district_name;
+    @SerializedName("average_rating")
+    public String average_rating;
+    @SerializedName("expiry_days_remaining")
+    public String expiry_days_remaining;
+    @SerializedName("favourite_id")
+    public String favourite_id;
+    @SerializedName("business_type")
+    public String business_type;
+    @SerializedName("otp")
+    public String otp;
+    @SerializedName("r_application_id")
+    public String r_application_id;
+    @SerializedName("registered_products")
+    public String registered_products;
 
     /*Feedback Fields*/
     @SerializedName("customer_name")
@@ -190,7 +210,7 @@ public class Model implements Serializable {
         Address = address;
     }
 
-    public Model(String userId, String owner_name, String FName, String CNIC, String mobile, String address, String bussnie_name, String register_Date, String type, String startDate, String licNo, String expireDate, String issueDate, String distric_name) {
+    public Model(String userId, String owner_name, String FName, String CNIC, String mobile, String address, String bussnie_name, String register_Date, String type, String startDate, String licNo, String expireDate, String issueDate, String distric_name,String expiry_days_remaining, String r_application_id) {
         UserId = userId;
         this.owner_name = owner_name;
         this.FName = FName;
@@ -205,15 +225,17 @@ public class Model implements Serializable {
         ExpireDate = expireDate;
         IssueDate = issueDate;
         this.distric_name = distric_name;
+        this.expiry_days_remaining = expiry_days_remaining;
+        this.r_application_id = r_application_id;
     }
 
-    public Model(String business_id, String business_name, String address, String register_Date, String distric_name, String Average_Rating) {
+    public Model(String business_id, String business_name, String address, String register_Date, String district_name, String AverageRating) {
         this.business_id = business_id;
         this.business_name = business_name;
         Address = address;
         Register_Date = register_Date;
-        this.distric_name = distric_name;
-        this.AverageRating = Average_Rating;
+        this.district_name = district_name;
+        this.AverageRating = AverageRating;
 
     }
 
@@ -232,6 +254,15 @@ public class Model implements Serializable {
         this.food_quality = food_quality;
     }
 
+    public Model(String business_id, String business_name, String timestamp, String average_rating, String district_name, String favourite_id, String business_type) {
+        this.business_id = business_id;
+        this.business_name = business_name;
+        this.timestamp = timestamp;
+        this.average_rating = average_rating;
+        this.district_name = district_name;
+        this.favourite_id = favourite_id;
+        this.business_type = business_type;
+    }
 
     public Model(String path) {
         Path = path;

@@ -22,10 +22,10 @@
             android:id="@+id/edtSearch"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp35"
+            android:layout_margin="@dimen/dp8"
             android:background="@drawable/edt_bg_white"
             android:drawableRight="@drawable/ic_search"
             android:hint="Search by name"
-            android:layout_margin="@dimen/dp8"
             android:inputType="textMultiLine"
             android:paddingLeft="@dimen/dp16"
             android:paddingRight="@dimen/dp16"
@@ -35,8 +35,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Category"
             android:layout_marginLeft="@dimen/dp8"
+            android:text="Category"
             android:textColor="@color/black"
             android:textSize="@dimen/sp16" />
 
@@ -46,13 +46,40 @@
             android:orientation="vertical">
 
             <RadioGroup
-                android:id="@+id/radioGroup"
+                android:id="@+id/radioGroupType"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp30"
                 android:orientation="horizontal"
-                android:weightSum="4">
+                android:weightSum="3">
 
                 <RadioButton
+                    android:id="@+id/Resturant"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.2"
+                    android:text="Restaurant"
+                    android:textColor="@color/black"
+                    android:textSize="13sp" />
+
+                <RadioButton
+                    android:id="@+id/Hotel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.9"
+                    android:text="Hotel"
+                    android:textColor="@color/black"
+                    android:textSize="13sp" />
+
+                <RadioButton
+                    android:id="@+id/Bakery"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.9"
+                    android:text="Bakery"
+                    android:textColor="@color/black"
+                    android:textSize="13sp" />
+
+               <!-- <RadioButton
                     android:id="@+id/Resturant"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -79,15 +106,14 @@
                     android:textColor="@color/black"
                     android:textSize="13sp" />
 
-                <RadioButton
-                    android:id="@+id/Meat"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.9"
-                    android:text="Meat"
-                    android:textColor="@color/black"
-                    android:textSize="13sp" />
-
+                 <RadioButton
+                     android:id="@+id/Meat"
+                     android:layout_width="0dp"
+                     android:layout_height="wrap_content"
+                     android:layout_weight="0.9"
+                     android:text="Meat"
+                     android:textColor="@color/black"
+                     android:textSize="13sp" />-->
 
             </RadioGroup>
 
@@ -103,290 +129,547 @@
             android:textSize="@dimen/sp16" />
     </LinearLayout>
 
-     <ScrollView
-         android:layout_width="match_parent"
-         android:layout_height="@dimen/dp220"
-         android:layout_marginStart="16dp"
-         android:layout_marginLeft="16dp"
-         android:layout_marginTop="8dp"
-         android:layout_marginBottom="8dp"
-         app:layout_constraintBottom_toTopOf="@+id/btnSearch"
-         app:layout_constraintEnd_toEndOf="parent"
-         app:layout_constraintStart_toStartOf="parent"
-         app:layout_constraintTop_toBottomOf="@+id/linearLayout11">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp220"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnSearch"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout11">
 
-         <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:orientation="vertical">
+        <RadioGroup
+            android:id="@+id/radioGroupDistrict"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+                <RadioButton
+                    android:id="@+id/Abbottabad"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Abbottabad"
+                    android:textColor="@color/black" />
 
-             <LinearLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:weightSum="2">
+                <RadioButton
+                    android:id="@+id/Bannu"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Bannu"
+                    android:textColor="@color/black" />
 
-                 <CheckBox
-                     android:layout_width="0dp"
-                     android:layout_height="@dimen/dp30"
-                     android:layout_weight="1"
-                     android:text="Abbottabad"
-                     android:textColor="@color/black" />
 
-                 <CheckBox
-                     android:layout_width="0dp"
-                     android:layout_height="@dimen/dp30"
-                     android:layout_weight="1"
-                     android:text="Bannu"
-                     android:textColor="@color/black" />
-             </LinearLayout>
 
-             <LinearLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:weightSum="2">
+                <RadioButton
+                    android:id="@+id/DI_Khan"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="DI Khan"
+                    android:textColor="@color/black" />
 
-                 <CheckBox
-                     android:layout_width="0dp"
-                     android:layout_height="@dimen/dp30"
-                     android:layout_weight="1"
-                     android:text="DI Khan"
-                     android:textColor="@color/black" />
+                <RadioButton
+                    android:id="@+id/Kohat"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Kohat"
+                    android:textColor="@color/black" />
 
-                 <CheckBox
-                     android:layout_width="0dp"
-                     android:layout_height="@dimen/dp30"
-                     android:layout_weight="1"
-                     android:text="Kohat"
-                     android:textColor="@color/black" />
-             </LinearLayout>
 
-             <LinearLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:weightSum="2">
 
-                 <CheckBox
-                     android:layout_width="0dp"
-                     android:layout_height="@dimen/dp30"
-                     android:layout_weight="1"
-                     android:text="Mardan"
-                     android:textColor="@color/black" />
+                <RadioButton
+                    android:id="@+id/Mardan"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Mardan"
+                    android:textColor="@color/black" />
 
-                 <CheckBox
-                     android:layout_width="0dp"
-                     android:layout_height="@dimen/dp30"
-                     android:layout_weight="1"
-                     android:text="Peshawar"
-                     android:textColor="@color/black" />
-             </LinearLayout>
+                <RadioButton
+                    android:id="@+id/Peshawar"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Peshawar"
+                    android:textColor="@color/black" />
 
-             <LinearLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:weightSum="2">
 
-                 <CheckBox
-                     android:layout_width="0dp"
-                     android:layout_height="@dimen/dp30"
-                     android:layout_weight="1"
-                     android:text="Swat"
-                     android:textColor="@color/black" />
 
-                 <CheckBox
-                     android:layout_width="0dp"
-                     android:layout_height="@dimen/dp30"
-                     android:layout_weight="1"
-                     android:text="Battagram"
-                     android:textColor="@color/black" />
-             </LinearLayout>
+                <RadioButton
+                    android:id="@+id/Swat"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Swat"
+                    android:textColor="@color/black" />
 
-             <LinearLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:weightSum="2">
+                <RadioButton
+                    android:id="@+id/Battagram"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Battagram"
+                    android:textColor="@color/black" />
 
-                 <CheckBox
-                     android:layout_width="0dp"
-                     android:layout_height="@dimen/dp30"
-                     android:layout_weight="1"
-                     android:text="Buner"
-                     android:textColor="@color/black" />
 
-                 <CheckBox
-                     android:layout_width="0dp"
-                     android:layout_height="@dimen/dp30"
-                     android:layout_weight="1"
-                     android:text="Upper Chitral"
-                     android:textColor="@color/black" />
-             </LinearLayout>
 
-             <LinearLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:weightSum="2">
+                <RadioButton
+                    android:id="@+id/Buner"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Buner"
+                    android:textColor="@color/black" />
 
-                 <CheckBox
-                     android:layout_width="0dp"
-                     android:layout_height="@dimen/dp30"
-                     android:layout_weight="1"
-                     android:text="Charsadda"
-                     android:textColor="@color/black" />
+                <RadioButton
+                    android:id="@+id/Upper_Chitral"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Upper Chitral"
+                    android:textColor="@color/black" />
 
-                 <CheckBox
-                     android:layout_width="0dp"
-                     android:layout_height="@dimen/dp30"
-                     android:layout_weight="1"
-                     android:text="Dera Ismail Khan"
-                     android:textColor="@color/black" />
-             </LinearLayout>
 
-             <LinearLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:weightSum="2">
 
-                 <CheckBox
-                     android:layout_width="0dp"
-                     android:layout_height="@dimen/dp30"
-                     android:layout_weight="1"
-                     android:text="Hangu"
-                     android:textColor="@color/black" />
+                <RadioButton
+                    android:id="@+id/Charsadda"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Charsadda"
+                    android:textColor="@color/black" />
 
-                 <CheckBox
-                     android:layout_width="0dp"
-                     android:layout_height="@dimen/dp30"
-                     android:layout_weight="1"
-                     android:text="Haripur"
-                     android:textColor="@color/black" />
-             </LinearLayout>
+                <RadioButton
+                    android:id="@+id/Dera_Ismail_Khan"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Dera Ismail Khan"
+                    android:textColor="@color/black" />
 
-             <LinearLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:weightSum="2">
 
-                 <CheckBox
-                     android:layout_width="0dp"
-                     android:layout_height="@dimen/dp30"
-                     android:layout_weight="1"
-                     android:text="Karak"
-                     android:textColor="@color/black" />
 
-                 <CheckBox
-                     android:layout_width="0dp"
-                     android:layout_height="@dimen/dp30"
-                     android:layout_weight="1"
-                     android:text="Kolai Pallas"
-                     android:textColor="@color/black" />
-             </LinearLayout>
+                <RadioButton
+                    android:id="@+id/Hangu"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Hangu"
+                    android:textColor="@color/black" />
 
-             <LinearLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:weightSum="2">
+                <RadioButton
+                    android:id="@+id/Haripur"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Haripur"
+                    android:textColor="@color/black" />
 
-                 <CheckBox
-                     android:layout_width="0dp"
-                     android:layout_height="@dimen/dp30"
-                     android:layout_weight="1"
-                     android:text="Upper Kohistan"
-                     android:textColor="@color/black" />
 
-                 <CheckBox
-                     android:layout_width="0dp"
-                     android:layout_height="@dimen/dp30"
-                     android:layout_weight="1"
-                     android:text="Lower Kohistan"
-                     android:textColor="@color/black" />
-             </LinearLayout>
 
-             <LinearLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:weightSum="2">
+                <RadioButton
+                    android:id="@+id/Karak"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Karak"
+                    android:textColor="@color/black" />
 
-                 <CheckBox
-                     android:layout_width="0dp"
-                     android:layout_height="@dimen/dp30"
-                     android:layout_weight="1"
-                     android:text="Lakki Marwat"
-                     android:textColor="@color/black" />
+                <RadioButton
+                    android:id="@+id/Kolai_Pallas"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Kolai Pallas"
+                    android:textColor="@color/black" />
 
-                 <CheckBox
-                     android:layout_width="0dp"
-                     android:layout_height="@dimen/dp30"
-                     android:layout_weight="1"
-                     android:text="Lower Dir"
-                     android:textColor="@color/black" />
-             </LinearLayout>
 
-             <LinearLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:weightSum="2">
 
-                 <CheckBox
-                     android:layout_width="0dp"
-                     android:layout_height="@dimen/dp30"
-                     android:layout_weight="1"
-                     android:text="Malakand"
-                     android:textColor="@color/black" />
+                <RadioButton
+                    android:id="@+id/Upper_Kohistan"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Upper Kohistan"
+                    android:textColor="@color/black" />
 
-                 <CheckBox
-                     android:layout_width="0dp"
-                     android:layout_height="@dimen/dp30"
-                     android:layout_weight="1"
-                     android:text="Mansehra"
-                     android:textColor="@color/black" />
-             </LinearLayout>
+                <RadioButton
+                    android:id="@+id/Lower_Kohistan"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Lower Kohistan"
+                    android:textColor="@color/black" />
 
-             <LinearLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:weightSum="2">
 
-                 <CheckBox
-                     android:layout_width="0dp"
-                     android:layout_height="@dimen/dp30"
-                     android:layout_weight="1"
-                     android:text="Nowshera"
-                     android:textColor="@color/black" />
 
-                 <CheckBox
-                     android:layout_width="0dp"
-                     android:layout_height="@dimen/dp30"
-                     android:layout_weight="1"
-                     android:text="Shangla"
-                     android:textColor="@color/black" />
-             </LinearLayout>
+                <RadioButton
+                    android:id="@+id/Lakki_Marwat"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Lakki Marwat"
+                    android:textColor="@color/black" />
 
-             <LinearLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:weightSum="2">
+                <RadioButton
+                    android:id="@+id/Lower_Dir"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Lower Dir"
+                    android:textColor="@color/black" />
 
-                 <CheckBox
-                     android:layout_width="0dp"
-                     android:layout_height="@dimen/dp30"
-                     android:layout_weight="1"
-                     android:text="Swabi"
-                     android:textColor="@color/black" />
-             </LinearLayout>
-         </LinearLayout>
-     </ScrollView>
 
-     <TextView
-         android:id="@+id/btnSearch"
-         android:layout_width="@dimen/dp150"
-         android:layout_height="@dimen/dp30"
-         android:layout_gravity="center"
-         android:layout_marginBottom="16dp"
-         android:background="@drawable/btnborder"
-         android:gravity="center"
-         android:text="@string/search"
-         android:textColor="@color/white"
-         android:textSize="@dimen/sp16"
-         app:layout_constraintBottom_toBottomOf="parent"
-         app:layout_constraintEnd_toEndOf="parent"
-         app:layout_constraintStart_toStartOf="parent" />
+
+                <RadioButton
+                    android:id="@+id/Malakand"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Malakand"
+                    android:textColor="@color/black" />
+
+                <RadioButton
+                    android:id="@+id/Mansehra"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Mansehra"
+                    android:textColor="@color/black" />
+
+
+
+                <RadioButton
+                    android:id="@+id/Nowshera"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Nowshera"
+                    android:textColor="@color/black" />
+
+                <RadioButton
+                    android:id="@+id/Shangla"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Shangla"
+                    android:textColor="@color/black" />
+
+
+
+                <RadioButton
+                    android:id="@+id/Swabi"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Swabi"
+                    android:textColor="@color/black" />
+
+        </RadioGroup>
+
+       <!-- <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2">
+
+                <CheckBox
+                    android:id="@+id/Abbottabad"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Abbottabad"
+                    android:textColor="@color/black" />
+
+                <CheckBox
+                    android:id="@+id/Bannu"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Bannu"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2">
+
+                <CheckBox
+                    android:id="@+id/DI_Khan"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="DI Khan"
+                    android:textColor="@color/black" />
+
+                <CheckBox
+                    android:id="@+id/Kohat"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Kohat"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2">
+
+                <CheckBox
+                    android:id="@+id/Mardan"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Mardan"
+                    android:textColor="@color/black" />
+
+                <CheckBox
+                    android:id="@+id/Peshawar"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Peshawar"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2">
+
+                <CheckBox
+                    android:id="@+id/Swat"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Swat"
+                    android:textColor="@color/black" />
+
+                <CheckBox
+                    android:id="@+id/Battagram"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Battagram"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2">
+
+                <CheckBox
+                    android:id="@+id/Buner"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Buner"
+                    android:textColor="@color/black" />
+
+                <CheckBox
+                    android:id="@+id/Upper_Chitral"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Upper Chitral"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2">
+
+                <CheckBox
+                    android:id="@+id/Charsadda"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Charsadda"
+                    android:textColor="@color/black" />
+
+                <CheckBox
+                    android:id="@+id/Dera_Ismail_Khan"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Dera Ismail Khan"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2">
+
+                <CheckBox
+                    android:id="@+id/Hangu"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Hangu"
+                    android:textColor="@color/black" />
+
+                <CheckBox
+                    android:id="@+id/Haripur"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Haripur"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2">
+
+                <CheckBox
+                    android:id="@+id/Karak"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Karak"
+                    android:textColor="@color/black" />
+
+                <CheckBox
+                    android:id="@+id/Kolai_Pallas"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Kolai Pallas"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2">
+
+                <CheckBox
+                    android:id="@+id/Upper_Kohistan"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Upper Kohistan"
+                    android:textColor="@color/black" />
+
+                <CheckBox
+                    android:id="@+id/Lower_Kohistan"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Lower Kohistan"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2">
+
+                <CheckBox
+                    android:id="@+id/Lakki_Marwat"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Lakki Marwat"
+                    android:textColor="@color/black" />
+
+                <CheckBox
+                    android:id="@+id/Lower_Dir"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Lower Dir"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2">
+
+                <CheckBox
+                    android:id="@+id/Malakand"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Malakand"
+                    android:textColor="@color/black" />
+
+                <CheckBox
+                    android:id="@+id/Mansehra"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Mansehra"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2">
+
+                <CheckBox
+                    android:id="@+id/Nowshera"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Nowshera"
+                    android:textColor="@color/black" />
+
+                <CheckBox
+                    android:id="@+id/Shangla"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Shangla"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2">
+
+                <CheckBox
+                    android:id="@+id/Swabi"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp30"
+                    android:layout_weight="1"
+                    android:text="Swabi"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+        </LinearLayout>-->
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/btnSearch"
+        android:layout_width="@dimen/dp150"
+        android:layout_height="@dimen/dp30"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/btnborder"
+        android:gravity="center"
+        android:text="@string/search"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp16"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

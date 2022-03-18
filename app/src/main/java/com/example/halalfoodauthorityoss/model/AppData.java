@@ -10,5 +10,7 @@ public class AppData {
     public static String password=null;
     public static String mobileNumber=null;
     public static int id;
-
+    public static int business_id;
+    public static String activity;
+    public static int favorite_id;
 }

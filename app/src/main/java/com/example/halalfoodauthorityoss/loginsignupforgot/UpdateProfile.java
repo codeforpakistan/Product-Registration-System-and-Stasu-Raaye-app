@@ -134,7 +134,7 @@ public class UpdateProfile extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<Model> call, Throwable t) {
                         progressDialog.dismiss();
-                        Toast.makeText(UpdateProfile.this, "Out", Toast.LENGTH_LONG).show();
+                        Toast.makeText(UpdateProfile.this, "No Response", Toast.LENGTH_LONG).show();
                     }
                 });
             }

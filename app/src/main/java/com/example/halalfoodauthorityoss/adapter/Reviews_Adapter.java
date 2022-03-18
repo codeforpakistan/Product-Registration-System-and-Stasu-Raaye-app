@@ -127,7 +127,7 @@ public class Reviews_Adapter extends RecyclerView.Adapter<Reviews_Adapter.ViewHo
 
                     @Override
                     public void onFailure(Call<FeedBack_Attachements> call, Throwable t) {
-                        Toast.makeText(context, "out", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "No Response", Toast.LENGTH_SHORT).show();
                         Log.d("aaaaaa", call.request().toString());
                     }
                 });
@@ -167,7 +167,7 @@ public class Reviews_Adapter extends RecyclerView.Adapter<Reviews_Adapter.ViewHo
 
             @Override
             public void onFailure(Call<FeedBack_Attachements> call, Throwable t) {
-                Toast.makeText(context, "out", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "No Response", Toast.LENGTH_SHORT).show();
                 Log.d("aaaaaa", call.request().toString());
             }
         });*/

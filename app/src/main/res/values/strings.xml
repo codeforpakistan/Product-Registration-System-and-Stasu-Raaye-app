@@ -52,10 +52,10 @@
     <string name="Owner_profile_image">Owner Profile Image</string>
     <string name="cnic_front_image">CNIC Front Image</string>
     <string name="complaint_details">Complaint Details</string>
-    <string name="product_registration">Product Registration</string>
+    <string name="register_product">Register Product</string>
     <string name="product_name">Product Name</string>
     <string name="business_licence_number">Business Licence Number</string>
-    <string name="business_license">Business License</string>
+    <string name="register_business">Register Business</string>
     <string name="profile">Profile</string>
     <string name="complaint_form">Complaint Form</string>
     <string name="business_list">Business List</string>

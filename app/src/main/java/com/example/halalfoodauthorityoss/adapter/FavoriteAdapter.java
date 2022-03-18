@@ -1,34 +1,34 @@
 package com.example.halalfoodauthorityoss.adapter;
 
-import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.halalfoodauthorityoss.R;
-import com.example.halalfoodauthorityoss.businesslicense.Bussiness_Details;
-import com.example.halalfoodauthorityoss.businesslicense.Personal_Detail;
 import com.example.halalfoodauthorityoss.model.AppData;
 import com.example.halalfoodauthorityoss.model.Model;
+import com.example.halalfoodauthorityoss.complaint.Complaint_Details;
+import com.example.halalfoodauthorityoss.complaint.MyComplaints;
 import com.example.halalfoodauthorityoss.searchresult.Feedback_Reviews;
-import com.example.halalfoodauthorityoss.searchresult.SearchResult;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Search_Business_Adapter extends RecyclerView.Adapter<Search_Business_Adapter.ViewHolder> {
-//    public static int business_id;
+public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder> {
     List<Model> list=new ArrayList<>();
     Context context;
 
-    public Search_Business_Adapter(List<Model> list, Context context) {
+    public FavoriteAdapter(List<Model> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -36,7 +36,7 @@ public class Search_Business_Adapter extends RecyclerView.Adapter<Search_Busines
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(context).inflate(R.layout.search_businesslayout,parent,false);
+        View view= LayoutInflater.from(context).inflate(R.layout.favorite_layout,parent,false);
         return new ViewHolder(view);
     }
 
@@ -45,26 +45,21 @@ public class Search_Business_Adapter extends RecyclerView.Adapter<Search_Busines
 
         Model model = list.get(position);
 
+        holder.txtBusinessType.setText(model.business_type);
         holder.txtBussName.setText(model.business_name);
-        holder.txtDistrict.setText(model.distric_name);
-        holder.txtRating.setText(model.AverageRating);
-        String firstWord = model.Register_Date;
-        if(firstWord.contains(" ")){
-            firstWord= firstWord.substring(0, firstWord.indexOf(" "));
-            holder.regDate.setText("Registered Since: "+firstWord);
-        }
+        holder.txtDistrict.setText(model.district_name);
+        holder.txtRating.setText(model.average_rating);
 
-        holder.mLayout.setOnClickListener(new View.OnClickListener() {
+        holder.mlayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, Feedback_Reviews.class);
                 AppData.business_id= Integer.parseInt(model.business_id);
-                AppData.activity= "SearchActivity";
+                AppData.favorite_id= Integer.parseInt(model.favourite_id);
+                AppData.activity= "FavoriteActivity";
                 context.startActivity(intent);
-
             }
         });
-
     }
 
     @Override
@@ -74,17 +69,17 @@ public class Search_Business_Adapter extends RecyclerView.Adapter<Search_Busines
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView txtBussName,txtDistrict,regDate,txtRating;
-        View mLayout;
+        TextView txtBussName,txtBusinessType,txtDistrict,txtRating;
+        LinearLayout mlayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            mlayout=itemView.findViewById(R.id.Linearlayout);
             txtBussName=itemView.findViewById(R.id.txtBussName);
+            txtBusinessType=itemView.findViewById(R.id.txtBusinessType);
             txtDistrict=itemView.findViewById(R.id.txtDistrict);
-            regDate=itemView.findViewById(R.id.regDate);
             txtRating=itemView.findViewById(R.id.txtRating);
-            mLayout=itemView.findViewById(R.id.mLayout);
         }
     }
 }

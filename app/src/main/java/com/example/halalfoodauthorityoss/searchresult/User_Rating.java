@@ -152,7 +152,7 @@ public class User_Rating extends AppCompatActivity {
                 Call<Model> call = BaseClass
                         .getInstance()
                         .getApi()
-                        .Add_Rating(AppData.id,Search_Business_Adapter.business_id,edtReviews.getText().toString().trim(),premises_Hygiene,equipment_Hygiene,staff_Personal_Hygiene,food_Hygiene,food_Quality,multipartTypedOutput);
+                        .Add_Rating(AppData.id,AppData.business_id,edtReviews.getText().toString().trim(),premises_Hygiene,equipment_Hygiene,staff_Personal_Hygiene,food_Hygiene,food_Quality,multipartTypedOutput);
 
                 call.enqueue(new Callback<Model>() {
                     @Override

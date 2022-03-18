@@ -55,7 +55,7 @@ public class MyBusinesses extends AppCompatActivity {
                             modelList.add(new Model(list.get(i).UserId, list.get(i).owner_name, list.get(i).FName,
                                     list.get(i).CNIC, list.get(i).Mobile, list.get(i).Address, list.get(i).bussnie_name,
                                     list.get(i).Register_Date, list.get(i).Type, list.get(i).StartDate, list.get(i).LicNo,
-                                    list.get(i).ExpireDate, list.get(i).IssueDate, list.get(i).distric_name));
+                                    list.get(i).ExpireDate, list.get(i).IssueDate, list.get(i).distric_name,list.get(i).expiry_days_remaining,list.get(i).r_application_id));
                         }
                         recyclerView.setHasFixedSize(true);
                         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MyBusinesses.this, RecyclerView.VERTICAL, false);
@@ -76,7 +76,7 @@ public class MyBusinesses extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<UserResponseModel> call, Throwable t) {
-                Toast.makeText(MyBusinesses.this, "out", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyBusinesses.this, "No Response", Toast.LENGTH_SHORT).show();
                 Log.d("aaaaaa", call.request().toString());
                 progressDialog.dismiss();
 

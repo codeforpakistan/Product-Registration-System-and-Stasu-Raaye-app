@@ -15,7 +15,8 @@
     <color name="yellow">#EBDC9C00</color>
     <color name="brown">#46000000</color>
     <color name="offwhite">#0C000000</color>
-    <color name="green">#2A830A</color>
+    <color name="green">#01975A</color>
     <color name="grey">#EDEDEB</color>
     <color name="darkgrey">#989898</color>
+    <color name="purple">#5D3579</color>
 </resources>

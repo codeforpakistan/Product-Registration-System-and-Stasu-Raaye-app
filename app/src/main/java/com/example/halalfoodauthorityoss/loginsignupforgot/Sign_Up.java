@@ -12,6 +12,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -23,6 +24,7 @@ import com.example.halalfoodauthorityoss.BaseClass;
 import com.example.halalfoodauthorityoss.R;
 import com.example.halalfoodauthorityoss.model.Model;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,15 +38,13 @@ public class Sign_Up extends AppCompatActivity {
 
     private static Pattern CNIC_PATTERN, AFG_CNIC_PATTERN, PASSWORD_PATTERN;
     TextInputEditText edtname, edtcnic, edtnumber, edtpassword, edtconfirmpassword;
-    Spinner distspinner;
     TextView register;
     CheckBox checkBox;
     String name, cnic = "", number, password, confirmpassword;
     ImageView ic_back;
-    List<String> ListDistrictName;
-    List<String> ListDistrictID;
     String districtID;
     ProgressDialog progressDialog;
+    TextInputLayout layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +52,22 @@ public class Sign_Up extends AppCompatActivity {
         setContentView(R.layout.activity_sign__up);
 
         initialization();
-        displayDistrict();
+
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (checkBox.isChecked())
+                {
+                    layout.setHint("AFG No(without-dashes)");
+                }
+                else {
+                    layout.setHint("CNIC(without-dashes)");
+                }
+            }
+        });
+
+
+        edtnumber.setText(getIntent().getStringExtra("number"));
 
         edtcnic.addTextChangedListener(new TextWatcher() {
             @Override
@@ -100,19 +115,6 @@ public class Sign_Up extends AppCompatActivity {
             public void onClick(View view) {
                 startActivity(new Intent(Sign_Up.this, Login.class));
                 finish();
-            }
-        });
-
-        distspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                districtID = ListDistrictID.get(i);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
 
@@ -169,18 +171,17 @@ public class Sign_Up extends AppCompatActivity {
                 }
                 progressDialog.show();
 
-                int Did = Integer.parseInt(districtID);
                 Call<Model> call = BaseClass
                         .getInstance()
                         .getApi()
-                        .Sign_Up(cnic, password, name, Did, number);
+                        .Sign_Up(cnic, password, name, getIntent().getStringExtra("number"));
 
                 call.enqueue(new Callback<Model>() {
                     @Override
                     public void onResponse(Call<Model> call, Response<Model> response) {
                         Model model = response.body();
                         if (response.isSuccessful()) {
-                            if (model.getSuccess().equals("0")) {
+                            if (model.getSuccess().equals("1")) {
                                 progressDialog.dismiss();
                                 DialogBOX();
                             } else {
@@ -193,7 +194,7 @@ public class Sign_Up extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<Model> call, Throwable t) {
                         progressDialog.dismiss();
-                        Toast.makeText(Sign_Up.this, "out", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Sign_Up.this, "No Response", Toast.LENGTH_SHORT).show();
                         Log.d("errror", call.toString());
                         Log.d("errror1", call.request().toString());
                     }
@@ -239,13 +240,9 @@ public class Sign_Up extends AppCompatActivity {
         edtconfirmpassword = findViewById(R.id.edtconfirmpassword);
         register = findViewById(R.id.btnregister);
         checkBox = findViewById(R.id.checkBox);
-        distspinner = findViewById(R.id.distspinner);
-        ic_back = findViewById(R.id.ic_back);
+        layout = findViewById(R.id.layout);
 
-        ListDistrictName = new ArrayList<String>();
-        ListDistrictID = new ArrayList<String>();
-        ListDistrictName.add("Select District");
-        ListDistrictID.add("0");
+        ic_back = findViewById(R.id.ic_back);
 
         PASSWORD_PATTERN =
                 Pattern.compile("^" +
@@ -258,42 +255,4 @@ public class Sign_Up extends AppCompatActivity {
         AFG_CNIC_PATTERN = Pattern.compile("^" + "[0-9]{4}-[0-9]{4}-[0-9]{5}" + "$");
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        startActivity(new Intent(Sign_Up.this, Login.class));
-        finish();
-    }
-
-    private void displayDistrict() {
-        Call<List<Model>> call = BaseClass
-                .getInstance()
-                .getApi()
-                .getDistrict();
-        call.enqueue(new Callback<List<Model>>() {
-            @Override
-            public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
-                List<Model> model = response.body();
-                int size = model.size();
-                if (!model.equals(null)) {
-                    for (int i = 0; i < size; i++) {
-
-                        ListDistrictName.add(model.get(i).getcName());
-                        ListDistrictID.add(model.get(i).getID());
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(Sign_Up.this, android.R.layout.simple_spinner_item, ListDistrictName);
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        distspinner.setAdapter(adapter);
-                    }
-                } else {
-                    Toast.makeText(Sign_Up.this, "Empty Category", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Model>> call, Throwable t) {
-                Toast.makeText(Sign_Up.this, "out", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-    }
 }

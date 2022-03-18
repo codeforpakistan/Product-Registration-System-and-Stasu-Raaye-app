@@ -1,16 +1,21 @@
 package com.example.halalfoodauthorityoss;
 
+import com.example.halalfoodauthorityoss.fragments.Favorite;
 import com.example.halalfoodauthorityoss.model.Business_Reviews_Response_Model;
+import com.example.halalfoodauthorityoss.model.FavoriteModel;
 import com.example.halalfoodauthorityoss.model.FeedBack_Attachements;
 import com.example.halalfoodauthorityoss.model.LoginResponse;
 import com.example.halalfoodauthorityoss.model.Model;
 import com.example.halalfoodauthorityoss.model.SearchResponseModel;
 import com.example.halalfoodauthorityoss.model.UserResponseModel;
 
+import java.sql.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -26,7 +31,6 @@ public interface Interface {
             @Field("cnic") String cnic,
             @Field("password") String password,
             @Field("name") String name,
-            @Field("district_id") int district_id,
             @Field("c_mobile") String number
 
     );
@@ -136,9 +140,13 @@ public interface Interface {
             @Part("address") String address,
             @Part("cpass") String cpass
     );
-
+    @FormUrlEncoded
     @POST("search_businesses")
-    Call<SearchResponseModel> SearchResult();
+    Call<SearchResponseModel> SearchResult(
+            @Field("business_type") int business_type,
+            @Field("district_id") int district_id,
+            @Field("business_name") String business_name
+    );
 
     @Multipart
     @POST("business_rating_add")
@@ -166,5 +174,46 @@ public interface Interface {
     Call<FeedBack_Attachements> GetFeedbackAttachments(
             @Field("cust_id") int cust_id,
             @Field("business_rating_id") int business_rating_id
+    );
+    @FormUrlEncoded
+    @POST("customer_favourite_business_add")
+    Call<Model> Add_to_Favorite(
+            @Field("cust_id") int cust_id,
+            @Field("business_id") int business_id
+    );
+    @FormUrlEncoded
+    @POST("customer_favourite_business_get")
+    Call<FavoriteModel> Get_to_Favorite(
+            @Field("cust_id") int cust_id
+    );
+    @FormUrlEncoded
+    @POST("customer_favourite_business_remove")
+    Call<Model> RemoveBusiness(
+            @Field("cust_id") int cust_id,
+            @Field("favourite_id") int favourite_id
+    );
+    @FormUrlEncoded
+    @POST("signup_phone_validation")
+    Call<Model> Authentication(
+            @Field("c_mobile") String c_mobile
+    );
+    @FormUrlEncoded
+    @POST("business_license_renewal")
+    Call<Model> Business_Renewal(
+            @Field("cust_id") int cust_id,
+            @Field("r_application_id") int r_application_id
+    );
+    @FormUrlEncoded
+    @POST("search_business_license")
+    Call<Model> LicNoChecking(
+            @Field("cust_id") int cust_id,
+            @Field("license_no") String license_no
+    );
+    @FormUrlEncoded
+    @POST("product_registration")
+    Call<Model> Product_Registration(
+            @Field("cust_id") int cust_id,
+            @Field("business_id") int business_id,
+            @Field("product_name") String product_name
     );
 }

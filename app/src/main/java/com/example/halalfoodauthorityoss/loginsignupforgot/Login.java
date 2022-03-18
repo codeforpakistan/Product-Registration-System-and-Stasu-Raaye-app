@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ import com.example.halalfoodauthorityoss.complaint.Complaint;
 import com.example.halalfoodauthorityoss.model.AppData;
 import com.example.halalfoodauthorityoss.model.LoginResponse;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.messaging.Constants;
 
 import java.util.regex.Pattern;
@@ -48,7 +50,7 @@ public class Login extends AppCompatActivity {
     SharedPreferences sharedPreferences = null;
     SharedPreferences.Editor editor;
     String cnic="";
-
+    TextInputLayout layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,19 @@ public class Login extends AppCompatActivity {
 
         initialization();
         CheckInternet();
+
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (checkBox.isChecked())
+                {
+                    layout.setHint("AFG No(without-dashes)");
+                }
+                else {
+                    layout.setHint("CNIC(without-dashes)");
+                }
+            }
+        });
 
         edtcnic.addTextChangedListener(new TextWatcher() {
             @Override
@@ -140,8 +155,7 @@ public class Login extends AppCompatActivity {
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Login.this, Sign_Up.class));
-                finish();
+                startActivity(new Intent(Login.this, Authentication.class));
             }
         });
 
@@ -256,7 +270,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
                 progressDialog.dismiss();
-                Toast.makeText(Login.this, "out", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Login.this, "No Response", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -276,6 +290,7 @@ public class Login extends AppCompatActivity {
         edtpassword = findViewById(R.id.edtpassword);
         btnlogin = findViewById(R.id.btnlogin);
         checkBox = findViewById(R.id.checkBox);
+        layout = findViewById(R.id.layout);
 
         CNIC_PATTERN = Pattern.compile("^" + "[0-9]{5}-[0-9]{7}-[0-9]{1}" + "$");
         AFG_CNIC_PATTERN = Pattern.compile("^" + "[0-9]{4}-[0-9]{4}-[0-9]{5}" + "$");
@@ -292,6 +307,8 @@ public class Login extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        Intent intent=new Intent();
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         finish();
     }
 

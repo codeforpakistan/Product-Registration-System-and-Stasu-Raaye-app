@@ -9,6 +9,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +21,7 @@ import com.example.halalfoodauthorityoss.BaseClass;
 import com.example.halalfoodauthorityoss.R;
 import com.example.halalfoodauthorityoss.model.Model;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.regex.Pattern;
 
@@ -35,6 +37,7 @@ public class Forgot_Passoword extends AppCompatActivity {
     CheckBox checkBox;
     ImageView ic_back;
     String cnic = "";
+    TextInputLayout layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,19 @@ public class Forgot_Passoword extends AppCompatActivity {
         setContentView(R.layout.activity_cnic__verification);
 
         initi();
+
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (checkBox.isChecked())
+                {
+                    layout.setHint("AFG No(without-dashes)");
+                }
+                else {
+                    layout.setHint("CNIC(without-dashes)");
+                }
+            }
+        });
 
         edtcnic.addTextChangedListener(new TextWatcher() {
             @Override
@@ -139,6 +155,7 @@ public class Forgot_Passoword extends AppCompatActivity {
         edtcnic = findViewById(R.id.edtcnic);
         checkBox = findViewById(R.id.checkBox);
         ic_back = findViewById(R.id.ic_back);
+        layout = findViewById(R.id.layout);
 
         CNIC_PATTERN = Pattern.compile("^" + "[0-9]{5}-[0-9]{7}-[0-9]{1}" + "$");
         AFG_CNIC_PATTERN = Pattern.compile("^" + "[0-9]{4}-[0-9]{4}-[0-9]{5}" + "$");
@@ -189,7 +206,7 @@ public class Forgot_Passoword extends AppCompatActivity {
                     if (model.getSuccess().equals("Valid user")) {
                         DialogBOX(model.c_mobile);
                     } else {
-                        Toast.makeText(Forgot_Passoword.this, "CNIC doesn't matched", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Forgot_Passoword.this, "Record not found", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
