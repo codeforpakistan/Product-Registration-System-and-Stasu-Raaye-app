@@ -41,7 +41,6 @@ public class Sign_Up extends AppCompatActivity {
     TextView register;
     CheckBox checkBox;
     String name, cnic = "", number, password, confirmpassword;
-    ImageView ic_back;
     String districtID;
     ProgressDialog progressDialog;
     TextInputLayout layout;
@@ -107,14 +106,6 @@ public class Sign_Up extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-            }
-        });
-
-        ic_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Sign_Up.this, Login.class));
-                finish();
             }
         });
 
@@ -241,8 +232,6 @@ public class Sign_Up extends AppCompatActivity {
         register = findViewById(R.id.btnregister);
         checkBox = findViewById(R.id.checkBox);
         layout = findViewById(R.id.layout);
-
-        ic_back = findViewById(R.id.ic_back);
 
         PASSWORD_PATTERN =
                 Pattern.compile("^" +

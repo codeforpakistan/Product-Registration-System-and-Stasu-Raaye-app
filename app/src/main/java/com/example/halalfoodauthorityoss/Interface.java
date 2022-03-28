@@ -6,6 +6,8 @@ import com.example.halalfoodauthorityoss.model.FavoriteModel;
 import com.example.halalfoodauthorityoss.model.FeedBack_Attachements;
 import com.example.halalfoodauthorityoss.model.LoginResponse;
 import com.example.halalfoodauthorityoss.model.Model;
+import com.example.halalfoodauthorityoss.model.ProductModel;
+import com.example.halalfoodauthorityoss.model.Product_Detail_Model;
 import com.example.halalfoodauthorityoss.model.SearchResponseModel;
 import com.example.halalfoodauthorityoss.model.UserResponseModel;
 
@@ -215,5 +217,22 @@ public interface Interface {
             @Field("cust_id") int cust_id,
             @Field("business_id") int business_id,
             @Field("product_name") String product_name
+    );
+    @FormUrlEncoded
+    @POST("customer_products")
+    Call<ProductModel> Get_Products(
+            @Field("cust_id") int cust_id
+    );
+    @FormUrlEncoded
+    @POST("product_detail")
+    Call<Product_Detail_Model> Get_Products_Details(
+            @Field("cust_id") int cust_id,
+            @Field("r_application_id") int r_application_id
+    );
+    @FormUrlEncoded
+    @POST("product_license_renewal")
+    Call<Model> Prodcut_Renewal(
+            @Field("cust_id") int cust_id,
+            @Field("r_application_id") int r_application_id
     );
 }

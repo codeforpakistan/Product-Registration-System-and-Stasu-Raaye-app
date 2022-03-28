@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".complaint.Complaint_Details">
+    tools:context=".productregistration.Product_Details">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
-        android:layout_height="600dp"
+        android:layout_height="450dp"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
         android:layout_marginEnd="24dp"
@@ -19,18 +19,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
-            android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp100"
+            android:layout_height="@dimen/dp80"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginEnd="16dp"
@@ -44,7 +43,7 @@
                     android:id="@+id/ic_back"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:layout_gravity="start"
+                    android:layout_gravity="center_vertical"
                     android:src="@drawable/ic_back"
                     tools:layout_editor_absoluteX="16dp"
                     tools:layout_editor_absoluteY="61dp" />
@@ -55,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:paddingRight="@dimen/dp16"
-                    android:text="Complaint Details"
+                    android:text="Product Details"
                     android:textColor="@color/white"
                     android:textSize="@dimen/sp20"
                     android:textStyle="bold"
@@ -64,14 +63,14 @@
 
             </LinearLayout>
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ScrollView
             android:id="@+id/scrollView3"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="@dimen/dp100"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="@dimen/dp80"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -86,48 +85,9 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
+                android:layout_marginBottom="32dp"
                 android:orientation="vertical">
 
-                <!--ComplaintTitle-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:weightSum="2"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/dp16"
-                        android:layout_weight="1"
-                        android:text="@string/complaint_title"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/dp16"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/Ctitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/dp16" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.2dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@color/black"
-                    app:layout_constraintEnd_toEndOf="@+id/linearLayout6"
-                    app:layout_constraintStart_toStartOf="@+id/linearLayout6"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
                 <!--Business Name-->
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -151,15 +111,15 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/bName"
+                        android:id="@+id/edtBusinessName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:text="Durshal"
                         android:textColor="@color/black"
                         android:textSize="@dimen/dp16" />
 
                 </LinearLayout>
-
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.2dp"
@@ -168,7 +128,87 @@
                     app:layout_constraintEnd_toEndOf="@+id/linearLayout6"
                     app:layout_constraintStart_toStartOf="@+id/linearLayout6"
                     app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
-                <!--Business District-->
+                <!--ReqName-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/dp16"
+                        android:layout_weight="1"
+                        android:text="Requested Name"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dp16"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/edtReqName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Peshawar"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dp16" />
+
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.2dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/black"
+                    app:layout_constraintEnd_toEndOf="@+id/linearLayout6"
+                    app:layout_constraintStart_toStartOf="@+id/linearLayout6"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
+                <!--AppName-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/dp16"
+                        android:layout_weight="1"
+                        android:text="Approved Name"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dp16"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/edtAppName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Peshawar"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dp16" />
+
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.2dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/black"
+                    app:layout_constraintEnd_toEndOf="@+id/linearLayout6"
+                    app:layout_constraintStart_toStartOf="@+id/linearLayout6"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
+                <!--District-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -191,15 +231,15 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/district"
+                        android:id="@+id/edtBusinessDistrict"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:text="Peshawar"
                         android:textColor="@color/black"
                         android:textSize="@dimen/dp16" />
 
                 </LinearLayout>
-
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.2dp"
@@ -208,7 +248,7 @@
                     app:layout_constraintEnd_toEndOf="@+id/linearLayout6"
                     app:layout_constraintStart_toStartOf="@+id/linearLayout6"
                     app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
-                <!--Business Address-->
+                <!--License Number-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -225,21 +265,21 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/dp16"
                         android:layout_weight="1"
-                        android:text="@string/business_address"
+                        android:text="@string/license_number"
                         android:textColor="@color/black"
                         android:textSize="@dimen/dp16"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/address"
+                        android:id="@+id/edtLicenseNumber"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:text="XYZ12345"
                         android:textColor="@color/black"
                         android:textSize="@dimen/dp16" />
 
                 </LinearLayout>
-
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.2dp"
@@ -248,7 +288,7 @@
                     app:layout_constraintEnd_toEndOf="@+id/linearLayout6"
                     app:layout_constraintStart_toStartOf="@+id/linearLayout6"
                     app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
-                <!--Complaint Details-->
+                <!--ExpiryDate-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -265,57 +305,17 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/dp16"
                         android:layout_weight="1"
-                        android:text="@string/complaint_details"
+                        android:text="Expiry Date"
                         android:textColor="@color/black"
                         android:textSize="@dimen/dp16"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/details"
+                        android:id="@+id/edtExpiryDate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/dp16" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.2dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@color/black"
-                    app:layout_constraintEnd_toEndOf="@+id/linearLayout6"
-                    app:layout_constraintStart_toStartOf="@+id/linearLayout6"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
-                <!--Complaint status-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:weightSum="2"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/dp16"
-                        android:layout_weight="1"
-                        android:text="Status"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/dp16"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/status"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text=""
+                        android:text="XYZ12345"
                         android:textColor="@color/black"
                         android:textSize="@dimen/dp16" />
 
@@ -328,84 +328,31 @@
                     app:layout_constraintEnd_toEndOf="@+id/linearLayout6"
                     app:layout_constraintStart_toStartOf="@+id/linearLayout6"
                     app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
-
-                <!--Complaint Remarks-->
-                <LinearLayout
-                    android:id="@+id/remarkslayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:visibility="gone"
-                    android:weightSum="2"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/dp16"
-                        android:layout_weight="1"
-                        android:text="Remarks"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/dp16"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/remarks"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/dp16" />
-
-                </LinearLayout>
-
-                <View
-                    android:visibility="gone"
-                    android:id="@+id/view"
-                    android:layout_width="match_parent"
-                    android:layout_height="0.2dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@color/black"
-                    app:layout_constraintEnd_toEndOf="@+id/linearLayout6"
-                    app:layout_constraintStart_toStartOf="@+id/linearLayout6"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/dp8"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/btnupload" />
 
             </LinearLayout>
         </ScrollView>
 
         <TextView
-            android:id="@+id/btnfeedback"
-            android:layout_width="@dimen/dp140"
+            android:id="@+id/btnRenew"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="32dp"
+            android:layout_gravity="center"
             android:visibility="gone"
-            android:layout_marginRight="32dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginEnd="@dimen/dp16"
+            android:layout_marginRight="@dimen/dp16"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/btnborder"
             android:gravity="center"
-            android:padding="4dp"
-            android:text="FeedBack"
+            android:paddingLeft="@dimen/dp16"
+            android:paddingTop="@dimen/dp8"
+            android:paddingRight="@dimen/dp16"
+            android:paddingBottom="@dimen/dp8"
+            android:text="Renew Product license"
             android:textColor="@color/white"
-            android:textSize="@dimen/sp18"
+            android:textSize="@dimen/sp16"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scrollView3" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

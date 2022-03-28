@@ -12,10 +12,12 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -53,6 +55,7 @@ public class UpdateProfile extends AppCompatActivity {
     File profileFile = null;
     ProgressDialog progressDialog;
     String name, cnic, number, password, Address;
+    ImageView ic_back;
 
     SharedPreferences sharedPreferences = null;
     SharedPreferences.Editor editor;
@@ -63,6 +66,14 @@ public class UpdateProfile extends AppCompatActivity {
         setContentView(R.layout.activity_update_profile);
 
         initialization();
+
+        ic_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                startActivity(new Intent(UpdateProfile.this,CoreActivity.class));
+                finish();
+            }
+        });
 
         layoutupdate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,6 +186,7 @@ public class UpdateProfile extends AppCompatActivity {
         progressDialog.setMessage("Please Wait...");
         progressDialog.setCancelable(false);
 
+        ic_back = findViewById(R.id.ic_back);
         edtname = findViewById(R.id.edtname);
         edtcnic = findViewById(R.id.edtcnic);
         edtnumber = findViewById(R.id.edtnumber);
@@ -187,11 +199,15 @@ public class UpdateProfile extends AppCompatActivity {
         edtname.setText(AppData.name);
         edtcnic.setText(AppData.cnic);
         edtnumber.setText(AppData.mobileNumber);
-        edtAddress.setText(AppData.address);
+        if (AppData.address !="0"){
+            edtAddress.setText(AppData.address);
+        }
         edtpassword.setText(AppData.password);
-        if (AppData.photo != null) {
+        if (AppData.photo != "0") {
             String path = "https://halalfoods.testportal.famzsolutions.com/assets/customer_images/" + AppData.photo;
             Glide.with(UpdateProfile.this).load(path).into(profilePic);
+        }else {
+            profilePic.setImageResource(R.drawable.ic_human);
         }
     }
 
@@ -307,4 +323,12 @@ public class UpdateProfile extends AppCompatActivity {
         editor.putString("PASSWORD", password);
         editor.commit();
     }
+ /*
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent();
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        finish();
+    }*/
 }

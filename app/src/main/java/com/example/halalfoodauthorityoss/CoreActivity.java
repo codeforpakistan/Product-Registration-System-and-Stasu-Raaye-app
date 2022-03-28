@@ -143,6 +143,12 @@ public class CoreActivity extends AppCompatActivity {
         editor=sharedPreferences.edit();
         editor.clear();
         editor.commit();
+        AppData.name=null;
+        AppData.cnic=null;
+        AppData.address="0";
+        AppData.photo="0";
+        AppData.password=null;
+        AppData.mobileNumber=null;
         Intent intent = new Intent(CoreActivity.this,Login.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
@@ -181,9 +187,12 @@ public class CoreActivity extends AppCompatActivity {
         fabRegisterProduct = (FloatingActionButton) findViewById(R.id.fabRegisterProduct);
         fabRegisterBusiness = (FloatingActionButton) findViewById(R.id.fabRegisterBusiness);
 
-        if (AppData.photo != null) {
+        if (AppData.photo != "0") {
             String path = "https://halalfoods.testportal.famzsolutions.com/assets/customer_images/" + AppData.photo;
             Glide.with(CoreActivity.this).load(path).into(profilePic);
+        }
+        else {
+            profilePic.setImageResource(R.drawable.ic_human);
         }
         txtName.setText(AppData.name);
         txtNumber.setText(AppData.mobileNumber);

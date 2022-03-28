@@ -143,7 +143,7 @@ public class Business_License_Details extends AppCompatActivity {
         TextView ok = dialoguebox.findViewById(R.id.ok);
 
         txtalert.setText("Congratulations!");
-        message.setText("Your application submitted successfully for renewal.Your applicaiton number is : "+r_app_no);
+        message.setText("Your application submitted successfully for business renewal.Your applicaiton number is : "+r_app_no);
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

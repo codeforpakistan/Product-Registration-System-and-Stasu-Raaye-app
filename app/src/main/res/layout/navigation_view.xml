@@ -12,7 +12,7 @@
     <LinearLayout
         android:id="@+id/top"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp80"
+        android:layout_height="@dimen/dp70"
         android:background="@color/green"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -256,7 +256,7 @@
     <LinearLayout
         android:id="@+id/bottom"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp60"
+        android:layout_height="@dimen/dp50"
         android:background="@color/green"
         android:gravity="bottom"
         android:orientation="vertical"

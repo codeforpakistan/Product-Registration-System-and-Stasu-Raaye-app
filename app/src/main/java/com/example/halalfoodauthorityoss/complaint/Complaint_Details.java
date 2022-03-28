@@ -32,7 +32,7 @@ import retrofit2.Response;
 
 public class Complaint_Details extends AppCompatActivity {
 
-    TextView Ctitle, district, address, details, bName, status, btnfeedback;
+    TextView Ctitle, district, address, details, bName, status, btnfeedback,remarks;
     Model model;
     RecyclerView recyclerView;
     ImagesAdapter imagesAdapter;
@@ -60,6 +60,7 @@ public class Complaint_Details extends AppCompatActivity {
 
 
         if (model.status.toLowerCase().equals("close")) {
+            remarks.setText(model.eng_comment);
             remarkslayout.setVisibility(View.VISIBLE);
             btnfeedback.setVisibility(View.VISIBLE);
             view.setVisibility(View.VISIBLE);
@@ -148,6 +149,7 @@ public class Complaint_Details extends AppCompatActivity {
         });
 
         int complaint_id = Integer.parseInt(model.cid);
+
         Call<UserResponseModel> call = BaseClass
                 .getInstance()
                 .getApi()
@@ -161,8 +163,6 @@ public class Complaint_Details extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     if (userResponseModel.success.equals("1")) {
                         for (int i = 0; i < size; i++) {
-                            //modelList.add(new Model(list.get(i).Path));
-                            //  imagesFileArrayList.add(new File(list.get(i).Path));
                             imagesUriArrayList.add(Uri.parse(list.get(i).Path));
                         }
                         recyclerView.setHasFixedSize(true);
@@ -203,5 +203,6 @@ public class Complaint_Details extends AppCompatActivity {
         remarkslayout = findViewById(R.id.remarkslayout);
         view = findViewById(R.id.view);
         recyclerView = findViewById(R.id.recyclerview);
+        remarks = findViewById(R.id.remarks);
     }
 }

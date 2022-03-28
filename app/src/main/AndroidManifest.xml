@@ -21,7 +21,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HalalFoodAuthorityOSS"
         android:usesCleartextTraffic="true">
-        <activity android:name=".loginsignupforgot.Authentication"></activity>
+        <activity android:name=".productregistration.Product_Details"></activity>
+        <activity android:name=".complaint.Complaint_Status" />
+        <activity android:name=".loginsignupforgot.Authentication" />
         <activity android:name=".searchresult.User_Rating" />
         <activity android:name=".searchresult.Feedback_Reviews" />
         <activity android:name=".searchresult.SearchResult" />
@@ -33,9 +35,9 @@
         <activity android:name=".complaint.Complaint_Details" />
         <activity android:name=".useractivity.Business_License_Details" />
         <activity android:name=".complaint.MyComplaints" />
-        <activity android:name=".useractivity.MyProducts" />
+        <activity android:name=".productregistration.MyProducts" />
         <activity android:name=".useractivity.MyBusinesses" />
-        <activity android:name=".complaint.Complaint"/>
+        <activity android:name=".complaint.Complaint" />
         <activity android:name=".productregistration.ProductRegistration" />
         <activity android:name=".Splash_Screen">
             <intent-filter>
@@ -44,14 +46,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".businesslicense.Bussiness_Details"/>
-        <activity android:name=".businesslicense.Profile_Images"/>
-        <activity android:name=".businesslicense.Personal_Detail"/>
-        <activity android:name=".CoreActivity"/>
+        <activity android:name=".businesslicense.Bussiness_Details" />
+        <activity android:name=".businesslicense.Profile_Images" />
+        <activity android:name=".businesslicense.Personal_Detail" />
+        <activity android:name=".CoreActivity" />
         <activity android:name=".loginsignupforgot.Forgot_Passoword" />
         <activity android:name=".loginsignupforgot.Sign_Up" />
-        <activity android:name=".loginsignupforgot.Login"/>
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".loginsignupforgot.Login" />
+        <activity android:name=".MainActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

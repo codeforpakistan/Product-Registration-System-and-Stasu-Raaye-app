@@ -1,14 +1,20 @@
 package com.example.halalfoodauthorityoss;
 
 import android.Manifest;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
@@ -18,15 +24,24 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.halalfoodauthorityoss.loginsignupforgot.Login;
+import com.example.halalfoodauthorityoss.model.AppData;
+import com.example.halalfoodauthorityoss.model.LoginResponse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class Splash_Screen extends AppCompatActivity {
 
     public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 7;
+    ProgressDialog progressDialog;
+    SharedPreferences sharedPreferences = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,17 +51,15 @@ public class Splash_Screen extends AppCompatActivity {
         getSupportActionBar().hide();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please Wait...");
+        progressDialog.setCancelable(false);
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 checkAndroidVersion();
-                /*Intent intent = new Intent(Splash_Screen.this, Login.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                finish();*/
             }
         }, 2500);
     }
@@ -77,10 +90,7 @@ public class Splash_Screen extends AppCompatActivity {
             return false;
         }
         else {
-            Intent intent = new Intent(Splash_Screen.this, Login.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            finish();
+            CheckInternet();
         }
         return true;
     }
@@ -100,10 +110,7 @@ public class Splash_Screen extends AppCompatActivity {
                     if (perms.get(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
                             && perms.get(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED && perms.get(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                         Log.d("in fragment on request", "CAMERA & WRITE_EXTERNAL_STORAGE READ_EXTERNAL_STORAGE permission granted");
-                        Intent intent = new Intent(Splash_Screen.this, Login.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
-                        finish();
+                        CheckInternet();
                     } else {
                         if (ActivityCompat.shouldShowRequestPermissionRationale(Splash_Screen.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) || ActivityCompat.shouldShowRequestPermissionRationale(Splash_Screen.this, Manifest.permission.CAMERA) || ActivityCompat.shouldShowRequestPermissionRationale(Splash_Screen.this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
                             showDialogOK("Camera and Storage Permission required for this app",
@@ -168,5 +175,111 @@ public class Splash_Screen extends AppCompatActivity {
 
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
+    }
+
+    private void CheckInternet() {
+        if (isOnline()) {
+            CheckPrefFOrLogin();
+        }
+        else {
+            AlertDialog alertDialog = new AlertDialog.Builder(Splash_Screen.this).create();
+            alertDialog.setTitle("Info");
+            alertDialog.setMessage("Internet not available, Check your internet connectivity and try again");
+            alertDialog.setCancelable(false);
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    AgainCheck();
+                }
+            });
+            alertDialog.show();
+        }
+    }
+
+    private void AgainCheck() {
+        Handler handler=new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                CheckInternet();
+            }
+        },7000);
+    }
+
+    private boolean isOnline() {
+        boolean connected = false;
+        ConnectivityManager connectivityManager = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        }
+        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            //we are connected to a network
+            connected = true;
+        } else {
+            connected = false;
+        }
+        return connected;
+    }
+
+    private void CheckPrefFOrLogin() {
+        progressDialog.show();
+        sharedPreferences = getSharedPreferences("Profile", MODE_PRIVATE);
+        final String CNIC = sharedPreferences.getString("CNIC", "Nothing");
+        final String PASSWORD = sharedPreferences.getString("PASSWORD", "Nothing");
+        if (!CNIC.equals("Nothing") && !PASSWORD.equals("Nothing")) {
+            LoginFunction(CNIC, PASSWORD);
+        } else {
+            progressDialog.dismiss();
+            Intent intent = new Intent(Splash_Screen.this, Login.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+        }
+    }
+
+    private void LoginFunction(String cnic, String password) {
+        progressDialog.show();
+        Call<LoginResponse> call = BaseClass
+                .getInstance()
+                .getApi()
+                .Login(cnic, password);
+        call.enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                if (response.isSuccessful()) {
+                    LoginResponse loginResponse = response.body();
+                    if (!loginResponse.equals(null)) {
+                        if (loginResponse.success.equals("1")) {
+                            AppData.name = loginResponse.user_data.getName();
+                            AppData.cnic = loginResponse.user_data.getCnic();
+                            AppData.mobileNumber = loginResponse.user_data.getC_mobile();
+                            if (loginResponse.user_data.getPath()!=null){
+                                AppData.photo=loginResponse.user_data.getPath();
+                            }
+                            if (loginResponse.user_data.getAddress()!=null){
+                                AppData.address = loginResponse.user_data.getAddress();
+                            }
+                            AppData.password = loginResponse.user_data.getCpass();
+                            AppData.id = Integer.parseInt(loginResponse.user_data.getUser_id());
+                            startActivity(new Intent(Splash_Screen.this, CoreActivity.class));
+                            progressDialog.dismiss();
+                            finish();
+                        } else {
+                            progressDialog.dismiss();
+                            Toast.makeText(Splash_Screen.this, "Invalid CNIC or Password", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }else {
+                    progressDialog.dismiss();
+                    Toast.makeText(Splash_Screen.this, "Not Successful", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(Splash_Screen.this, "No Response", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

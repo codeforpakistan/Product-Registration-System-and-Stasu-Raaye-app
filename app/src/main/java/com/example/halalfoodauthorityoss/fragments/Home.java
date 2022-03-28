@@ -2,31 +2,62 @@ package com.example.halalfoodauthorityoss.fragments;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
+import com.example.halalfoodauthorityoss.BaseClass;
 import com.example.halalfoodauthorityoss.R;
+import com.example.halalfoodauthorityoss.adapter.ImagesAdapter;
+import com.example.halalfoodauthorityoss.adapter.SliderAdapter;
+import com.example.halalfoodauthorityoss.businesslicense.Personal_Detail;
+import com.example.halalfoodauthorityoss.complaint.Complaint;
+import com.example.halalfoodauthorityoss.complaint.Complaint_Details;
+import com.example.halalfoodauthorityoss.model.Model;
+import com.example.halalfoodauthorityoss.model.UserResponseModel;
+import com.example.halalfoodauthorityoss.productregistration.ProductRegistration;
 import com.example.halalfoodauthorityoss.searchresult.SearchResult;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Home extends Fragment {
 
-    public static int category_id=0;
-    public static int district_id=0;
-    public static String name=" ";
+    public static int category_id = 0;
+    public static int district_id = 0;
+    public static String name = " ";
     EditText edtSearch;
     ImageView icSearch, icFilter;
-    ArrayList<String> checkboxList = new ArrayList<>();
+    LinearLayout businessregister, productregister, complaint, feedback, training, documents;
+
+    int currentPage = 0;
+    Timer timer;
+    final long DELAY_MS = 1000;//delay in milliseconds before task is to be executed
+    final long PERIOD_MS = 5000; // time in milliseconds between successive task executions.
+
+
 
     public Home() {
         // Required empty public constructor
@@ -48,12 +79,62 @@ public class Home extends Fragment {
         icSearch = view.findViewById(R.id.icSearch);
         icFilter = view.findViewById(R.id.icFilter);
 
+        businessregister = view.findViewById(R.id.businessregister);
+        productregister = view.findViewById(R.id.productregister);
+        complaint = view.findViewById(R.id.complaint);
+        feedback = view.findViewById(R.id.feedback);
+        training = view.findViewById(R.id.training);
+        documents = view.findViewById(R.id.documents);
+
+        SetSLiderImages(view);
+
+        businessregister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), Personal_Detail.class));
+            }
+        });
+        productregister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), ProductRegistration.class));
+
+            }
+        });
+        complaint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), Complaint.class));
+            }
+        });
+        feedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        training.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        documents.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
         icSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                name=edtSearch.getText().toString().trim();
-
-                startActivity(new Intent(getContext(), SearchResult.class));
+                name = edtSearch.getText().toString().trim();
+                if (name.equals("")) {
+                    Toast.makeText(getActivity(), "Search cannot be empty", Toast.LENGTH_SHORT).show();
+                } else {
+                    startActivity(new Intent(getContext(), SearchResult.class));
+                }
             }
         });
 
@@ -71,15 +152,12 @@ public class Home extends Fragment {
                         switch (checkedId) {
                             case R.id.Resturant:
                                 category_id = 2;
-                                Toast.makeText(getActivity(), "" + category_id, Toast.LENGTH_SHORT).show();
                                 break;
                             case R.id.Hotel:
                                 category_id = 1;
-                                Toast.makeText(getActivity(), "" + category_id, Toast.LENGTH_SHORT).show();
                                 break;
                             case R.id.Bakery:
                                 category_id = 17;
-                                Toast.makeText(getActivity(), "" + category_id, Toast.LENGTH_SHORT).show();
                                 break;
                         }
                     }
@@ -171,10 +249,14 @@ public class Home extends Fragment {
                 btnSearch.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        name=edtSearch.getText().toString();
-                        Intent intent = new Intent(getActivity(), SearchResult.class);
-                        searchDialogue.dismiss();
-                        startActivity(intent);
+                        name = edtSearch.getText().toString();
+                        if (!name.equals("") || district_id != 0 || category_id != 0) {
+                            Intent intent = new Intent(getActivity(), SearchResult.class);
+                            startActivity(intent);
+                            searchDialogue.dismiss();
+                        } else {
+                            Toast.makeText(getActivity(), "Select Choice", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
 
@@ -321,5 +403,29 @@ public class Home extends Fragment {
         });
 
         return view;
+    }
+
+    private void SetSLiderImages(View view) {
+        ViewPager viewPager = view.findViewById(R.id.viewPager);
+        SliderAdapter adapter = new SliderAdapter(getActivity());
+        viewPager.setAdapter(adapter);
+
+        final Handler handler = new Handler();
+        final Runnable Update = new Runnable() {
+            public void run() {
+                if (currentPage == 4-1) {
+                    currentPage = 0;
+                }
+                viewPager.setCurrentItem(currentPage++, true);
+            }
+        };
+
+        timer = new Timer();
+        timer.schedule(new TimerTask() { // task to be scheduled
+            @Override
+            public void run() {
+                handler.post(Update);
+            }
+        }, DELAY_MS, PERIOD_MS);
     }
 }

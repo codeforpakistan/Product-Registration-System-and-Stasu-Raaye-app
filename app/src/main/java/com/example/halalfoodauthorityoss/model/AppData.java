@@ -13,4 +13,5 @@ public class AppData {
     public static int business_id;
     public static String activity;
     public static int favorite_id;
+
 }

@@ -43,11 +43,11 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.ViewHo
         Model model = list.get(position);
         if (model.LicNo==null)
         {
-            holder.categ_Number.setText("LicNo Pending");
+            holder.name_Number.setText("LicNo Pending");
         }else {
-            holder.categ_Number.setText("LicNo "+model.LicNo);
+            holder.name_Number.setText("LicNo "+model.LicNo);
         }
-        holder.buss_Prod_Name.setText(model.bussnie_name);
+        holder.buss_Name.setText(model.bussnie_name);
         String firstWord = model.Register_Date;
         if(firstWord.contains(" ")){
             firstWord= firstWord.substring(0, firstWord.indexOf(" "));
@@ -76,14 +76,14 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView categ_Number,buss_Prod_Name,date,licenseDetail;
+        TextView name_Number,buss_Name,date,licenseDetail;
         ConstraintLayout mlayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            categ_Number=itemView.findViewById(R.id.categ_Number);
-            buss_Prod_Name=itemView.findViewById(R.id.buss_Prod_Name);
+            name_Number=itemView.findViewById(R.id.name_Number);
+            buss_Name=itemView.findViewById(R.id.buss_Name);
             date=itemView.findViewById(R.id.date);
           //  licenseDetail=itemView.findViewById(R.id.licenseDetail);
             mlayout=itemView.findViewById(R.id.Linearlayout);

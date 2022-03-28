@@ -1,17 +1,11 @@
 package com.example.halalfoodauthorityoss.loginsignupforgot;
 
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.CheckBox;
@@ -19,19 +13,16 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.halalfoodauthorityoss.BaseClass;
 import com.example.halalfoodauthorityoss.CoreActivity;
 import com.example.halalfoodauthorityoss.R;
-import com.example.halalfoodauthorityoss.complaint.Complaint;
 import com.example.halalfoodauthorityoss.model.AppData;
 import com.example.halalfoodauthorityoss.model.LoginResponse;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.messaging.Constants;
 
 import java.util.regex.Pattern;
 
@@ -45,11 +36,10 @@ public class Login extends AppCompatActivity {
     TextView signup, forgot, btnlogin;
     TextInputEditText edtcnic, edtpassword;
     CheckBox checkBox;
-    ConstraintLayout mainlayout;
     ProgressDialog progressDialog;
     SharedPreferences sharedPreferences = null;
     SharedPreferences.Editor editor;
-    String cnic="";
+    String cnic = "";
     TextInputLayout layout;
 
     @Override
@@ -58,16 +48,13 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         initialization();
-        CheckInternet();
 
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (checkBox.isChecked())
-                {
+                if (checkBox.isChecked()) {
                     layout.setHint("AFG No(without-dashes)");
-                }
-                else {
+                } else {
                     layout.setHint("CNIC(without-dashes)");
                 }
             }
@@ -121,8 +108,7 @@ public class Login extends AppCompatActivity {
                 String cnicNo = edtcnic.getText().toString().trim();
                 String password = edtpassword.getText().toString().trim();
 
-                if (cnicNo.length()<13 || cnicNo.length()>13 || cnicNo.equals(""))
-                {
+                if (cnicNo.length() < 13 || cnicNo.length() > 13 || cnicNo.equals("")) {
                     edtcnic.setError("Invalid CNIC");
                     return;
                 }
@@ -148,7 +134,7 @@ public class Login extends AppCompatActivity {
                         return;
                     }
                 }
-                LoginFunction(cnic, password, "0");
+                LoginFunction(cnic,password);
             }
         });
 
@@ -168,65 +154,7 @@ public class Login extends AppCompatActivity {
         });
     }
 
-    private void CheckInternet() {
-        if (isOnline()) {
-            CheckPrefFOrLogin();
-        }
-        else {
-            AlertDialog alertDialog = new AlertDialog.Builder(Login.this).create();
-            alertDialog.setTitle("Info");
-            alertDialog.setMessage("Internet not available, Check your internet connectivity and try again");
-            alertDialog.setCancelable(false);
-            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    AgainCheck();
-                }
-            });
-            alertDialog.show();
-        }
-    }
-
-    private void AgainCheck() {
-        Handler handler=new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                CheckInternet();
-            }
-        },7000);
-    }
-
-    private boolean isOnline() {
-        boolean connected = false;
-        ConnectivityManager connectivityManager = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        }
-        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
-            //we are connected to a network
-            connected = true;
-        } else {
-            connected = false;
-        }
-        return connected;
-    }
-
-
-    private void CheckPrefFOrLogin() {
-        progressDialog.show();
-        sharedPreferences = getSharedPreferences("Profile", MODE_PRIVATE);
-        final String CNIC = sharedPreferences.getString("CNIC", "Nothing");
-        final String PASSWORD = sharedPreferences.getString("PASSWORD", "Nothing");
-        if (!CNIC.equals("Nothing") && !PASSWORD.equals("Nothing")) {
-            LoginFunction(CNIC, PASSWORD, "1");
-        } else {
-            progressDialog.dismiss();
-            mainlayout.setVisibility(View.VISIBLE);
-        }
-    }
-
-    private void LoginFunction(String cnic, String password, String check) {
+    private void LoginFunction(String cnic, String password) {
         progressDialog.show();
         Call<LoginResponse> call = BaseClass
                 .getInstance()
@@ -238,30 +166,30 @@ public class Login extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     LoginResponse loginResponse = response.body();
                     if (!loginResponse.equals(null)) {
-                        if (!loginResponse.success.equals("0")) {
+                        if (loginResponse.success.equals("1")) {
                             AppData.name = loginResponse.user_data.getName();
                             AppData.cnic = loginResponse.user_data.getCnic();
                             AppData.mobileNumber = loginResponse.user_data.getC_mobile();
-                            if (loginResponse.user_data.getPath()!=null){
-                                AppData.photo=loginResponse.user_data.getPath();
+                            if (loginResponse.user_data.getPath() != null) {
+                                AppData.photo = loginResponse.user_data.getPath();
                             }
-                            if (loginResponse.user_data.getAddress()!=null){
+                            if (loginResponse.user_data.getAddress() != null) {
                                 AppData.address = loginResponse.user_data.getAddress();
                             }
                             AppData.password = loginResponse.user_data.getCpass();
                             AppData.id = Integer.parseInt(loginResponse.user_data.getUser_id());
-                            startActivity(new Intent(Login.this, CoreActivity.class));
-                            if (check.equals("0")) {
-                                SharedprefUser(cnic, password);
-                            }
+
+                            SharedprefUser(cnic, password);
                             progressDialog.dismiss();
+                            startActivity(new Intent(Login.this, CoreActivity.class));
+
                             finish();
                         } else {
                             progressDialog.dismiss();
                             Toast.makeText(Login.this, "Invalid CNIC or Password", Toast.LENGTH_LONG).show();
                         }
                     }
-                }else {
+                } else {
                     progressDialog.dismiss();
                     Toast.makeText(Login.this, "Not Successful", Toast.LENGTH_SHORT).show();
                 }
@@ -276,8 +204,6 @@ public class Login extends AppCompatActivity {
     }
 
     public void initialization() {
-        mainlayout = findViewById(R.id.mainlayout);
-        mainlayout.setVisibility(View.INVISIBLE);
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please Wait...");
         progressDialog.setCancelable(false);
@@ -307,7 +233,7 @@ public class Login extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent=new Intent();
+        Intent intent = new Intent();
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         finish();
     }

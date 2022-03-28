@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.halalfoodauthorityoss.R;
+import com.example.halalfoodauthorityoss.complaint.Complaint_Status;
 import com.example.halalfoodauthorityoss.model.Model;
 import com.example.halalfoodauthorityoss.complaint.Complaint_Details;
 import com.example.halalfoodauthorityoss.complaint.MyComplaints;
@@ -53,7 +54,7 @@ public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.View
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("Model", (Serializable) model);
-                Intent intent = new Intent(context, Complaint_Details.class);
+                Intent intent = new Intent(context, Complaint_Status.class);
                 intent.putExtras(bundle);
                 context.startActivity(intent);
             }

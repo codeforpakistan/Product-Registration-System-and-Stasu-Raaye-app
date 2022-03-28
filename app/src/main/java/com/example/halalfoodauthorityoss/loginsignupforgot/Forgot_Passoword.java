@@ -201,6 +201,7 @@ public class Forgot_Passoword extends AppCompatActivity {
         call.enqueue(new Callback<Model>() {
             @Override
             public void onResponse(Call<Model> call, Response<Model> response) {
+                if(response.isSuccessful()){
                 Model model = response.body();
                 if (!model.equals(null)) {
                     if (model.getSuccess().equals("Valid user")) {
@@ -208,6 +209,7 @@ public class Forgot_Passoword extends AppCompatActivity {
                     } else {
                         Toast.makeText(Forgot_Passoword.this, "Record not found", Toast.LENGTH_SHORT).show();
                     }
+                }
                 }
             }
 

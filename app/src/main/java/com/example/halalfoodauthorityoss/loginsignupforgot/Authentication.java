@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ public class Authentication extends AppCompatActivity {
     TextView btnSendOTP, btnResend, btnVerify;
     String code = "abcdef";
     String number;
+    ImageView ic_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,13 @@ public class Authentication extends AppCompatActivity {
         setContentView(R.layout.activity_authentication);
 
         Initilization();
+
+        ic_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         btnSendOTP.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,6 +104,7 @@ public class Authentication extends AppCompatActivity {
         btnSendOTP = findViewById(R.id.btnSendOTP);
         btnResend = findViewById(R.id.btnResend);
         btnVerify = findViewById(R.id.btnVerify);
+        ic_back = findViewById(R.id.ic_back);
     }
 
     public void SendOTP(String number) {

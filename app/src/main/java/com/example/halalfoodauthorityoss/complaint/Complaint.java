@@ -90,7 +90,6 @@ public class Complaint extends AppCompatActivity {
         ic_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Complaint.this, CoreActivity.class));
                 finish();
             }
         });
@@ -166,7 +165,6 @@ public class Complaint extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 districtID = ListDistrictID.get(i);
                 districtName = ListDistrictName.get(i);
-                Toast.makeText(Complaint.this, "districtname" + districtName, Toast.LENGTH_SHORT).show();
             }
 
             @Override

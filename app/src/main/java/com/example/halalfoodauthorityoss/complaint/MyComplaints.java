@@ -48,13 +48,13 @@ public class MyComplaints extends AppCompatActivity {
             public void onResponse(Call<UserResponseModel> call, Response<UserResponseModel> response) {
                 UserResponseModel userResponseModel = response.body();
                 List<Model> list = userResponseModel.getMessage();
-                int size = list.size();
                 if (response.isSuccessful()) {
                     if (userResponseModel.success.equals("1")) {
+                        int size = list.size();
                         for (int i = 0; i < size; i++) {
                             modelList.add(new Model(list.get(i).cid, list.get(i).cust_id, list.get(i).district,
                                     list.get(i).create_date, list.get(i).status, list.get(i).comp_buss_name,
-                                    list.get(i).ComplaintTitle, list.get(i).ComplaintDescription, list.get(i).Address));
+                                    list.get(i).ComplaintTitle, list.get(i).ComplaintDescription, list.get(i).Address,list.get(i).eng_comment));
                         }
                         recyclerView.setHasFixedSize(true);
                         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MyComplaints.this, RecyclerView.VERTICAL, false);

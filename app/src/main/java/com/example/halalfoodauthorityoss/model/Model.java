@@ -62,6 +62,24 @@ public class Model implements Serializable {
     public String r_application_id;
     @SerializedName("registered_products")
     public String registered_products;
+    @SerializedName("ProductNameReq")
+    public String ProductNameReq;
+    @SerializedName("ProductNameApp")
+    public String ProductNameApp;
+    @SerializedName("product_name_requested")
+    public String product_name_requested;
+    @SerializedName("product_name_approved")
+    public String product_name_approved;
+    @SerializedName("product_liciense_expiry")
+    public String product_liciense_expiry;
+    @SerializedName("ProcLvl")
+    public String ProcLvl;
+    @SerializedName("product_license_no")
+    public String product_license_no;
+    @SerializedName("product_license_expiry")
+    public String product_license_expiry;
+    @SerializedName("eng_comment")
+    public String eng_comment;
 
     /*Feedback Fields*/
     @SerializedName("customer_name")
@@ -198,7 +216,7 @@ public class Model implements Serializable {
     }
 
 
-    public Model(String cid, String cust_id, String district, String create_date, String status, String comp_buss_name, String complaintTitle, String complaintDescription, String address) {
+    public Model(String cid, String cust_id, String district, String create_date, String status, String comp_buss_name, String complaintTitle, String complaintDescription, String address, String eng_comment) {
         this.cid = cid;
         this.cust_id = cust_id;
         this.district = district;
@@ -208,6 +226,7 @@ public class Model implements Serializable {
         ComplaintTitle = complaintTitle;
         ComplaintDescription = complaintDescription;
         Address = address;
+        this.eng_comment = eng_comment;
     }
 
     public Model(String userId, String owner_name, String FName, String CNIC, String mobile, String address, String bussnie_name, String register_Date, String type, String startDate, String licNo, String expireDate, String issueDate, String distric_name,String expiry_days_remaining, String r_application_id) {
@@ -262,6 +281,16 @@ public class Model implements Serializable {
         this.district_name = district_name;
         this.favourite_id = favourite_id;
         this.business_type = business_type;
+    }
+    public Model(String productNameReq, String productNameApp, String procLvl, String r_application_id, String business_id, String business_name, String cust_id,String expireDate) {
+        ProductNameReq = productNameReq;
+        ProductNameApp = productNameApp;
+        ProcLvl = procLvl;
+        this.r_application_id = r_application_id;
+        this.business_id = business_id;
+        this.business_name = business_name;
+        this.cust_id = cust_id;
+        ExpireDate = expireDate;
     }
 
     public Model(String path) {

@@ -18,7 +18,7 @@ import com.example.halalfoodauthorityoss.model.AppData;
 import com.example.halalfoodauthorityoss.useractivity.MyBusinesses;
 import com.example.halalfoodauthorityoss.R;
 import com.example.halalfoodauthorityoss.complaint.MyComplaints;
-import com.example.halalfoodauthorityoss.useractivity.MyProducts;
+import com.example.halalfoodauthorityoss.productregistration.MyProducts;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -53,17 +53,16 @@ public class Profile extends Fragment {
 
         txtName.setText(AppData.name);
 
-        if (!AppData.photo.equals("0"))
-        {
-
-        }
         if (!AppData.address.equals("0"))
         {
             txtAddress.setText(AppData.address);
         }
-        if (AppData.photo != null) {
+        if (AppData.photo != "0") {
             String path = "https://halalfoods.testportal.famzsolutions.com/assets/customer_images/" + AppData.photo;
             Glide.with(Profile.this).load(path).into(profilePic);
+        }
+        else {
+            profilePic.setImageResource(R.drawable.ic_human);
         }
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {

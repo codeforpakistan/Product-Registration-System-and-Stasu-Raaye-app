@@ -48,9 +48,9 @@ public class MyBusinesses extends AppCompatActivity {
             public void onResponse(Call<UserResponseModel> call, Response<UserResponseModel> response) {
                 UserResponseModel userResponseModel = response.body();
                 List<Model> list = userResponseModel.getMessage();
-                int size = list.size();
                 if (response.isSuccessful()) {
                     if (userResponseModel.success.equals("1")) {
+                        int size = list.size();
                         for (int i = 0; i < size; i++) {
                             modelList.add(new Model(list.get(i).UserId, list.get(i).owner_name, list.get(i).FName,
                                     list.get(i).CNIC, list.get(i).Mobile, list.get(i).Address, list.get(i).bussnie_name,

@@ -63,9 +63,9 @@ public class Favorite extends Fragment {
             public void onResponse(Call<FavoriteModel> call, Response<FavoriteModel> response) {
                 FavoriteModel favoriteModel = response.body();
                 List<Model> list = favoriteModel.getFavourite_list();
-                int size = list.size();
                 if (response.isSuccessful()) {
                     if (favoriteModel.success.equals("1")) {
+                        int size = list.size();
                         modelList.clear();
                         for (int i = 0; i < size; i++) {
                             modelList.add(new Model(list.get(i).business_id, list.get(i).business_name, list.get(i).timestamp,
@@ -79,7 +79,6 @@ public class Favorite extends Fragment {
                         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2 ));
                         favoriteAdapter.notifyDataSetChanged();
                     } else {
-                        Toast.makeText(getActivity(), "No Record Found", Toast.LENGTH_LONG).show();
                     }
                 } else {
                     Toast.makeText(getActivity(), "Not Successful", Toast.LENGTH_SHORT).show();
