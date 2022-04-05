@@ -33,6 +33,7 @@ import com.example.halalfoodauthorityoss.model.Model;
 import com.example.halalfoodauthorityoss.model.UserResponseModel;
 import com.example.halalfoodauthorityoss.productregistration.ProductRegistration;
 import com.example.halalfoodauthorityoss.searchresult.SearchResult;
+import com.example.halalfoodauthorityoss.useractivity.Business_License_Details;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -116,7 +117,28 @@ public class Home extends Fragment {
         training.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                        Dialog RenewBusinessDialogue = new Dialog(getActivity());
+                        RenewBusinessDialogue.setContentView(R.layout.permission_dialogue);
+                        RenewBusinessDialogue.setCancelable(false);
+                        TextView txtText = RenewBusinessDialogue.findViewById(R.id.txtText);
+                        txtText.setText("We are working on this feature.");
+                        TextView yes = RenewBusinessDialogue.findViewById(R.id.Yes);
+                        yes.setText("OK");
+                        TextView no = RenewBusinessDialogue.findViewById(R.id.No);
+                        no.setVisibility(View.GONE);
+                        yes.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                RenewBusinessDialogue.dismiss();
+                            }
+                        });
+                        no.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                RenewBusinessDialogue.dismiss();
+                            }
+                        });
+                        RenewBusinessDialogue.show();
             }
         });
         documents.setOnClickListener(new View.OnClickListener() {

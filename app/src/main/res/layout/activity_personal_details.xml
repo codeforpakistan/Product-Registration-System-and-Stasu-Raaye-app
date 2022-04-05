@@ -23,7 +23,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp120"
+                android:layout_height="@dimen/dp100"
                 android:background="@drawable/topbackground"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -31,10 +31,10 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="32dp"
                     android:layout_marginLeft="32dp"
-                    android:layout_marginTop="@dimen/dp50"
+                    android:gravity="center_vertical"
                     android:layout_marginEnd="32dp"
                     android:layout_marginRight="32dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -45,7 +45,6 @@
                         android:id="@+id/ic_back"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:layout_gravity="start"
                         android:src="@drawable/ic_back"
                         tools:layout_editor_absoluteX="16dp"
                         tools:layout_editor_absoluteY="61dp" />

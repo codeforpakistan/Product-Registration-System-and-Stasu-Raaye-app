@@ -37,6 +37,8 @@ public class Personal_Detail extends AppCompatActivity {
     CheckBox checkBox;
     String cnic = "";
     TextInputLayout layout;
+    boolean find = false;
+    String userid = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +50,9 @@ public class Personal_Detail extends AppCompatActivity {
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (checkBox.isChecked())
-                {
+                if (checkBox.isChecked()) {
                     layout.setHint("AFG No(without-dashes)");
-                }
-                else {
+                } else {
                     layout.setHint("CNIC(without-dashes)");
                 }
             }
@@ -106,60 +106,69 @@ public class Personal_Detail extends AppCompatActivity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String name = edtname.getText().toString().trim();
-                String fathername = edtfathername.getText().toString().trim();
-                String contact = edtcontact.getText().toString().trim();
-                String cnicNo = edtcnic.getText().toString().trim();
+                if (!find) {
+                    String name = edtname.getText().toString().trim();
+                    String fathername = edtfathername.getText().toString().trim();
+                    String contact = edtcontact.getText().toString().trim();
+                    String cnicNo = edtcnic.getText().toString().trim();
 
-                if (cnicNo.length()<13 || cnicNo.length()>13 || cnicNo.equals(""))
-                {
-                    edtcnic.setError("Invalid CNIC");
-                    return;
-                }
-                if (!checkBox.isChecked()) {
-                    cnic = cnicNo.substring(0, 5) + "-" + cnicNo.substring(5, 12) + "-" + cnicNo.substring(12);
+                    if (cnicNo.length() < 13 || cnicNo.length() > 13 || cnicNo.equals("")) {
+                        edtcnic.setError("Invalid CNIC");
+                        return;
+                    }
+                    if (!checkBox.isChecked()) {
+                        cnic = cnicNo.substring(0, 5) + "-" + cnicNo.substring(5, 12) + "-" + cnicNo.substring(12);
+                    } else {
+                        cnic = cnicNo.substring(0, 4) + "-" + cnicNo.substring(4, 8) + "-" + cnicNo.substring(8, 13);
+                    }
+
+                    if (!checkBox.isChecked()) {
+                        if (!CNIC_PATTERN.matcher(cnic).matches()) {
+                            edtcnic.setError("Invalid CNIC Number");
+                            return;
+                        } else {
+//                            CheckCNIC(cnic);
+                        }
+                    }
+                    if (checkBox.isChecked()) {
+                        if (!AFG_CNIC_PATTERN.matcher(cnic).matches()) {
+                            edtcnic.setError("Invalid CNIC Number");
+                            return;
+                        } else {
+//                            CheckCNIC(cnic);
+                        }
+                    }
+
+                    if (name.equals("")) {
+                        edtname.setError("Please Enter Name");
+                        return;
+                    }
+                    if (fathername.equals("")) {
+                        edtfathername.setError("Please Enter Father Name");
+                        return;
+                    }
+                    if (contact.length() < 11 || contact.length() > 11) {
+                        edtcontact.setError("Invalid Mobile Number");
+                        return;
+                    }
+
+                    Intent intent = new Intent(Personal_Detail.this, Bussiness_Details.class);
+                    intent.putExtra("name", name);
+                    intent.putExtra("fathername", fathername);
+                    intent.putExtra("contact", contact);
+                    intent.putExtra("cnic", cnic);
+                    intent.putExtra("check", "0");
+
+
+                    startActivity(intent);
                 } else {
-                    cnic = cnicNo.substring(0, 4) + "-" + cnicNo.substring(4, 8) + "-" + cnicNo.substring(8, 13);
-                }
-
-                if (!checkBox.isChecked()) {
-                    if (!CNIC_PATTERN.matcher(cnic).matches()) {
-                        edtcnic.setError("Invalid CNIC Number");
-                        return;
-                    } else {
-                        CheckCNIC(cnic);
+                    if (find) {
+                        Intent intent = new Intent(Personal_Detail.this, Bussiness_Details.class);
+                        intent.putExtra("userid", userid);
+                        intent.putExtra("check", "1");
+                        startActivity(intent);
                     }
                 }
-                if (checkBox.isChecked()) {
-                    if (!AFG_CNIC_PATTERN.matcher(cnic).matches()) {
-                        edtcnic.setError("Invalid CNIC Number");
-                        return;
-                    } else {
-                        CheckCNIC(cnic);
-                    }
-                }
-
-                if (name.equals("")) {
-                    edtname.setError("Please Enter Name");
-                    return;
-                }
-                if (fathername.equals("")) {
-                    edtfathername.setError("Please Enter Father Name");
-                    return;
-                }
-                if (contact.length() < 11 || contact.length() > 11) {
-                    edtcontact.setError("Invalid Mobile Number");
-                    return;
-                }
-
-                Intent intent = new Intent(Personal_Detail.this, Bussiness_Details.class);
-                intent.putExtra("name", name);
-                intent.putExtra("fathername", fathername);
-                intent.putExtra("contact", contact);
-                intent.putExtra("cnic", cnic);
-                intent.putExtra("check", "0");
-
-                startActivity(intent);
             }
         });
 
@@ -176,29 +185,35 @@ public class Personal_Detail extends AppCompatActivity {
                 Model model = response.body();
                 if (response.isSuccessful()) {
                     if (model.getSuccess().equals("1")) {
-                        String userid = model.getUserId();
+                        userid = model.getUserId();
+                        find = true;
                         AlertDialog alertDialog = new AlertDialog.Builder(Personal_Detail.this).create();
                         alertDialog.setTitle("Business License!");
                         alertDialog.setMessage("Owner details exist add business Information");
                         alertDialog.setCancelable(false);
                         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Ok", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(Personal_Detail.this, Bussiness_Details.class);
-                                intent.putExtra("userid", userid);
-                                intent.putExtra("check", "1");
-                                startActivity(intent);
-                            }
-                        });
-                        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
                                 alertDialog.dismiss();
+                                edtname.setText(model.cName);
+                                edtfathername.setText(model.FName);
+                                edtcontact.setText(model.Mobile);
+                                edtname.setFocusableInTouchMode(false);
+                                edtfathername.setFocusableInTouchMode(false);
+                                edtcontact.setFocusableInTouchMode(false);
                             }
                         });
                         alertDialog.show();
+                    } else {
+                        if (model.getSuccess().equals("0")) {
+                            find = false;
+                            edtname.setFocusableInTouchMode(true);
+                            edtfathername.setFocusableInTouchMode(true);
+                            edtcontact.setFocusableInTouchMode(true);
+                            edtname.setText("");
+                            edtfathername.setText("");
+                            edtcontact.setText("");
+                        }
                     }
-                }
-                if (model.getSuccess().equals("0")) {
-                    Toast.makeText(Personal_Detail.this, "cnic not found", Toast.LENGTH_SHORT).show();
                 }
             }
 

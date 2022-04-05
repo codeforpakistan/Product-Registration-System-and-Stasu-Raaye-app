@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,12 +25,19 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DecodeFormat;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.halalfoodauthorityoss.BaseClass;
 import com.example.halalfoodauthorityoss.CoreActivity;
 import com.example.halalfoodauthorityoss.R;
@@ -259,9 +267,36 @@ public class Complaint extends AppCompatActivity {
         if (resultCode == RESULT_OK) {
             if (requestCode == 1) {
 
+
+                /*Uri uri = data.getData();
+                RequestOptions options = new RequestOptions()
+                        .format(DecodeFormat.PREFER_ARGB_8888)
+                        .placeholder(R.drawable.ic_launcher_background)
+                        .error(R.drawable.ic_launcher_background);
+
+                Glide.with(this)
+                        .setDefaultRequestOptions(options)
+                        .asBitmap()
+                        .load(uri)
+                        .centerInside()
+                        .into(new CustomTarget<Bitmap>(512, 512) {
+                            @Override
+                            public void onResourceReady(@NonNull Bitmap bitmap1, @Nullable Transition<? super Bitmap> transition) {
+                                imageView1.setImageBitmap(bitmap1);
+                                UploadActivity.this.bitmap1 = bitmap1;
+                            }
+
+                            @Override
+                            public void onLoadCleared(@Nullable Drawable placeholder) {
+                            }
+                        });*/
+
+
+
                 Log.e("++data", "" + data.getClipData().getItemCount());// Get count of image here.
 
                 Log.e("++count", "" + data.getClipData().getItemCount());
+
 
                 if (data.getClipData().getItemCount() > 4) {
                     adapter.notifyDataSetChanged();

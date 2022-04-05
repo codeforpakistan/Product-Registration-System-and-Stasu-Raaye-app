@@ -6,163 +6,163 @@
     android:layout_height="match_parent"
     tools:context=".businesslicense.Profile_Images">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp120"
-            android:background="@drawable/topbackground"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginLeft="32dp"
-                android:layout_marginTop="@dimen/dp50"
-                android:layout_marginEnd="32dp"
-                android:layout_marginRight="32dp"
+                android:layout_height="@dimen/dp100"
+                android:background="@drawable/topbackground"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <ImageView
-                    android:id="@+id/ic_back"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_gravity="start"
-                    android:src="@drawable/ic_back"
-                    tools:layout_editor_absoluteX="16dp"
-                    tools:layout_editor_absoluteY="61dp" />
-
-                <TextView
-                    android:id="@+id/textView3"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/topbackground"
-                    android:gravity="center"
-                    android:paddingRight="@dimen/dp24"
-                    android:text="@string/business_registration"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/sp20"
-                    android:textStyle="bold"
-                    tools:layout_editor_absoluteX="57dp"
-                    tools:layout_editor_absoluteY="60dp" />
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:gravity="center_vertical"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginRight="32dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
+                    <ImageView
+                        android:id="@+id/ic_back"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/ic_back"
+                        tools:layout_editor_absoluteX="16dp"
+                        tools:layout_editor_absoluteY="61dp" />
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/topbackground"
+                        android:gravity="center"
+                        android:paddingRight="@dimen/dp24"
+                        android:text="@string/business_registration"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp20"
+                        android:textStyle="bold"
+                        tools:layout_editor_absoluteX="57dp"
+                        tools:layout_editor_absoluteY="60dp" />
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp16"
+                android:text="Owner Images"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp16"
+                android:textStyle="bold"
+                />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp16"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="@dimen/dp40"
+                    android:layout_height="@dimen/dp40"
+                    android:text="1"
+                    android:gravity="center"
+                    android:textSize="@dimen/sp18"
+                    android:background="@drawable/inactive_progress"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"/>
+                <View
+                    android:layout_width="@dimen/dp30"
+                    android:layout_height="@dimen/dp2"
+                    android:background="@color/lightbrown"/>
+                <TextView
+                    android:layout_width="@dimen/dp40"
+                    android:layout_height="@dimen/dp40"
+                    android:text="2"
+                    android:gravity="center"
+                    android:textSize="@dimen/sp18"
+                    android:background="@drawable/inactive_progress"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"/>
+                <View
+                    android:layout_width="@dimen/dp30"
+                    android:layout_height="@dimen/dp2"
+                    android:background="@color/lightbrown"/>
+                <TextView
+                    android:layout_width="@dimen/dp40"
+                    android:layout_height="@dimen/dp40"
+                    android:text="3"
+                    android:gravity="center"
+                    android:textSize="@dimen/sp18"
+                    android:background="@drawable/active_progress"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"/>
             </LinearLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Owner_profile_image"
+                android:layout_marginTop="@dimen/dp32"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp16"
+                android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp16"
-            android:text="Owner Images"
-            android:textColor="@color/black"
-            android:textSize="@dimen/sp16"
-            android:textStyle="bold"
-            />
+            <ImageView
+                android:id="@+id/profileImage"
+                android:layout_width="@dimen/dp120"
+                android:layout_height="@dimen/dp120"
+                android:layout_margin="@dimen/dp8"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_add_photo"
+                />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp16"
-            android:gravity="center">
             <TextView
-                android:layout_width="@dimen/dp40"
-                android:layout_height="@dimen/dp40"
-                android:text="1"
-                android:gravity="center"
-                android:textSize="@dimen/sp18"
-                android:background="@drawable/inactive_progress"
-                android:textStyle="bold"
-                android:textColor="@color/black"/>
-            <View
-                android:layout_width="@dimen/dp30"
-                android:layout_height="@dimen/dp2"
-                android:background="@color/lightbrown"/>
-            <TextView
-                android:layout_width="@dimen/dp40"
-                android:layout_height="@dimen/dp40"
-                android:text="2"
-                android:gravity="center"
-                android:textSize="@dimen/sp18"
-                android:background="@drawable/inactive_progress"
-                android:textStyle="bold"
-                android:textColor="@color/black"/>
-            <View
-                android:layout_width="@dimen/dp30"
-                android:layout_height="@dimen/dp2"
-                android:background="@color/lightbrown"/>
-            <TextView
-                android:layout_width="@dimen/dp40"
-                android:layout_height="@dimen/dp40"
-                android:text="3"
-                android:gravity="center"
-                android:textSize="@dimen/sp18"
-                android:background="@drawable/active_progress"
-                android:textStyle="bold"
-                android:textColor="@color/black"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cnic_front_image"
+                android:layout_marginTop="@dimen/dp24"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp16"
+                android:textStyle="bold" />
+
+
+            <ImageView
+                android:id="@+id/imgcnic"
+                android:layout_width="@dimen/dp120"
+                android:layout_height="@dimen/dp120"
+                android:layout_margin="@dimen/dp8"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_add_photo"
+                />
+
+            <Button
+                android:id="@+id/btnNext"
+                android:layout_width="@dimen/dp220"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp16"
+                android:background="@drawable/btnborder"
+                android:layout_marginBottom="@dimen/dp16"
+                android:text="next" />
         </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Owner_profile_image"
-            android:layout_marginTop="@dimen/dp32"
-            android:textColor="@color/black"
-            android:textSize="@dimen/sp16"
-            android:textStyle="bold" />
-
-        <ImageView
-            android:id="@+id/profileImage"
-            android:layout_width="@dimen/dp150"
-            android:layout_height="@dimen/dp150"
-            android:layout_margin="@dimen/dp8"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_add_photo"
-            />
-
-   <!-- <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profileImage"
-        android:layout_width="@dimen/dp150"
-        android:layout_height="@dimen/dp150"
-        android:layout_marginTop="@dimen/dp8"
-        android:src="@drawable/ic_add_photo" />-->
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/cnic_front_image"
-            android:layout_marginTop="@dimen/dp24"
-            android:textColor="@color/black"
-            android:textSize="@dimen/sp16"
-            android:textStyle="bold" />
+    </ScrollView>
 
 
-    <ImageView
-            android:id="@+id/imgcnic"
-            android:layout_width="@dimen/dp150"
-            android:layout_height="@dimen/dp150"
-            android:layout_margin="@dimen/dp8"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_add_photo"
-            />
-
-        <Button
-            android:id="@+id/btnNext"
-            android:layout_width="@dimen/dp220"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp16"
-            android:background="@drawable/btnborder"
-            android:text="next" />
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
