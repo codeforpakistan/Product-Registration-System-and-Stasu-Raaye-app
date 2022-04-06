@@ -1,6 +1,7 @@
 package com.example.halalfoodauthorityoss;
 
 import com.example.halalfoodauthorityoss.fragments.Favorite;
+import com.example.halalfoodauthorityoss.model.BusinessNameForRoom;
 import com.example.halalfoodauthorityoss.model.Business_Reviews_Response_Model;
 import com.example.halalfoodauthorityoss.model.FavoriteModel;
 import com.example.halalfoodauthorityoss.model.FeedBack_Attachements;
@@ -234,5 +235,11 @@ public interface Interface {
     Call<Model> Prodcut_Renewal(
             @Field("cust_id") int cust_id,
             @Field("r_application_id") int r_application_id
+    );
+
+    @FormUrlEncoded
+    @POST("business_name_get_all")
+    Call<BusinessNameForRoom> BusinessNameSave(
+            @Field("cust_id") String cust_id
     );
 }

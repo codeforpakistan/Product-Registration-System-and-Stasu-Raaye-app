@@ -2,10 +2,10 @@ package com.example.halalfoodauthorityoss.fragments;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,48 +17,44 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.halalfoodauthorityoss.BaseClass;
+import com.example.halalfoodauthorityoss.DatabaseClass;
 import com.example.halalfoodauthorityoss.R;
-import com.example.halalfoodauthorityoss.adapter.ImagesAdapter;
+import com.example.halalfoodauthorityoss.adapter.QuickSearchAdapter;
 import com.example.halalfoodauthorityoss.adapter.SliderAdapter;
 import com.example.halalfoodauthorityoss.businesslicense.Personal_Detail;
 import com.example.halalfoodauthorityoss.complaint.Complaint;
-import com.example.halalfoodauthorityoss.complaint.Complaint_Details;
-import com.example.halalfoodauthorityoss.model.Model;
-import com.example.halalfoodauthorityoss.model.UserResponseModel;
+import com.example.halalfoodauthorityoss.model.RoomModel;
 import com.example.halalfoodauthorityoss.productregistration.ProductRegistration;
 import com.example.halalfoodauthorityoss.searchresult.SearchResult;
-import com.example.halalfoodauthorityoss.useractivity.Business_License_Details;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class Home extends Fragment {
 
     public static int category_id = 0;
     public static int district_id = 0;
     public static String name = " ";
+    final long DELAY_MS = 1000;
+    final long PERIOD_MS = 5000;
     EditText edtSearch;
     ImageView icSearch, icFilter;
     LinearLayout businessregister, productregister, complaint, feedback, training, documents;
-
+    ViewPager viewPager;
+    ArrayList<String> businessList = new ArrayList<>();
+    RecyclerView recyclerView;
+    QuickSearchAdapter quickSearchAdapter;
     int currentPage = 0;
     Timer timer;
-    final long DELAY_MS = 1000;//delay in milliseconds before task is to be executed
-    final long PERIOD_MS = 5000; // time in milliseconds between successive task executions.
-
-
+    private List<RoomModel> list;
 
     public Home() {
         // Required empty public constructor
@@ -86,8 +82,40 @@ public class Home extends Fragment {
         feedback = view.findViewById(R.id.feedback);
         training = view.findViewById(R.id.training);
         documents = view.findViewById(R.id.documents);
+        recyclerView =view.findViewById(R.id.recyclerview);
+        viewPager = view.findViewById(R.id.viewPager);
 
-        SetSLiderImages(view);
+        SetSLiderImages();
+
+        getData();
+
+        edtSearch.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
+                // When user changed the Text
+                if (cs.length()>=3)
+                {
+                    recyclerView.setVisibility(View.VISIBLE);
+                    quickSearchAdapter.getFilter().filter(cs);
+                }
+                else {
+                    recyclerView.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+                                          int arg3) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable arg0) {
+                // TODO Auto-generated method stub
+            }
+        });
 
         businessregister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,28 +145,28 @@ public class Home extends Fragment {
         training.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                        Dialog RenewBusinessDialogue = new Dialog(getActivity());
-                        RenewBusinessDialogue.setContentView(R.layout.permission_dialogue);
-                        RenewBusinessDialogue.setCancelable(false);
-                        TextView txtText = RenewBusinessDialogue.findViewById(R.id.txtText);
-                        txtText.setText("We are working on this feature.");
-                        TextView yes = RenewBusinessDialogue.findViewById(R.id.Yes);
-                        yes.setText("OK");
-                        TextView no = RenewBusinessDialogue.findViewById(R.id.No);
-                        no.setVisibility(View.GONE);
-                        yes.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                RenewBusinessDialogue.dismiss();
-                            }
-                        });
-                        no.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                RenewBusinessDialogue.dismiss();
-                            }
-                        });
-                        RenewBusinessDialogue.show();
+                Dialog RenewBusinessDialogue = new Dialog(getActivity());
+                RenewBusinessDialogue.setContentView(R.layout.permission_dialogue);
+                RenewBusinessDialogue.setCancelable(false);
+                TextView txtText = RenewBusinessDialogue.findViewById(R.id.txtText);
+                txtText.setText("We are working on this feature.");
+                TextView yes = RenewBusinessDialogue.findViewById(R.id.Yes);
+                yes.setText("OK");
+                TextView no = RenewBusinessDialogue.findViewById(R.id.No);
+                no.setVisibility(View.GONE);
+                yes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        RenewBusinessDialogue.dismiss();
+                    }
+                });
+                no.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        RenewBusinessDialogue.dismiss();
+                    }
+                });
+                RenewBusinessDialogue.show();
             }
         });
         documents.setOnClickListener(new View.OnClickListener() {
@@ -147,7 +175,6 @@ public class Home extends Fragment {
 
             }
         });
-
         icSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -159,7 +186,6 @@ public class Home extends Fragment {
                 }
             }
         });
-
         icFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -427,15 +453,14 @@ public class Home extends Fragment {
         return view;
     }
 
-    private void SetSLiderImages(View view) {
-        ViewPager viewPager = view.findViewById(R.id.viewPager);
+    private void SetSLiderImages() {
         SliderAdapter adapter = new SliderAdapter(getActivity());
         viewPager.setAdapter(adapter);
 
         final Handler handler = new Handler();
         final Runnable Update = new Runnable() {
             public void run() {
-                if (currentPage == 4-1) {
+                if (currentPage == 4 - 1) {
                     currentPage = 0;
                 }
                 viewPager.setCurrentItem(currentPage++, true);
@@ -449,5 +474,20 @@ public class Home extends Fragment {
                 handler.post(Update);
             }
         }, DELAY_MS, PERIOD_MS);
+    }
+
+    private void getData() {
+        list = new ArrayList<>();
+        list = DatabaseClass.getDatabase(getActivity()).getDao().getAllData();
+        for (int i = 0; i < list.size(); i++) {
+            businessList.add(list.get(i).getName());
+        }
+        recyclerView.setHasFixedSize(true);
+        SnapHelper snapHelper = new LinearSnapHelper();
+        snapHelper.attachToRecyclerView(recyclerView);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
+        quickSearchAdapter = new QuickSearchAdapter(businessList, getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(quickSearchAdapter);
     }
 }
