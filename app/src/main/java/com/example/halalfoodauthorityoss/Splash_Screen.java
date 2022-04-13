@@ -307,7 +307,6 @@ public class Splash_Screen extends AppCompatActivity {
                         DatabaseClass.getDatabase(getApplicationContext()).getDao().deleteData();
                         int size = list.size();
                         if (businessNameForRoom.success.equals("1")) {
-                            Toast.makeText(Splash_Screen.this, ""+businessNameForRoom.response_msg, Toast.LENGTH_SHORT).show();
                             for (int i = 0; i < size; i++) {
                                 saveData(list.get(i).business_name);
                             }

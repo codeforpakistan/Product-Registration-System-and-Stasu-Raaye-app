@@ -47,7 +47,7 @@ public class Home extends Fragment {
     final long PERIOD_MS = 5000;
     EditText edtSearch;
     ImageView icSearch, icFilter;
-    LinearLayout businessregister, productregister, complaint, feedback, training, documents;
+    LinearLayout businessregister, productregister, complaint/*, feedback*/, training /*, documents*/;
     ViewPager viewPager;
     ArrayList<String> businessList = new ArrayList<>();
     RecyclerView recyclerView;
@@ -79,9 +79,9 @@ public class Home extends Fragment {
         businessregister = view.findViewById(R.id.businessregister);
         productregister = view.findViewById(R.id.productregister);
         complaint = view.findViewById(R.id.complaint);
-        feedback = view.findViewById(R.id.feedback);
+//        feedback = view.findViewById(R.id.feedback);
         training = view.findViewById(R.id.training);
-        documents = view.findViewById(R.id.documents);
+//        documents = view.findViewById(R.id.documents);
         recyclerView =view.findViewById(R.id.recyclerview);
         viewPager = view.findViewById(R.id.viewPager);
 
@@ -136,12 +136,14 @@ public class Home extends Fragment {
                 startActivity(new Intent(getActivity(), Complaint.class));
             }
         });
-        feedback.setOnClickListener(new View.OnClickListener() {
+
+       /* feedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
             }
-        });
+        });*/
+
         training.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -169,12 +171,14 @@ public class Home extends Fragment {
                 RenewBusinessDialogue.show();
             }
         });
-        documents.setOnClickListener(new View.OnClickListener() {
+
+       /* documents.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
             }
-        });
+        });*/
+
         icSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

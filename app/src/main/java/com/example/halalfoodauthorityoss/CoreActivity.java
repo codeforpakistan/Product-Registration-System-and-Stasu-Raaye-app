@@ -1,9 +1,5 @@
 package com.example.halalfoodauthorityoss;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.viewpager.widget.ViewPager;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,24 +11,33 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 import com.example.halalfoodauthorityoss.adapter.PageAdapter;
+import com.example.halalfoodauthorityoss.businesslicense.Personal_Detail;
 import com.example.halalfoodauthorityoss.complaint.Complaint;
 import com.example.halalfoodauthorityoss.loginsignupforgot.Login;
 import com.example.halalfoodauthorityoss.model.AppData;
+import com.example.halalfoodauthorityoss.model.Model;
 import com.example.halalfoodauthorityoss.productregistration.ProductRegistration;
-import com.example.halalfoodauthorityoss.businesslicense.Personal_Detail;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class CoreActivity extends AppCompatActivity {
 
-    FloatingActionButton fabMain,fabFeedback, fabComplaint, fabTraining, fabRegisterProduct,fabRegisterBusiness;
+    FloatingActionButton fabMain, fabFeedback, fabComplaint, fabTraining, fabRegisterProduct, fabRegisterBusiness;
     LinearLayout layoutFeedback, layoutComplaint, layoutTraining, layoutRegisterProduct, layoutRegisterBusiness;
     boolean isFABOpen = false;
     LinearLayout tabMenu;
@@ -40,12 +45,12 @@ public class CoreActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
 
     DrawerLayout navigationdrawer;
-    LinearLayout navSOPs,navActs,navReports,navAboutus;
+    LinearLayout navSOPs, navActs, navReports, navAboutus;
     Button navlogout;
-    ImageView menu;
+    ImageView menu, notification;
     NavigationView navigationView;
     CircleImageView profilePic;
-    TextView txtName,txtNumber;
+    TextView txtName, txtNumber, notification_count;
 
     TabLayout layout;
     ViewPager viewPager;
@@ -53,7 +58,7 @@ public class CoreActivity extends AppCompatActivity {
             R.drawable.ic_home,
             R.drawable.ic_profile,
             R.drawable.ic_favorite
-            };
+    };
 
 
     @Override
@@ -63,26 +68,28 @@ public class CoreActivity extends AppCompatActivity {
 
         initialization();
 
-        layout=findViewById(R.id.layout);
-        viewPager=findViewById(R.id.show);
+        layout = findViewById(R.id.layout);
+        viewPager = findViewById(R.id.show);
 
         for (int i = 0; i < 3; i++) {
             layout.getTabAt(i).setIcon(tabIcons[i]);
         }
 
-        final PageAdapter pageAdapter=new PageAdapter(getSupportFragmentManager(),layout.getTabCount());
+        final PageAdapter pageAdapter = new PageAdapter(getSupportFragmentManager(), layout.getTabCount());
         viewPager.setAdapter(pageAdapter);
         layout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
-                if (tab.getPosition()==0 || tab.getPosition()==1 || tab.getPosition()==2){
+                if (tab.getPosition() == 0 || tab.getPosition() == 1 || tab.getPosition() == 2) {
                     pageAdapter.notifyDataSetChanged();
                 }
             }
+
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
             }
+
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
             }
@@ -91,10 +98,10 @@ public class CoreActivity extends AppCompatActivity {
         fabMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!isFABOpen){
+                if (!isFABOpen) {
                     fabMain.animate().rotation(getResources().getDimension(R.dimen.standard_65));
                     showFABMenu();
-                }else{
+                } else {
                     fabMain.animate().rotation(getResources().getDimension(R.dimen.standard_00));
                     closeFABMenu();
                 }
@@ -130,6 +137,13 @@ public class CoreActivity extends AppCompatActivity {
                 openDrawer();
             }
         });
+
+        notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CoreActivity.this, Notifications.class));
+            }
+        });
         navlogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -139,17 +153,17 @@ public class CoreActivity extends AppCompatActivity {
     }
 
     private void LogOut() {
-        sharedPreferences=getSharedPreferences("Profile",MODE_PRIVATE);
-        editor=sharedPreferences.edit();
+        sharedPreferences = getSharedPreferences("Profile", MODE_PRIVATE);
+        editor = sharedPreferences.edit();
         editor.clear();
         editor.commit();
-        AppData.name=null;
-        AppData.cnic=null;
-        AppData.address="0";
-        AppData.photo="0";
-        AppData.password=null;
-        AppData.mobileNumber=null;
-        Intent intent = new Intent(CoreActivity.this,Login.class);
+        AppData.name = null;
+        AppData.cnic = null;
+        AppData.address = "0";
+        AppData.photo = "0";
+        AppData.password = null;
+        AppData.mobileNumber = null;
+        Intent intent = new Intent(CoreActivity.this, Login.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
@@ -161,17 +175,20 @@ public class CoreActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        menu=findViewById(R.id.menu);
-        navigationdrawer=findViewById(R.id.navigationdrawer);
-        navigationView=findViewById(R.id.navigationview);
-        navlogout=navigationView.findViewById(R.id.navlogout);
-        navSOPs=navigationView.findViewById(R.id.navSOPs);
-        navActs=navigationView.findViewById(R.id.navActs);
-        navReports=navigationView.findViewById(R.id.navReports);
-        navAboutus=navigationView.findViewById(R.id.navAboutus);
-        profilePic=navigationView.findViewById(R.id.profilePic);
-        txtName=navigationView.findViewById(R.id.txtName);
-        txtNumber=navigationView.findViewById(R.id.txtNumber);
+        menu = findViewById(R.id.menu);
+        notification = findViewById(R.id.notification);
+        notification_count = findViewById(R.id.notification_count);
+        Count_Notifications();
+        navigationdrawer = findViewById(R.id.navigationdrawer);
+        navigationView = findViewById(R.id.navigationview);
+        navlogout = navigationView.findViewById(R.id.navlogout);
+        navSOPs = navigationView.findViewById(R.id.navSOPs);
+        navActs = navigationView.findViewById(R.id.navActs);
+        navReports = navigationView.findViewById(R.id.navReports);
+        navAboutus = navigationView.findViewById(R.id.navAboutus);
+        profilePic = navigationView.findViewById(R.id.profilePic);
+        txtName = navigationView.findViewById(R.id.txtName);
+        txtNumber = navigationView.findViewById(R.id.txtNumber);
 
         layoutFeedback = (LinearLayout) findViewById(R.id.layoutFeedback);
         layoutComplaint = (LinearLayout) findViewById(R.id.layoutComplaint);
@@ -190,12 +207,12 @@ public class CoreActivity extends AppCompatActivity {
         if (AppData.photo != "0") {
             String path = "https://halalfoods.testportal.famzsolutions.com/assets/customer_images/" + AppData.photo;
             Glide.with(CoreActivity.this).load(path).into(profilePic);
-        }
-        else {
+        } else {
             profilePic.setImageResource(R.drawable.ic_human);
         }
         txtName.setText(AppData.name);
         txtNumber.setText(AppData.mobileNumber);
+
 
       /*  one=findViewById(R.id.one);
         two=findViewById(R.id.two);
@@ -203,8 +220,37 @@ public class CoreActivity extends AppCompatActivity {
         five=findViewById(R.id.five);*/
     }
 
-    private void showFABMenu(){
-        isFABOpen=true;
+    private void Count_Notifications() {
+
+        Call<Model> call = BaseClass
+                .getInstance()
+                .getApi()
+                .GetNotificationsCount(AppData.id);
+
+        call.enqueue(new Callback<Model>() {
+            @Override
+            public void onResponse(Call<Model> call, Response<Model> response) {
+                if (response.isSuccessful()) {
+                    Model model = response.body();
+                    if (model.success.equals("1")) {
+                        if (!model.unseen_notifications.equals("0")) {
+                            notification_count.setText(model.unseen_notifications);
+                            notification_count.setVisibility(View.VISIBLE);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Model> call, Throwable t) {
+                Toast.makeText(CoreActivity.this, "No Response", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    private void showFABMenu() {
+        isFABOpen = true;
         tabMenu.setVisibility(View.VISIBLE);
         layoutFeedback.setVisibility(View.VISIBLE);
         layoutComplaint.setVisibility(View.VISIBLE);
@@ -213,15 +259,16 @@ public class CoreActivity extends AppCompatActivity {
         layoutRegisterBusiness.setVisibility(View.VISIBLE);
     }
 
-    private void closeFABMenu(){
-        isFABOpen=false;
+    private void closeFABMenu() {
+        isFABOpen = false;
         tabMenu.setVisibility(View.INVISIBLE);
       /*  layoutFeedback.setVisibility(View.GONE);
         layoutComplaint.setVisibility(View.GONE);
         layoutTraining.setVisibility(View.GONE);
         layoutRegisterProduct.setVisibility(View.GONE);
         layoutRegisterBusiness.setVisibility(View.GONE);*/
-}
+    }
+
     @Override
     public void onBackPressed() {
         if (isFABOpen) {
@@ -231,7 +278,8 @@ public class CoreActivity extends AppCompatActivity {
             finish();
         }
     }
-      @SuppressLint("WrongConstant")
+
+    @SuppressLint("WrongConstant")
     public void openDrawer() {
         navigationdrawer.openDrawer(Gravity.START);
     }

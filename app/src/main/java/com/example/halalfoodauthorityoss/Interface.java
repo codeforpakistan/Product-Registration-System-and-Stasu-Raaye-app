@@ -7,6 +7,7 @@ import com.example.halalfoodauthorityoss.model.FavoriteModel;
 import com.example.halalfoodauthorityoss.model.FeedBack_Attachements;
 import com.example.halalfoodauthorityoss.model.LoginResponse;
 import com.example.halalfoodauthorityoss.model.Model;
+import com.example.halalfoodauthorityoss.model.NotificationsModel;
 import com.example.halalfoodauthorityoss.model.ProductModel;
 import com.example.halalfoodauthorityoss.model.Product_Detail_Model;
 import com.example.halalfoodauthorityoss.model.SearchResponseModel;
@@ -241,5 +242,27 @@ public interface Interface {
     @POST("business_name_get_all")
     Call<BusinessNameForRoom> BusinessNameSave(
             @Field("cust_id") String cust_id
+    );
+    @FormUrlEncoded
+    @POST("customer_notifications_get")
+    Call<NotificationsModel> GetNotifications(
+            @Field("cust_id") int cust_id
+    );
+    @FormUrlEncoded
+    @POST("customer_notifications_count")
+    Call<Model> GetNotificationsCount(
+            @Field("cust_id") int cust_id
+    );
+    @FormUrlEncoded
+    @POST("customer_notification_mark_read")
+    Call<Model> GetNotificationsMark(
+            @Field("cust_id") int cust_id,
+            @Field("notification_id") int notification_id
+    );
+    @FormUrlEncoded
+    @POST("customer_notification_delete")
+    Call<Model> GetNotificationsDelete(
+            @Field("cust_id") int cust_id,
+            @Field("notification_id") int notification_id
     );
 }

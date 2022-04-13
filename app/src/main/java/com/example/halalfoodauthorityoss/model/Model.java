@@ -1,11 +1,8 @@
 package com.example.halalfoodauthorityoss.model;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.io.File;
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class Model implements Serializable {
     @SerializedName("name")
@@ -80,6 +77,23 @@ public class Model implements Serializable {
     public String product_license_expiry;
     @SerializedName("eng_comment")
     public String eng_comment;
+
+    @SerializedName("notification_id")
+    public String notification_id;
+    @SerializedName("notification_title")
+    public String notification_title;
+    @SerializedName("notification_description")
+    public String notification_description;
+    @SerializedName("notification_link")
+    public String notification_link;
+    @SerializedName("notification_type")
+    public String notification_type;
+    @SerializedName("notification_timestamp")
+    public String notification_timestamp;
+    @SerializedName("unseen_notifications")
+    public String unseen_notifications;
+    @SerializedName("notification_status")
+    public String notification_status;
 
     /*Feedback Fields*/
     @SerializedName("customer_name")
@@ -162,6 +176,97 @@ public class Model implements Serializable {
     public String DOC;
 
 
+    public Model(String cid, String cust_id, String district, String create_date, String status, String comp_buss_name, String complaintTitle, String complaintDescription, String address, String eng_comment) {
+        this.cid = cid;
+        this.cust_id = cust_id;
+        this.district = district;
+        this.create_date = create_date;
+        this.status = status;
+        this.comp_buss_name = comp_buss_name;
+        ComplaintTitle = complaintTitle;
+        ComplaintDescription = complaintDescription;
+        Address = address;
+        this.eng_comment = eng_comment;
+    }
+
+    public Model(String userId, String owner_name, String FName, String CNIC, String mobile, String address, String bussnie_name, String register_Date, String type, String startDate, String licNo, String expireDate, String issueDate, String distric_name, String expiry_days_remaining, String r_application_id) {
+        UserId = userId;
+        this.owner_name = owner_name;
+        this.FName = FName;
+        this.CNIC = CNIC;
+        Mobile = mobile;
+        Address = address;
+        this.bussnie_name = bussnie_name;
+        Register_Date = register_Date;
+        Type = type;
+        StartDate = startDate;
+        LicNo = licNo;
+        ExpireDate = expireDate;
+        IssueDate = issueDate;
+        this.distric_name = distric_name;
+        this.expiry_days_remaining = expiry_days_remaining;
+        this.r_application_id = r_application_id;
+    }
+
+    public Model(String business_id, String business_name, String address, String register_Date, String distric_name, String AverageRating) {
+        this.business_id = business_id;
+        this.business_name = business_name;
+        Address = address;
+        Register_Date = register_Date;
+        this.distric_name = distric_name;
+        this.AverageRating = AverageRating;
+
+    }
+
+    public Model(String business_rating_id, String cust_id, String customer_name, String customer_photo, String feedback, String overall_rating, String timestamp, String premises_hygiene, String equipment_hygiene, String staff_personal_hygiene, String food_hygiene, String food_quality) {
+        this.business_rating_id = business_rating_id;
+        this.cust_id = cust_id;
+        this.customer_name = customer_name;
+        this.customer_photo = customer_photo;
+        this.feedback = feedback;
+        this.overall_rating = overall_rating;
+        this.timestamp = timestamp;
+        this.premises_hygiene = premises_hygiene;
+        this.equipment_hygiene = equipment_hygiene;
+        this.staff_personal_hygiene = staff_personal_hygiene;
+        this.food_hygiene = food_hygiene;
+        this.food_quality = food_quality;
+    }
+
+    public Model(String business_id, String business_name, String timestamp, String average_rating, String district_name, String favourite_id, String business_type) {
+        this.business_id = business_id;
+        this.business_name = business_name;
+        this.timestamp = timestamp;
+        this.average_rating = average_rating;
+        this.district_name = district_name;
+        this.favourite_id = favourite_id;
+        this.business_type = business_type;
+    }
+
+    public Model(String productNameReq, String productNameApp, String procLvl, String r_application_id, String business_id, String business_name, String cust_id, String expireDate) {
+        ProductNameReq = productNameReq;
+        ProductNameApp = productNameApp;
+        ProcLvl = procLvl;
+        this.r_application_id = r_application_id;
+        this.business_id = business_id;
+        this.business_name = business_name;
+        this.cust_id = cust_id;
+        ExpireDate = expireDate;
+    }
+
+    public Model(String notification_id, String notification_title, String notification_description, String notification_link, String notification_type, String notification_status, String notification_timestamp, String a2, String a3) {
+        this.notification_id = notification_id;
+        this.notification_title = notification_title;
+        this.notification_description = notification_description;
+        this.notification_link = notification_link;
+        this.notification_type = notification_type;
+        this.notification_status = notification_status;
+        this.notification_timestamp = notification_timestamp;
+    }
+
+    public Model(String path) {
+        Path = path;
+    }
 
     public String getPath() {
         return Path;
@@ -213,87 +318,5 @@ public class Model implements Serializable {
 
     public String getPassword() {
         return password;
-    }
-
-
-    public Model(String cid, String cust_id, String district, String create_date, String status, String comp_buss_name, String complaintTitle, String complaintDescription, String address, String eng_comment) {
-        this.cid = cid;
-        this.cust_id = cust_id;
-        this.district = district;
-        this.create_date = create_date;
-        this.status = status;
-        this.comp_buss_name = comp_buss_name;
-        ComplaintTitle = complaintTitle;
-        ComplaintDescription = complaintDescription;
-        Address = address;
-        this.eng_comment = eng_comment;
-    }
-
-    public Model(String userId, String owner_name, String FName, String CNIC, String mobile, String address, String bussnie_name, String register_Date, String type, String startDate, String licNo, String expireDate, String issueDate, String distric_name,String expiry_days_remaining, String r_application_id) {
-        UserId = userId;
-        this.owner_name = owner_name;
-        this.FName = FName;
-        this.CNIC = CNIC;
-        Mobile = mobile;
-        Address = address;
-        this.bussnie_name = bussnie_name;
-        Register_Date = register_Date;
-        Type = type;
-        StartDate = startDate;
-        LicNo = licNo;
-        ExpireDate = expireDate;
-        IssueDate = issueDate;
-        this.distric_name = distric_name;
-        this.expiry_days_remaining = expiry_days_remaining;
-        this.r_application_id = r_application_id;
-    }
-
-    public Model(String business_id, String business_name, String address, String register_Date, String district_name, String AverageRating) {
-        this.business_id = business_id;
-        this.business_name = business_name;
-        Address = address;
-        Register_Date = register_Date;
-        this.district_name = district_name;
-        this.AverageRating = AverageRating;
-
-    }
-
-    public Model(String business_rating_id,String cust_id, String customer_name, String customer_photo, String feedback, String overall_rating, String timestamp, String premises_hygiene, String equipment_hygiene, String staff_personal_hygiene, String food_hygiene, String food_quality) {
-        this.business_rating_id = business_rating_id;
-        this.cust_id = cust_id;
-        this.customer_name = customer_name;
-        this.customer_photo = customer_photo;
-        this.feedback = feedback;
-        this.overall_rating = overall_rating;
-        this.timestamp = timestamp;
-        this.premises_hygiene = premises_hygiene;
-        this.equipment_hygiene = equipment_hygiene;
-        this.staff_personal_hygiene = staff_personal_hygiene;
-        this.food_hygiene = food_hygiene;
-        this.food_quality = food_quality;
-    }
-
-    public Model(String business_id, String business_name, String timestamp, String average_rating, String district_name, String favourite_id, String business_type) {
-        this.business_id = business_id;
-        this.business_name = business_name;
-        this.timestamp = timestamp;
-        this.average_rating = average_rating;
-        this.district_name = district_name;
-        this.favourite_id = favourite_id;
-        this.business_type = business_type;
-    }
-    public Model(String productNameReq, String productNameApp, String procLvl, String r_application_id, String business_id, String business_name, String cust_id,String expireDate) {
-        ProductNameReq = productNameReq;
-        ProductNameApp = productNameApp;
-        ProcLvl = procLvl;
-        this.r_application_id = r_application_id;
-        this.business_id = business_id;
-        this.business_name = business_name;
-        this.cust_id = cust_id;
-        ExpireDate = expireDate;
-    }
-
-    public Model(String path) {
-        Path = path;
     }
 }

@@ -63,9 +63,11 @@ public class MyComplaints extends AppCompatActivity {
                         recyclerView.setAdapter(complaintAdapter);
                         progressDialog.dismiss();
                     } else {
+                        progressDialog.dismiss();
                         Toast.makeText(MyComplaints.this, "Cann't Get Complaints", Toast.LENGTH_LONG).show();
                     }
                 } else {
+                    progressDialog.dismiss();
                     Toast.makeText(MyComplaints.this, "Not Successful", Toast.LENGTH_SHORT).show();
                 }
             }

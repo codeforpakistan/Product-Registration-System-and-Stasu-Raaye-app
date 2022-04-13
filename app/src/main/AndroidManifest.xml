@@ -22,7 +22,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HalalFoodAuthorityOSS"
         android:usesCleartextTraffic="true">
-        <activity android:name=".productregistration.Product_Details"></activity>
+        <activity android:name=".Notifications"></activity>
+        <activity android:name=".productregistration.Product_Details" />
         <activity android:name=".complaint.Complaint_Status" />
         <activity android:name=".loginsignupforgot.Authentication" />
         <activity android:name=".searchresult.User_Rating" />

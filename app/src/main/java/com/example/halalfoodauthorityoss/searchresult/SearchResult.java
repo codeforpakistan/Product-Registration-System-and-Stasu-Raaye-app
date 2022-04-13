@@ -53,7 +53,7 @@ public class SearchResult extends AppCompatActivity {
                 List<Model> list = searchResponseModel.getBusinesses();
                 if (list!=null)
                 {
-                int size = list.size();
+                    int size = list.size();
                     if (searchResponseModel.success.equals("1")) {
                         Toast.makeText(SearchResult.this, ""+searchResponseModel.message, Toast.LENGTH_SHORT).show();
                         for (int i = 0; i < size; i++) {
