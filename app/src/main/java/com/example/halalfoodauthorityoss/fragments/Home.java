@@ -23,18 +23,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.halalfoodauthorityoss.DatabaseClass;
 import com.example.halalfoodauthorityoss.R;
+import com.example.halalfoodauthorityoss.Splash_Screen;
 import com.example.halalfoodauthorityoss.adapter.QuickSearchAdapter;
 import com.example.halalfoodauthorityoss.adapter.SliderAdapter;
 import com.example.halalfoodauthorityoss.businesslicense.Personal_Detail;
 import com.example.halalfoodauthorityoss.complaint.Complaint;
-import com.example.halalfoodauthorityoss.model.RoomModel;
 import com.example.halalfoodauthorityoss.productregistration.ProductRegistration;
 import com.example.halalfoodauthorityoss.searchresult.SearchResult;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -43,18 +40,14 @@ public class Home extends Fragment {
     public static int category_id = 0;
     public static int district_id = 0;
     public static String name = " ";
-    final long DELAY_MS = 1000;
-    final long PERIOD_MS = 5000;
     EditText edtSearch;
     ImageView icSearch, icFilter;
-    LinearLayout businessregister, productregister, complaint/*, feedback*/, training /*, documents*/;
+    LinearLayout businessregister, productregister, complaint, training;
     ViewPager viewPager;
-    ArrayList<String> businessList = new ArrayList<>();
     RecyclerView recyclerView;
     QuickSearchAdapter quickSearchAdapter;
     int currentPage = 0;
     Timer timer;
-    private List<RoomModel> list;
 
     public Home() {
         // Required empty public constructor
@@ -79,27 +72,29 @@ public class Home extends Fragment {
         businessregister = view.findViewById(R.id.businessregister);
         productregister = view.findViewById(R.id.productregister);
         complaint = view.findViewById(R.id.complaint);
-//        feedback = view.findViewById(R.id.feedback);
         training = view.findViewById(R.id.training);
-//        documents = view.findViewById(R.id.documents);
-        recyclerView =view.findViewById(R.id.recyclerview);
+        recyclerView = view.findViewById(R.id.recyclerview);
         viewPager = view.findViewById(R.id.viewPager);
 
-        SetSLiderImages();
+        recyclerView.setHasFixedSize(true);
+        SnapHelper snapHelper = new LinearSnapHelper();
+        snapHelper.attachToRecyclerView(recyclerView);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
+        quickSearchAdapter = new QuickSearchAdapter(Splash_Screen.modelList, getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(quickSearchAdapter);
 
-        getData();
+        SetSLiderImages();
 
         edtSearch.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
                 // When user changed the Text
-                if (cs.length()>=3)
-                {
+                if (cs.length() >= 3) {
                     recyclerView.setVisibility(View.VISIBLE);
                     quickSearchAdapter.getFilter().filter(cs);
-                }
-                else {
+                } else {
                     recyclerView.setVisibility(View.GONE);
                 }
             }
@@ -116,7 +111,6 @@ public class Home extends Fragment {
                 // TODO Auto-generated method stub
             }
         });
-
         businessregister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -136,14 +130,6 @@ public class Home extends Fragment {
                 startActivity(new Intent(getActivity(), Complaint.class));
             }
         });
-
-       /* feedback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });*/
-
         training.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -171,14 +157,6 @@ public class Home extends Fragment {
                 RenewBusinessDialogue.show();
             }
         });
-
-       /* documents.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });*/
-
         icSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -302,12 +280,28 @@ public class Home extends Fragment {
                     @Override
                     public void onClick(View view) {
                         name = edtSearch.getText().toString();
-                        if (!name.equals("") || district_id != 0 || category_id != 0) {
+                        if (!name.equals("")) {
+                            if (category_id != 0 || district_id != 0) {
+                                Intent intent = new Intent(getActivity(), SearchResult.class);
+                                startActivity(intent);
+                                searchDialogue.dismiss();
+                                return;
+                            } else {
+                                Toast.makeText(getActivity(), "Select district OR Category", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                        }
+                        if (category_id == 0) {
+                            Toast.makeText(getActivity(), "Select Category", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        if (district_id == 0) {
+                            Toast.makeText(getActivity(), "Select District", Toast.LENGTH_SHORT).show();
+                            return;
+                        } else {
                             Intent intent = new Intent(getActivity(), SearchResult.class);
                             startActivity(intent);
                             searchDialogue.dismiss();
-                        } else {
-                            Toast.makeText(getActivity(), "Select Choice", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -477,21 +471,6 @@ public class Home extends Fragment {
             public void run() {
                 handler.post(Update);
             }
-        }, DELAY_MS, PERIOD_MS);
-    }
-
-    private void getData() {
-        list = new ArrayList<>();
-        list = DatabaseClass.getDatabase(getActivity()).getDao().getAllData();
-        for (int i = 0; i < list.size(); i++) {
-            businessList.add(list.get(i).getName());
-        }
-        recyclerView.setHasFixedSize(true);
-        SnapHelper snapHelper = new LinearSnapHelper();
-        snapHelper.attachToRecyclerView(recyclerView);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
-        quickSearchAdapter = new QuickSearchAdapter(businessList, getActivity());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(quickSearchAdapter);
+        }, 1000, 5000);
     }
 }

@@ -1,7 +1,6 @@
 package com.example.halalfoodauthorityoss.loginsignupforgot;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -14,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.halalfoodauthorityoss.BaseClass;
@@ -49,11 +47,9 @@ public class Forgot_Passoword extends AppCompatActivity {
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (checkBox.isChecked())
-                {
+                if (checkBox.isChecked()) {
                     layout.setHint("AFG No(without-dashes)");
-                }
-                else {
+                } else {
                     layout.setHint("CNIC(without-dashes)");
                 }
             }
@@ -114,8 +110,7 @@ public class Forgot_Passoword extends AppCompatActivity {
 
                 String cnicNo = edtcnic.getText().toString().trim();
 
-                if (cnicNo.length()<13 || cnicNo.length()>13 || cnicNo.equals(""))
-                {
+                if (cnicNo.length() < 13 || cnicNo.length() > 13 || cnicNo.equals("")) {
                     edtcnic.setError("Invalid CNIC");
                     return;
                 }
@@ -171,14 +166,14 @@ public class Forgot_Passoword extends AppCompatActivity {
     private void DialogBOX(String c_mobile) {
         Dialog dialoguebox = new Dialog(Forgot_Passoword.this);
         dialoguebox.setContentView(R.layout.dialogue_box);
-        dialoguebox.setCancelable(true);
+        dialoguebox.setCancelable(false);
         TextView txtalert = dialoguebox.findViewById(R.id.txtalert);
         TextView message = dialoguebox.findViewById(R.id.txtmessage);
         TextView ok = dialoguebox.findViewById(R.id.ok);
         String number = c_mobile.substring(8, 11);
 
         txtalert.setText("Alert!");
-        message.setText("Password has been sent on your number ********"+number);
+        message.setText("Password has been sent on your number ********" + number);
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -201,15 +196,15 @@ public class Forgot_Passoword extends AppCompatActivity {
         call.enqueue(new Callback<Model>() {
             @Override
             public void onResponse(Call<Model> call, Response<Model> response) {
-                if(response.isSuccessful()){
-                Model model = response.body();
-                if (!model.equals(null)) {
-                    if (model.getSuccess().equals("Valid user")) {
-                        DialogBOX(model.c_mobile);
-                    } else {
-                        Toast.makeText(Forgot_Passoword.this, "Record not found", Toast.LENGTH_SHORT).show();
+                if (response.isSuccessful()) {
+                    Model model = response.body();
+                    if (!model.equals(null)) {
+                        if (model.getSuccess().equals("Valid user")) {
+                            DialogBOX(model.c_mobile);
+                        } else {
+                            Toast.makeText(Forgot_Passoword.this, "Record not found", Toast.LENGTH_SHORT).show();
+                        }
                     }
-                }
                 }
             }
 

@@ -17,9 +17,11 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.halalfoodauthorityoss.BaseClass;
 import com.example.halalfoodauthorityoss.R;
 import com.example.halalfoodauthorityoss.complaint.Complaint_Details;
+import com.example.halalfoodauthorityoss.loginsignupforgot.UpdateProfile;
 import com.example.halalfoodauthorityoss.model.AppData;
 import com.example.halalfoodauthorityoss.model.FeedBack_Attachements;
 import com.example.halalfoodauthorityoss.model.Model;
@@ -56,6 +58,13 @@ public class Reviews_Adapter extends RecyclerView.Adapter<Reviews_Adapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Model model = list.get(position);
+        if (model.customer_photo != null) {
+            String path = "" + model.customer_photo;
+            Glide.with(context).load(path).into(holder.profilePic);
+        }
+        else {
+            holder.profilePic.setImageResource(R.drawable.ic_human);
+        }
         holder.txtName.setText(model.customer_name);
         holder.txtRating.setText(model.overall_rating);
         holder.txtReviews.setText(model.feedback);
@@ -115,8 +124,6 @@ public class Reviews_Adapter extends RecyclerView.Adapter<Reviews_Adapter.ViewHo
                                 holder.imageRecycler.setAdapter(imagesAdapter);
                                 holder.imageRecycler.setLayoutManager(new GridLayoutManager(context, 4));
                                 imagesAdapter.notifyDataSetChanged();
-                      /*  recyclerView.setLayoutManager(new GridLayoutManager(context, 4));
-                        imagesAdapter.notifyDataSetChanged();*/
                             } else {
                                 Toast.makeText(context, "Cann't Get Images", Toast.LENGTH_LONG).show();
                             }
@@ -133,66 +140,6 @@ public class Reviews_Adapter extends RecyclerView.Adapter<Reviews_Adapter.ViewHo
                 });
             }
         });
-
-       /* Call<FeedBack_Attachements> call = BaseClass
-                .getInstance()
-                .getApi()
-                .GetFeedbackAttachments(AppData.id, Integer.parseInt(model.business_rating_id));
-        call.enqueue(new Callback<FeedBack_Attachements>() {
-            @Override
-            public void onResponse(Call<FeedBack_Attachements> call, Response<FeedBack_Attachements> response) {
-                FeedBack_Attachements feedBack_attachements = response.body();
-                List<Model> list = feedBack_attachements.getAttachments();
-                int size = list.size();
-                if (response.isSuccessful()) {
-                    if (feedBack_attachements.success.equals("1")) {
-                        for (int i = 0; i < size; i++) {
-                            imagesUriArrayList.add(Uri.parse(list.get(i).Path));
-                            Toast.makeText(context, ""+list.get(i).Path, Toast.LENGTH_SHORT).show();
-                        }
-                        recyclerView.setHasFixedSize(true);
-                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
-                        imagesAdapter = new ImagesAdapter(imagesUriArrayList, context, "feedbackImages");
-                        recyclerView.setLayoutManager(layoutManager);
-                        recyclerView.setAdapter(imagesAdapter);
-                      *//*  recyclerView.setLayoutManager(new GridLayoutManager(context, 4));
-                        imagesAdapter.notifyDataSetChanged();*//*
-                    } else {
-                        Toast.makeText(context, "Cann't Get Images", Toast.LENGTH_LONG).show();
-                    }
-                } else {
-                    Toast.makeText(context, "Not Successful", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<FeedBack_Attachements> call, Throwable t) {
-                Toast.makeText(context, "No Response", Toast.LENGTH_SHORT).show();
-                Log.d("aaaaaa", call.request().toString());
-            }
-        });*/
-
-
-
-     /*   holder.txtBussName.setText(model.business_name);
-        holder.txtDistrict.setText(model.distric_name);
-        holder.txtRating.setText(model.AverageRating);
-        String firstWord = model.Register_Date;
-        holder.regDate.setText("Registered Since: " + firstWord);*/
-
-
-       /* holder.mLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               *//* Bundle bundle = new Bundle();
-                bundle.putSerializable("ModelBusiness", (Serializable) model);*//*
-                Intent intent = new Intent(context, Feedback_Reviews.class);
-                //  intent.putExtras(bundle);
-                context.startActivity(intent);
-
-            }
-        });
-*/
     }
 
     @Override

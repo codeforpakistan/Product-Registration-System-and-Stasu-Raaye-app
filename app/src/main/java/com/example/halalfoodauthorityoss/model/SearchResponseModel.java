@@ -12,15 +12,8 @@ public class SearchResponseModel {
     @SerializedName("message")
     public String message;
 
-    public String getSuccess() {
-        return success;
-    }
-
     public List<Model> getBusinesses() {
         return businesses;
     }
 
-    public String getMessage() {
-        return message;
-    }
 }

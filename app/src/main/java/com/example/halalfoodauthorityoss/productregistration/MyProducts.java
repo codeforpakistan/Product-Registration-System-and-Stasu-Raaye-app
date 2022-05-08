@@ -32,6 +32,7 @@ public class MyProducts extends AppCompatActivity {
     List<Model> modelList = new ArrayList<Model>();
     ProgressDialog progressDialog;
     ImageView ic_back;
+    public static MyProducts fa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,14 +57,14 @@ public class MyProducts extends AppCompatActivity {
             @Override
             public void onResponse(Call<ProductModel> call, Response<ProductModel> response) {
                 ProductModel productModel = response.body();
-                List<Model> list = productModel.getProducts();
                 if (response.isSuccessful()) {
                     if (productModel.success.equals("1")) {
+                        List<Model> list = productModel.getProducts();
                         int size = list.size();
                         for (int i = 0; i < size; i++) {
                             modelList.add(new Model(list.get(i).ProductNameReq, list.get(i).ProductNameApp, list.get(i).ProcLvl,
                                     list.get(i).r_application_id, list.get(i).business_id, list.get(i).business_name, list.get(i).cust_id, list.get(i).ExpireDate
-                                    ));
+                            ));
                         }
                         recyclerView.setHasFixedSize(true);
                         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MyProducts.this, RecyclerView.VERTICAL, false);
@@ -95,6 +96,7 @@ public class MyProducts extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        fa=this;
         recyclerView = findViewById(R.id.recyclerView);
         ic_back = findViewById(R.id.ic_back);
         progressDialog = new ProgressDialog(this);

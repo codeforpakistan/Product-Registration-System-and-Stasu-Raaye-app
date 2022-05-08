@@ -1,7 +1,6 @@
 package com.example.halalfoodauthorityoss;
 
-import com.example.halalfoodauthorityoss.fragments.Favorite;
-import com.example.halalfoodauthorityoss.model.BusinessNameForRoom;
+import com.example.halalfoodauthorityoss.model.BusinessNameForSearch;
 import com.example.halalfoodauthorityoss.model.Business_Reviews_Response_Model;
 import com.example.halalfoodauthorityoss.model.FavoriteModel;
 import com.example.halalfoodauthorityoss.model.FeedBack_Attachements;
@@ -13,13 +12,10 @@ import com.example.halalfoodauthorityoss.model.Product_Detail_Model;
 import com.example.halalfoodauthorityoss.model.SearchResponseModel;
 import com.example.halalfoodauthorityoss.model.UserResponseModel;
 
-import java.sql.Array;
-import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -66,8 +62,8 @@ public interface Interface {
             @Field("bussiness_category") int bussiness_category,
             @Field("DistrictId") int DistrictId,
             @Field("bussiness_address") String bussiness_address,
-            @Field("latitude") float latitude,
-            @Field("longitude") float longitude,
+            @Field("latitude") double latitude,
+            @Field("longitude") double longitude,
             @Field("user_id") int userid,
             @Field("cust_id") int cust_id
     );
@@ -240,7 +236,7 @@ public interface Interface {
 
     @FormUrlEncoded
     @POST("business_name_get_all")
-    Call<BusinessNameForRoom> BusinessNameSave(
+    Call<BusinessNameForSearch> BusinessNameSave(
             @Field("cust_id") String cust_id
     );
     @FormUrlEncoded

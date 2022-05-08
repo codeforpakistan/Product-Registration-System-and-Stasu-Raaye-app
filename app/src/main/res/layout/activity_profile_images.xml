@@ -37,14 +37,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <ImageView
-                        android:id="@+id/ic_back"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:src="@drawable/ic_back"
-                        tools:layout_editor_absoluteX="16dp"
-                        tools:layout_editor_absoluteY="61dp" />
-
                     <TextView
                         android:id="@+id/textView3"
                         android:layout_width="match_parent"

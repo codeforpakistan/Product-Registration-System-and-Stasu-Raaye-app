@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".useractivity.Business_License_Details">
+    tools:context=".mybusinesses.Business_License_Details">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
@@ -116,7 +116,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Durshal"
                         android:textColor="@color/black"
                         android:textSize="@dimen/dp16" />
 
@@ -157,7 +156,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="KPITB"
                         android:textColor="@color/black"
                         android:textSize="@dimen/dp16" />
 
@@ -198,7 +196,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="XYZ"
                         android:textColor="@color/black"
                         android:textSize="@dimen/dp16" />
 
@@ -239,7 +236,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="xxxx-xxxxxxx"
                         android:textColor="@color/black"
                         android:textSize="@dimen/dp16" />
 
@@ -280,7 +276,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="xxxxx-xxxxxxx-x"
                         android:textColor="@color/black"
                         android:textSize="@dimen/dp16" />
 
@@ -321,7 +316,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Peshawar"
                         android:textColor="@color/black"
                         android:textSize="@dimen/dp16" />
 
@@ -402,7 +396,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="XYZ12345"
                         android:textColor="@color/black"
                         android:textSize="@dimen/dp16" />
 
@@ -443,7 +436,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Store"
                         android:textColor="@color/black"
                         android:textSize="@dimen/dp16" />
 
@@ -484,7 +476,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="24/1/2022"
                         android:textColor="@color/black"
                         android:textSize="@dimen/dp16" />
 

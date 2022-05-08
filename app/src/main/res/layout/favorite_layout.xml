@@ -24,7 +24,7 @@
         <LinearLayout
             android:id="@+id/Linearlayout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp150"
+            android:layout_height="@dimen/dp200"
             android:layout_marginTop="@dimen/dp16"
             android:background="@drawable/ic_favorites_card_svg"
             android:orientation="vertical">
@@ -32,26 +32,26 @@
             <TextView
                 android:id="@+id/txtBussName"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp40"
-                android:layout_marginLeft="@dimen/dp50"
+                android:layout_height="@dimen/dp55"
+                android:layout_marginLeft="@dimen/dp40"
                 android:layout_marginTop="@dimen/dp8"
-                android:layout_marginRight="@dimen/dp50"
+                android:layout_marginRight="@dimen/dp40"
                 android:gravity="center"
                 android:text="Business Name"
-                android:textSize="@dimen/sp14"
+                android:textSize="@dimen/sp13"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txtBusinessType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp50"
-                android:layout_marginTop="@dimen/dp16"
-                android:layout_marginRight="@dimen/dp50"
+                android:layout_marginLeft="@dimen/dp40"
+                android:layout_marginRight="@dimen/dp40"
+                android:layout_marginTop="@dimen/dp8"
                 android:gravity="center"
                 android:text="Pepper Lunch"
                 android:textColor="@color/black"
-                android:textSize="@dimen/sp14"
+                android:textSize="@dimen/sp13"
                 android:textStyle="bold" />
 
             <TextView

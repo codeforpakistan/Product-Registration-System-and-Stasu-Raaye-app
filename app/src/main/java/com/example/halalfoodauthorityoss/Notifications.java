@@ -1,9 +1,5 @@
 package com.example.halalfoodauthorityoss;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,13 +9,14 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.halalfoodauthorityoss.adapter.ComplaintAdapter;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.halalfoodauthorityoss.adapter.Notifications_Adapter;
-import com.example.halalfoodauthorityoss.complaint.MyComplaints;
 import com.example.halalfoodauthorityoss.model.AppData;
 import com.example.halalfoodauthorityoss.model.Model;
 import com.example.halalfoodauthorityoss.model.NotificationsModel;
-import com.example.halalfoodauthorityoss.model.UserResponseModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,7 +44,7 @@ public class Notifications extends AppCompatActivity {
         ic_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Notifications.this,CoreActivity.class);
+                Intent intent = new Intent(Notifications.this, CoreActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
@@ -69,7 +66,7 @@ public class Notifications extends AppCompatActivity {
                         int size = list.size();
                         for (int i = 0; i < size; i++) {
                             modelList.add(new Model(list.get(i).notification_id, list.get(i).notification_title, list.get(i).notification_description,
-                                    list.get(i).notification_link, list.get(i).notification_type, list.get(i).notification_status,list.get(i).notification_timestamp,"",""));
+                                    list.get(i).notification_link, list.get(i).notification_type, list.get(i).notification_status, list.get(i).notification_timestamp, "", ""));
                         }
                         recyclerView.setHasFixedSize(true);
                         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(Notifications.this, RecyclerView.VERTICAL, false);
@@ -91,6 +88,7 @@ public class Notifications extends AppCompatActivity {
             @Override
             public void onFailure(Call<NotificationsModel> call, Throwable t) {
                 Toast.makeText(Notifications.this, "No Response", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
                 Log.d("aaaaaa", call.request().toString());
             }
         });
@@ -109,10 +107,11 @@ public class Notifications extends AppCompatActivity {
         progressDialog.setCancelable(false);
         progressDialog.show();
     }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(Notifications.this,CoreActivity.class);
+        Intent intent = new Intent(Notifications.this, CoreActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();

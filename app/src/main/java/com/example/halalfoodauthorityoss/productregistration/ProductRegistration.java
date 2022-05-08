@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +25,7 @@ import retrofit2.Response;
 public class ProductRegistration extends AppCompatActivity {
 
     TextInputEditText edtLicNo, edtProductName;
-    TextView txtBusinessName, Verify, btnRegister,txtInfo;
+    TextView txtBusinessName, Verify, btnRegister, txtInfo;
     int business_id;
     ProgressDialog progressDialog;
 
@@ -34,6 +35,14 @@ public class ProductRegistration extends AppCompatActivity {
         setContentView(R.layout.activity_product_registration);
 
         initialization();
+
+        ImageView ic_back=findViewById(R.id.ic_back);
+        ic_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         Verify.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +64,7 @@ public class ProductRegistration extends AppCompatActivity {
                                 permissionDialogue.setContentView(R.layout.permission_dialogue);
                                 permissionDialogue.setCancelable(false);
                                 TextView txtText = permissionDialogue.findViewById(R.id.txtText);
-                                txtText.setText("Do you want to register your product with business name: "+ model.business_name +"?");
+                                txtText.setText("Do you want to register your product with " + model.business_name + "?");
                                 TextView yes = permissionDialogue.findViewById(R.id.Yes);
                                 TextView no = permissionDialogue.findViewById(R.id.No);
                                 yes.setOnClickListener(new View.OnClickListener() {
@@ -145,7 +154,7 @@ public class ProductRegistration extends AppCompatActivity {
     private void DialogBOX(String r_app_no) {
         Dialog dialoguebox = new Dialog(ProductRegistration.this);
         dialoguebox.setContentView(R.layout.dialogue_box);
-        dialoguebox.setCancelable(true);
+        dialoguebox.setCancelable(false);
         TextView txtalert = dialoguebox.findViewById(R.id.txtalert);
         TextView message = dialoguebox.findViewById(R.id.txtmessage);
         TextView ok = dialoguebox.findViewById(R.id.ok);

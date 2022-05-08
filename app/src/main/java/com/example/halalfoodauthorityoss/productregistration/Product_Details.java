@@ -2,19 +2,23 @@ package com.example.halalfoodauthorityoss.productregistration;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.halalfoodauthorityoss.BaseClass;
 import com.example.halalfoodauthorityoss.R;
 import com.example.halalfoodauthorityoss.model.AppData;
 import com.example.halalfoodauthorityoss.model.Model;
 import com.example.halalfoodauthorityoss.model.Product_Detail_Model;
-import com.example.halalfoodauthorityoss.useractivity.Business_License_Details;
+import com.example.halalfoodauthorityoss.searchresult.Feedback_Reviews;
+import com.example.halalfoodauthorityoss.searchresult.User_Rating;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,7 +26,7 @@ import retrofit2.Response;
 
 public class Product_Details extends AppCompatActivity {
 
-    TextView edtBusinessName, edtReqName, edtAppName, edtBusinessDistrict, edtLicenseNumber, edtExpiryDate,btnRenew;
+    TextView edtBusinessName, edtproductname, edtBusinessDistrict, edtLicenseNumber, edtExpiryDate, btnRenew;
     Model model;
     ImageView ic_back;
     ProgressDialog progressDialog;
@@ -53,13 +57,12 @@ public class Product_Details extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     if (productModel.success.equals("1")) {
                         edtBusinessName.setText(productModel.product_detail.business_name);
-                        edtReqName.setText(productModel.product_detail.product_name_requested);
-                        edtAppName.setText(productModel.product_detail.product_name_approved);
+                        edtproductname.setText(productModel.product_detail.product_name);
                         edtBusinessDistrict.setText(productModel.product_detail.district_name);
                         edtLicenseNumber.setText(productModel.product_detail.product_license_no);
                         if (!productModel.product_detail.expiry_days_remaining.equals("false")) {
                             int days = Integer.parseInt(productModel.product_detail.expiry_days_remaining);
-                            if (days <= 60) {
+                            if (days <= 45) {
                                 btnRenew.setVisibility(View.VISIBLE);
                             }
                         }
@@ -140,17 +143,20 @@ public class Product_Details extends AppCompatActivity {
     private void DialogBOX(String r_app_no) {
         Dialog dialoguebox = new Dialog(Product_Details.this);
         dialoguebox.setContentView(R.layout.dialogue_box);
-        dialoguebox.setCancelable(true);
+        dialoguebox.setCancelable(false);
         TextView txtalert = dialoguebox.findViewById(R.id.txtalert);
         TextView message = dialoguebox.findViewById(R.id.txtmessage);
         TextView ok = dialoguebox.findViewById(R.id.ok);
 
         txtalert.setText("Congratulations!");
-        message.setText("Your application submitted successfully for product renewal.Your applicaiton number is : "+r_app_no);
+        message.setText("Your application submitted successfully for product renewal.Your applicaiton number is : " + r_app_no);
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialoguebox.dismiss();
+                MyProducts.fa.finish();
+                startActivity(new Intent(Product_Details.this,MyProducts.class));
+                finish();
             }
         });
         dialoguebox.show();
@@ -169,8 +175,7 @@ public class Product_Details extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         model = (Model) bundle.getSerializable("ProductModel");
         edtBusinessName = findViewById(R.id.edtBusinessName);
-        edtReqName = findViewById(R.id.edtReqName);
-        edtAppName = findViewById(R.id.edtAppName);
+        edtproductname = findViewById(R.id.edtproductname);
         edtBusinessDistrict = findViewById(R.id.edtBusinessDistrict);
         edtLicenseNumber = findViewById(R.id.edtLicenseNumber);
         edtExpiryDate = findViewById(R.id.edtExpiryDate);

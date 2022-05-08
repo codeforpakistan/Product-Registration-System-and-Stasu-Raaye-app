@@ -28,14 +28,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/ic_back"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:src="@drawable/ic_back"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="61dp" />
-
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
@@ -261,34 +253,6 @@
                 android:layout_marginRight="@dimen/dp24"
                 android:orientation="vertical">
 
-                <!--  <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingLeft="@dimen/dp8"
-                android:text="@string/business_district"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sp16"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:paddingRight="@dimen/dp8"
-                android:text="Urdu"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sp16"
-                android:textStyle="bold" />
-        </LinearLayout>-->
-
                 <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="@dimen/dp50"
@@ -330,98 +294,6 @@
                     android:inputType="text"
                     android:textSize="@dimen/sp16" />
             </com.google.android.material.textfield.TextInputLayout>
-            <!--latitude and longitude-->
-            <!--  <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp24"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginRight="@dimen/dp8"
-                    android:layout_weight="1"
-                    android:hint="@string/latitude">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edtlatitude"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:textSize="@dimen/sp16" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp8"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginRight="@dimen/dp24"
-                    android:layout_weight="1"
-                    android:hint="Longitude">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edtlongitude"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:textSize="@dimen/sp16" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-            </LinearLayout>-->
-
-            <!--  <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dp8"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingLeft="@dimen/dp8"
-                android:text="@string/business_address"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sp16"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:paddingRight="@dimen/dp8"
-                android:text="Urdu"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sp16"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <EditText
-            android:id="@+id/edtBussAddress"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp45"
-            android:layout_marginTop="@dimen/dp8"
-            android:background="@drawable/edtborder"
-            android:gravity="center"
-            android:hint="Enter Business Address"
-            android:textColor="@color/black"
-            android:textSize="@dimen/sp16"
-            android:textStyle="normal" />
-    </LinearLayout>
-        -->
 
             <TextView
                 android:layout_width="match_parent"
@@ -431,14 +303,6 @@
                 android:text="Select Location From Map"
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp16" />
-
-            <!-- <ImageView
-                android:id="@+id/imgLocation"
-                android:layout_width="@dimen/dp120"
-                android:layout_height="@dimen/dp80"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/dp8"
-                android:src="@drawable/ic_location" />-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -466,16 +330,16 @@
                 </com.google.android.material.textfield.TextInputLayout>
                 <ImageView
                     android:id="@+id/icSearch"
-                    android:layout_width="25dp"
+                    android:layout_width="@dimen/dp30"
                     android:layout_weight="0.3"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_search"
+                    android:layout_height="@dimen/dp30"
+                    android:src="@drawable/ic_search_1"
                     />
                 <ImageView
                     android:id="@+id/currentLocation"
-                    android:layout_width="25dp"
+                    android:layout_width="@dimen/dp30"
                     android:layout_weight="0.3"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/dp30"
                     android:src="@drawable/ic_location_searching"
                     />
             </LinearLayout>

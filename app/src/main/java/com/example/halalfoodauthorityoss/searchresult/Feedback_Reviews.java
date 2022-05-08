@@ -3,6 +3,9 @@ package com.example.halalfoodauthorityoss.searchresult;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,14 +21,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.halalfoodauthorityoss.BaseClass;
+import com.example.halalfoodauthorityoss.CoreActivity;
 import com.example.halalfoodauthorityoss.R;
 import com.example.halalfoodauthorityoss.adapter.Reviews_Adapter;
+import com.example.halalfoodauthorityoss.fragments.Home;
 import com.example.halalfoodauthorityoss.model.AppData;
 import com.example.halalfoodauthorityoss.model.Business_Reviews_Response_Model;
 import com.example.halalfoodauthorityoss.model.Model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,6 +48,9 @@ public class Feedback_Reviews extends AppCompatActivity {
     RatingBar ratingbar;
     LinearLayout layoutratingbar;
     ImageView icFavorite, icLocation;
+    Business_Reviews_Response_Model business_reviews_response_model;
+    public static Feedback_Reviews fa;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +58,15 @@ public class Feedback_Reviews extends AppCompatActivity {
         setContentView(R.layout.activity_feedback__reviews);
 
         Initilizaiton();
+
+        ImageView ic_back=findViewById(R.id.ic_back);
+        ic_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         GetReviews();
 
         if (AppData.activity.equals("FavoriteActivity")) {
@@ -94,6 +113,33 @@ public class Feedback_Reviews extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        icLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (business_reviews_response_model.latitude != null && business_reviews_response_model.longitude != null) {
+                    Double latitude = Double.valueOf(business_reviews_response_model.latitude);
+                    Double longitude = Double.valueOf(business_reviews_response_model.longitude);
+                    Geocoder geocoder;
+                    List<Address> addresses;
+                    geocoder = new Geocoder(Feedback_Reviews.this, Locale.getDefault());
+
+                    try {
+                        addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+                        String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+                        Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                                Uri.parse("http://maps.google.com/maps?&daddr=" + address));
+                        startActivity(intent);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Toast.makeText(Feedback_Reviews.this, "This Business is not Available on Map", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+        });
     }
 
     private void RemoveBusiness() {
@@ -107,7 +153,7 @@ public class Feedback_Reviews extends AppCompatActivity {
                 Model model = response.body();
                 if (response.isSuccessful()) {
                     if (model.success.equals("1")) {
-                        DialogBOX("Business has been deleted from your favorite list!");
+                        DialogBOX("Business has been deleted from your favorite list!","delete");
                     } else {
                         progressDialog.dismiss();
                         Toast.makeText(Feedback_Reviews.this, "Not Deleted", Toast.LENGTH_LONG).show();
@@ -138,7 +184,7 @@ public class Feedback_Reviews extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     Model model = response.body();
                     if (model.success.equals("1")) {
-                        DialogBOX("Business has been added to your favorite list!");
+                        DialogBOX("Business has been added to your favorite list!","added");
                     } else {
                         Toast.makeText(Feedback_Reviews.this, "" + model.response_msg, Toast.LENGTH_SHORT).show();
                     }
@@ -163,7 +209,7 @@ public class Feedback_Reviews extends AppCompatActivity {
         call.enqueue(new Callback<Business_Reviews_Response_Model>() {
             @Override
             public void onResponse(Call<Business_Reviews_Response_Model> call, Response<Business_Reviews_Response_Model> response) {
-                Business_Reviews_Response_Model business_reviews_response_model = response.body();
+                business_reviews_response_model = response.body();
                 List<Model> list = business_reviews_response_model.ratings_arr;
                 int size = list.size();
                 if (response.isSuccessful()) {
@@ -208,6 +254,7 @@ public class Feedback_Reviews extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        fa = this;
         recyclerView = findViewById(R.id.recyclerView);
         btnfeedback = findViewById(R.id.btnfeedback);
         txtBussName = findViewById(R.id.txtBussName);
@@ -225,20 +272,28 @@ public class Feedback_Reviews extends AppCompatActivity {
         progressDialog.show();
     }
 
-    private void DialogBOX(String action) {
+    private void DialogBOX(String info, String action) {
         Dialog dialoguebox = new Dialog(Feedback_Reviews.this);
         dialoguebox.setContentView(R.layout.dialogue_box);
-        dialoguebox.setCancelable(true);
+        dialoguebox.setCancelable(false);
         TextView txtalert = dialoguebox.findViewById(R.id.txtalert);
         TextView message = dialoguebox.findViewById(R.id.txtmessage);
         TextView ok = dialoguebox.findViewById(R.id.ok);
 
         txtalert.setText("Favorite List");
-        message.setText(action);
+        message.setText(info);
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialoguebox.dismiss();
+                if (action.equals("delete"))
+                {
+                    CoreActivity.fa.finish();
+                    startActivity(new Intent(Feedback_Reviews.this,CoreActivity.class));
+                    finish();
+                }
+                else {
+                    dialoguebox.dismiss();
+                }
             }
         });
         dialoguebox.show();

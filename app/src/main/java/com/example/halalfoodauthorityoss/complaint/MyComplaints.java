@@ -3,7 +3,9 @@ package com.example.halalfoodauthorityoss.complaint;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,6 +39,14 @@ public class MyComplaints extends AppCompatActivity {
         setContentView(R.layout.activity_my_complaints);
 
         Initilizaiton();
+
+        ImageView ic_back=findViewById(R.id.ic_back);
+        ic_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         Call<UserResponseModel> call = BaseClass
                 .getInstance()

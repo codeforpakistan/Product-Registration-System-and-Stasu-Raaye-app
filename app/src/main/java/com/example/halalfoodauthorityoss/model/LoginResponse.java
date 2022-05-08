@@ -11,15 +11,4 @@ public class LoginResponse
     @SerializedName("user_data")
     public Model user_data;
 
-    public String getSuccess() {
-        return success;
-    }
-
-    public String getMessage() {
-        return Message;
-    }
-
-    public Model getUser_data() {
-        return user_data;
-    }
 }

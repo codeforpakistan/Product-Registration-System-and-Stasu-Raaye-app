@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.halalfoodauthorityoss.loginsignupforgot.UpdateProfile;
 import com.example.halalfoodauthorityoss.model.AppData;
-import com.example.halalfoodauthorityoss.useractivity.MyBusinesses;
+import com.example.halalfoodauthorityoss.mybusinesses.MyBusinesses;
 import com.example.halalfoodauthorityoss.R;
 import com.example.halalfoodauthorityoss.complaint.MyComplaints;
 import com.example.halalfoodauthorityoss.productregistration.MyProducts;
@@ -58,7 +58,7 @@ public class Profile extends Fragment {
             txtAddress.setText(AppData.address);
         }
         if (AppData.photo != "0") {
-            String path = "https://halalfoods.testportal.famzsolutions.com/assets/customer_images/" + AppData.photo;
+            String path = "" + AppData.photo;
             Glide.with(Profile.this).load(path).into(profilePic);
         }
         else {

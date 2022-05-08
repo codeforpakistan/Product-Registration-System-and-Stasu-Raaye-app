@@ -1,5 +1,6 @@
 package com.example.halalfoodauthorityoss.loginsignupforgot;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,7 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +28,8 @@ import com.example.halalfoodauthorityoss.CoreActivity;
 import com.example.halalfoodauthorityoss.R;
 import com.example.halalfoodauthorityoss.model.AppData;
 import com.example.halalfoodauthorityoss.model.Model;
+import com.example.halalfoodauthorityoss.searchresult.Feedback_Reviews;
+import com.example.halalfoodauthorityoss.searchresult.User_Rating;
 import com.google.android.material.textfield.TextInputEditText;
 import com.yalantis.ucrop.UCrop;
 
@@ -70,7 +72,6 @@ public class UpdateProfile extends AppCompatActivity {
         ic_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                startActivity(new Intent(UpdateProfile.this,CoreActivity.class));
                 finish();
             }
         });
@@ -87,18 +88,17 @@ public class UpdateProfile extends AppCompatActivity {
             public void onClick(View view) {
                 progressDialog.show();
 
-                edtname = findViewById(R.id.edtname);
-                edtcnic = findViewById(R.id.edtcnic);
-                edtnumber = findViewById(R.id.edtnumber);
-                edtpassword = findViewById(R.id.edtpassword);
-                btnUpdate = findViewById(R.id.btnUpdate);
-                edtAddress = findViewById(R.id.edtDistrict);
-
                 name = edtname.getText().toString().trim();
                 cnic = edtcnic.getText().toString().trim();
                 number = edtnumber.getText().toString().trim();
                 password = edtpassword.getText().toString().trim();
                 Address = edtAddress.getText().toString().trim();
+
+                if (number.length() < 11 || number.length() > 11) {
+                    progressDialog.dismiss();
+                    edtnumber.setError("Invalid Mobile Number");
+                    return;
+                }
                 if (name.equals("") || cnic.equals("") || number.equals("") || password.equals("") || Address.equals("")) {
                     progressDialog.dismiss();
                     Toast.makeText(UpdateProfile.this, "Field cann't be empty!", Toast.LENGTH_SHORT).show();
@@ -199,14 +199,14 @@ public class UpdateProfile extends AppCompatActivity {
         edtname.setText(AppData.name);
         edtcnic.setText(AppData.cnic);
         edtnumber.setText(AppData.mobileNumber);
-        if (AppData.address !="0"){
+        if (AppData.address != "0") {
             edtAddress.setText(AppData.address);
         }
         edtpassword.setText(AppData.password);
         if (AppData.photo != "0") {
-            String path = "https://halalfoods.testportal.famzsolutions.com/assets/customer_images/" + AppData.photo;
+            String path = "" + AppData.photo;
             Glide.with(UpdateProfile.this).load(path).into(profilePic);
-        }else {
+        } else {
             profilePic.setImageResource(R.drawable.ic_human);
         }
     }
@@ -274,44 +274,31 @@ public class UpdateProfile extends AppCompatActivity {
         options.setCompressionQuality(70);
         options.setHideBottomControls(false);
         options.setFreeStyleCropEnabled(false);
-//        options.getOptionBundle();
         options.useSourceImageAspectRatio();
         options.setToolbarTitle("Crop Image");
         return options;
     }
 
     private void DialogBOX() {
-        AlertDialog alertDialog = new AlertDialog.Builder(UpdateProfile.this).create();
-        alertDialog.setTitle("Update!");
-        alertDialog.setMessage("Your profile has been updated!");
-        alertDialog.setCancelable(false);
+        Dialog dialoguebox = new Dialog(UpdateProfile.this);
+        dialoguebox.setContentView(R.layout.dialogue_box);
+        dialoguebox.setCancelable(false);
+        TextView txtalert = dialoguebox.findViewById(R.id.txtalert);
+        TextView message = dialoguebox.findViewById(R.id.txtmessage);
+        TextView ok = dialoguebox.findViewById(R.id.ok);
 
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
+        txtalert.setText("Update!");
+        message.setText("Your profile has been updated!");
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialoguebox.dismiss();
+                CoreActivity.fa.finish();
                 startActivity(new Intent(UpdateProfile.this, CoreActivity.class));
                 finish();
-                dialog.dismiss();
             }
         });
-        alertDialog.show();
-    }
-
-    public String getRealPathFromURIForGallery(Uri uri) {
-        if (uri == null) {
-            return null;
-        }
-        String[] projection = {MediaStore.Images.Media.DATA};
-        Cursor cursor = this.getContentResolver().query(uri, projection, null,
-                null, null);
-        if (cursor != null) {
-            int column_index =
-                    cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            cursor.moveToFirst();
-            return cursor.getString(column_index);
-        }
-        assert false;
-        cursor.close();
-        return uri.getPath();
+        dialoguebox.show();
     }
 
     private void SharedprefUser(String cnic, String password) {
@@ -323,12 +310,5 @@ public class UpdateProfile extends AppCompatActivity {
         editor.putString("PASSWORD", password);
         editor.commit();
     }
- /*
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent();
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        finish();
-    }*/
+
 }

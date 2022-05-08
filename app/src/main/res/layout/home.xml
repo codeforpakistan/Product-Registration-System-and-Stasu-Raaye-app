@@ -160,10 +160,10 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
-                                android:text="New Business"
+                                android:text="Apply for License"
                                 android:textStyle="bold"
                                 android:textColor="@color/red"
-                                android:textSize="@dimen/dp16" />
+                                android:textSize="@dimen/dp15" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -192,10 +192,10 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
-                                android:text="New Products"
+                                android:text="Product Registration"
                                 android:textStyle="bold"
                                 android:textColor="@color/red"
-                                android:textSize="@dimen/dp16"/>
+                                android:textSize="@dimen/dp15"/>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -238,74 +238,11 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
-                                android:text="New Complaints"
+                                android:text="Report a Complaint"
                                 android:textStyle="bold"
                                 android:textColor="@color/red"
-                                android:textSize="@dimen/dp16"/>
+                                android:textSize="@dimen/dp15"/>
                         </LinearLayout>
-
-                        <!-- <LinearLayout
-                             android:id="@+id/feedback"
-                             android:layout_width="0dp"
-                             android:layout_height="match_parent"
-                             android:layout_weight="1"
-                             android:gravity="center"
-                             android:orientation="vertical">
-
-                             <androidx.cardview.widget.CardView
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 app:cardCornerRadius="@dimen/dp8"
-                                 app:cardElevation="@dimen/dp8"
-                                 app:cardMaxElevation="@dimen/dp24">
-
-                                 <ImageView
-                                     android:layout_width="@dimen/dp40"
-                                     android:layout_height="@dimen/dp40"
-                                     android:layout_margin="@dimen/dp8"
-                                     android:src="@drawable/ic_application_status" />
-                             </androidx.cardview.widget.CardView>
-
-                             <TextView
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:layout_marginTop="8dp"
-                                 android:text="New Feedback"
-                                 android:textColor="@color/black"
-                                 android:textSize="@dimen/sp14" />
-                         </LinearLayout>-->
-
-                       <!-- <LinearLayout
-                            android:id="@+id/documents"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                app:cardCornerRadius="@dimen/dp8"
-                                app:cardElevation="@dimen/dp8"
-                                app:cardMaxElevation="@dimen/dp24">
-
-                                <ImageView
-                                    android:layout_width="@dimen/dp40"
-                                    android:layout_height="@dimen/dp40"
-                                    android:layout_margin="@dimen/dp8"
-                                    android:src="@drawable/new_trainings" />
-                            </androidx.cardview.widget.CardView>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:text="Documents"
-                                android:textStyle="bold"
-                                android:textColor="@color/red"
-                                android:textSize="@dimen/dp16"/>
-                        </LinearLayout>-->
 
                          <LinearLayout
                              android:id="@+id/training"
@@ -333,10 +270,10 @@
                                  android:layout_width="wrap_content"
                                  android:layout_height="wrap_content"
                                  android:layout_marginTop="8dp"
-                                 android:text="Training"
+                                 android:text="Trainings"
                                  android:textStyle="bold"
                                  android:textColor="@color/red"
-                                 android:textSize="@dimen/dp16" />
+                                 android:textSize="@dimen/dp15" />
                          </LinearLayout>
 
                     </LinearLayout>

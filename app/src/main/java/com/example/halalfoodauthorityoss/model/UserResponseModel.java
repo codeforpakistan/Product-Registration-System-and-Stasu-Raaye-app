@@ -11,10 +11,6 @@ public class UserResponseModel {
     @SerializedName("message")
     public List<Model> message;
 
-    public String getSuccess() {
-        return success;
-    }
-
     public List<Model> getMessage() {
         return message;
     }

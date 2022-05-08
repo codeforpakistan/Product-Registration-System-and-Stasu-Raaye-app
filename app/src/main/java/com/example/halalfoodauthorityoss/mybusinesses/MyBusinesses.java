@@ -1,9 +1,11 @@
-package com.example.halalfoodauthorityoss.useractivity;
+package com.example.halalfoodauthorityoss.mybusinesses;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,6 +32,8 @@ public class MyBusinesses extends AppCompatActivity {
     BusinessAdapter businessAdapter;
     List<Model> modelList = new ArrayList<>();
     ProgressDialog progressDialog;
+    public static MyBusinesses fa;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,14 @@ public class MyBusinesses extends AppCompatActivity {
         setContentView(R.layout.activity_my_businesses);
 
         Initilizaiton();
+
+        ImageView ic_back=findViewById(R.id.ic_back);
+        ic_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         Call<UserResponseModel> call = BaseClass
                 .getInstance()
@@ -55,7 +67,7 @@ public class MyBusinesses extends AppCompatActivity {
                             modelList.add(new Model(list.get(i).UserId, list.get(i).owner_name, list.get(i).FName,
                                     list.get(i).CNIC, list.get(i).Mobile, list.get(i).Address, list.get(i).bussnie_name,
                                     list.get(i).Register_Date, list.get(i).Type, list.get(i).StartDate, list.get(i).LicNo,
-                                    list.get(i).ExpireDate, list.get(i).IssueDate, list.get(i).distric_name,list.get(i).expiry_days_remaining,list.get(i).r_application_id));
+                                    list.get(i).ExpireDate, list.get(i).IssueDate, list.get(i).distric_name, list.get(i).expiry_days_remaining, list.get(i).r_application_id, list.get(i).renewal_application));
                         }
                         recyclerView.setHasFixedSize(true);
                         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MyBusinesses.this, RecyclerView.VERTICAL, false);
@@ -89,6 +101,7 @@ public class MyBusinesses extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        fa = this;
         recyclerView = findViewById(R.id.recyclerView);
 
         progressDialog = new ProgressDialog(this);

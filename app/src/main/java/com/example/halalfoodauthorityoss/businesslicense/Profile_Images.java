@@ -1,12 +1,10 @@
 package com.example.halalfoodauthorityoss.businesslicense;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.Matrix;
-import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -17,6 +15,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -25,7 +24,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.halalfoodauthorityoss.BaseClass;
 import com.example.halalfoodauthorityoss.CoreActivity;
 import com.example.halalfoodauthorityoss.R;
-import com.example.halalfoodauthorityoss.loginsignupforgot.UpdateProfile;
 import com.example.halalfoodauthorityoss.model.AppData;
 import com.example.halalfoodauthorityoss.model.Model;
 import com.yalantis.ucrop.UCrop;
@@ -48,15 +46,8 @@ public class Profile_Images extends AppCompatActivity {
     Button btnNext;
     EditText edtCNIC;
     File profileFile, cnicFile;
-    String imageone = "", imagetwo = "", Checking="";
+    String imageone = "", imagetwo = "", Checking = "";
     ProgressDialog progressDialog;
-
-    public static Bitmap rotateImage(Bitmap source, float angle) {
-        Matrix matrix = new Matrix();
-        matrix.postRotate(angle);
-        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(),
-                matrix, true);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +60,7 @@ public class Profile_Images extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 selectImage();
-                Checking="Profile";
+                Checking = "Profile";
             }
         });
 
@@ -77,7 +68,7 @@ public class Profile_Images extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 selectImage1();
-                Checking="Cnic";
+                Checking = "Cnic";
             }
         });
 
@@ -152,238 +143,81 @@ public class Profile_Images extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-                if (resultCode == RESULT_OK && requestCode == 0) {
-                    File file = null;
-                    Bitmap photo = (Bitmap) data.getExtras().get("data");
-                    File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
-                    try {
-                        file = File.createTempFile("JPEG_", ".JPEG", dir);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    if (file != null) {
-                        FileOutputStream fout;
-                        try {
-                            fout = new FileOutputStream(file);
-                            photo.compress(Bitmap.CompressFormat.JPEG, 100, fout);
-                            fout.flush();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    if (file != null) {
-                        Uri uri = Uri.fromFile(file);
-                        startCrop(uri);
-                    }
+        if (resultCode == RESULT_OK && requestCode == 0) {
+            File file = null;
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+            try {
+                file = File.createTempFile("JPEG_", ".JPEG", dir);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (file != null) {
+                FileOutputStream fout;
+                try {
+                    fout = new FileOutputStream(file);
+                    photo.compress(Bitmap.CompressFormat.JPEG, 100, fout);
+                    fout.flush();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-               /* {
-                            Bitmap photo = (Bitmap) imageReturnedIntent.getExtras().get("data");
-                            File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
-                            final int min = 200000;
-                            final int max = 800000;
-                            final int random = new Random().nextInt((max - min) + 1) + min;
-                            String name = String.valueOf(random);
-                            try {
-                                profileFile = File.createTempFile(
-                                        "PNG_",
-                                        ".png",
-                                        dir
-                                );
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+            }
 
-                            if (profileFile != null) {
-                                FileOutputStream fout;
-                                try {
-                                    fout = new FileOutputStream(profileFile);
-                                    photo.compress(Bitmap.CompressFormat.PNG, 100, fout);
-                                    fout.flush();
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                                Toast.makeText(this, "" + profileFile.getAbsolutePath(), Toast.LENGTH_SHORT).show();
-                                Toast.makeText(this, "" + profileFile.getName(), Toast.LENGTH_SHORT).show();
-                                profileImage.setImageURI(Uri.parse(profileFile.getAbsolutePath()));
-                                imageone = "imageone";
-                            }
-                        }*/
-//                break;
-//            case 1:
-               else if (resultCode == RESULT_OK && requestCode == 1) {
-                    Uri uri = data.getData();
-                    if (uri != null) {
-                        startCrop(uri);
-                    }
+            if (file != null) {
+                Uri uri = Uri.fromFile(file);
+                startCrop(uri);
+            }
+        } else if (resultCode == RESULT_OK && requestCode == 1) {
+            Uri uri = data.getData();
+            if (uri != null) {
+                startCrop(uri);
+            }
+        } else if (resultCode == RESULT_OK && requestCode == 2) {
+            File file = null;
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+            try {
+                file = File.createTempFile("JPEG_", ".JPEG", dir);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (file != null) {
+                FileOutputStream fout;
+                try {
+                    fout = new FileOutputStream(file);
+                    photo.compress(Bitmap.CompressFormat.JPEG, 100, fout);
+                    fout.flush();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-               /*    if (resultCode == RESULT_OK) {
-                    if (requestCode == 1) {
-                        Uri selectedImageUri = imageReturnedIntent.getData();
-                        selectedImagePath = getRealPathFromURIForGallery(selectedImageUri);
-                        File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
-                        Bitmap b = BitmapFactory.decodeFile(selectedImagePath);
-                        Bitmap out = getResizedBitmap(b, 1536, selectedImagePath);
-                        final int min = 200000;
-                        final int max = 800000;
-                        final int random = new Random().nextInt((max - min) + 1) + min;
-                        String name = random + ".jpg";
-                        profileFile = new File(dir, name);
-                        FileOutputStream fOut;
-                        try {
-                            fOut = new FileOutputStream(profileFile);
-                            out.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
-                            fOut.flush();
-                            fOut.close();
-                            b.recycle();
-                            out.recycle();
-                        } catch (Exception e) {
-                        }
-                        Toast.makeText(this, "" + profileFile, Toast.LENGTH_SHORT).show();
-                        Toast.makeText(this, "" + profileFile.getAbsolutePath(), Toast.LENGTH_SHORT).show();
-                        Toast.makeText(this, "" + profileFile.getName(), Toast.LENGTH_SHORT).show();
-                        profileImage.setImageURI(Uri.parse(profileFile.getAbsolutePath()));
-                        imageone = "imageone";
-                    }
-                }*/
-//                break;
-//            case 2:
-               else if (resultCode == RESULT_OK && requestCode == 2) {
-                    File file = null;
-                    Bitmap photo = (Bitmap) data.getExtras().get("data");
-                    File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
-                    try {
-                        file = File.createTempFile("JPEG_", ".JPEG", dir);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    if (file != null) {
-                        FileOutputStream fout;
-                        try {
-                            fout = new FileOutputStream(file);
-                            photo.compress(Bitmap.CompressFormat.JPEG, 100, fout);
-                            fout.flush();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
+            }
 
-                    if (file != null) {
-                        Uri uri = Uri.fromFile(file);
-                        startCrop(uri);
-                    }
-                }
-               /*            if (resultCode == RESULT_OK) {
-                        {
-                            Bitmap photo = (Bitmap) imageReturnedIntent.getExtras().get("data");
-                            File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
-                            final int min = 200000;
-                            final int max = 800000;
-                            final int random = new Random().nextInt((max - min) + 1) + min;
-                            String name = String.valueOf(random);
-                            try {
-                                cnicFile = File.createTempFile(
-                                        "PNG_",
-                                        ".png",
-                                        dir
-                                );
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-
-                            if (cnicFile != null) {
-                                FileOutputStream fout;
-                                try {
-                                    fout = new FileOutputStream(cnicFile);
-                                    photo.compress(Bitmap.CompressFormat.PNG, 100, fout);
-                                    fout.flush();
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                                Toast.makeText(this, "" + cnicFile.getAbsolutePath(), Toast.LENGTH_SHORT).show();
-                                Toast.makeText(this, "" + cnicFile.getName(), Toast.LENGTH_SHORT).show();
-                                cnicImage.setImageURI(Uri.parse(cnicFile.getAbsolutePath()));
-                                imagetwo = "imagetwo";
-                            }
-                        }
-                    }*/
-//                break;
-//            case 3:
-               else if (resultCode == RESULT_OK && requestCode == 3) {
-                    Uri uri = data.getData();
-                    if (uri != null) {
-                        startCrop(uri);
-                    }
-                }
-               /* if (resultCode == RESULT_OK) {
-                    if (requestCode == 3) {
-                        Uri selectedImageUri = imageReturnedIntent.getData();
-                        selectedImagePath1 = getRealPathFromURIForGallery(selectedImageUri);
-                        File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
-                        Bitmap b = BitmapFactory.decodeFile(selectedImagePath1);
-                        Bitmap out = getResizedBitmap(b, 1536, selectedImagePath1);
-                        final int min = 200000;
-                        final int max = 800000;
-                        final int random = new Random().nextInt((max - min) + 1) + min;
-                        String name = random + ".jpg";
-                        cnicFile = new File(dir, name);
-                        FileOutputStream fOut;
-                        try {
-                            fOut = new FileOutputStream(cnicFile);
-                            out.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
-                            fOut.flush();
-                            fOut.close();
-                            b.recycle();
-                            out.recycle();
-                        } catch (Exception e) {
-                        }
-                        Toast.makeText(this, "" + cnicFile, Toast.LENGTH_SHORT).show();
-                        Toast.makeText(this, "" + cnicFile.getAbsolutePath(), Toast.LENGTH_SHORT).show();
-                        Toast.makeText(this, "" + cnicFile.getName(), Toast.LENGTH_SHORT).show();
-                        cnicImage.setImageURI(Uri.parse(cnicFile.getAbsolutePath()));
-                        imagetwo = "imagetwo";
-                    }
-                }*/
-//                break;
-       else if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP && Checking.equals("Profile")) {
+            if (file != null) {
+                Uri uri = Uri.fromFile(file);
+                startCrop(uri);
+            }
+        } else if (resultCode == RESULT_OK && requestCode == 3) {
+            Uri uri = data.getData();
+            if (uri != null) {
+                startCrop(uri);
+            }
+        } else if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP && Checking.equals("Profile")) {
             final Uri resultUri = UCrop.getOutput(data);
-            Uri uri= Uri.parse(resultUri.getPath());
+            Uri uri = Uri.parse(resultUri.getPath());
             if (uri != null) {
                 profileFile = new File(String.valueOf(uri));
                 profileImage.setImageURI(resultUri);
-                imageone="one";
+                imageone = "one";
             }
-        }
-
-       else if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP && Checking.equals("Cnic")) {
+        } else if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP && Checking.equals("Cnic")) {
             final Uri resultUri = UCrop.getOutput(data);
-            Uri uri= Uri.parse(resultUri.getPath());
+            Uri uri = Uri.parse(resultUri.getPath());
             if (uri != null) {
                 cnicFile = new File(String.valueOf(uri));
                 cnicImage.setImageURI(resultUri);
-                imagetwo="two";
+                imagetwo = "two";
             }
         }
-
-//        }
-    }
-
-    public String getRealPathFromURIForGallery(Uri uri) {
-        if (uri == null) {
-            return null;
-        }
-        String[] projection = {MediaStore.Images.Media.DATA};
-        Cursor cursor = this.getContentResolver().query(uri, projection, null,
-                null, null);
-        if (cursor != null) {
-            int column_index =
-                    cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            cursor.moveToFirst();
-            return cursor.getString(column_index);
-        }
-        assert false;
-        cursor.close();
-        return uri.getPath();
     }
 
     private void uploadFile() {
@@ -410,17 +244,17 @@ public class Profile_Images extends AppCompatActivity {
                     .Add_Owner(getIntent().getStringExtra("name"), getIntent().getStringExtra("fathername"), getIntent().getStringExtra("cnic"),
                             getIntent().getStringExtra("contact"), profileimageFile, getIntent().getStringExtra("businessaddress"),
                             getIntent().getStringExtra("businessname")
-                            , BID, Lat, Long, cnicimageFile, DID,"male","Android_user", AppData.id);
+                            , BID, Lat, Long, cnicimageFile, DID, "male", "Android_user", AppData.id);
             call.enqueue(new Callback<Model>() {
                 @Override
                 public void onResponse(Call<Model> call, Response<Model> response) {
-                    Model model=response.body();
+                    Model model = response.body();
                     if (response.isSuccessful()) {
-                        if (model.success.equals("1")){
-                        progressDialog.dismiss();
-                        DialogBOX(model.application_id);}
-                        else{
-                            Toast.makeText(Profile_Images.this, ""+model.response_msg, Toast.LENGTH_SHORT).show();
+                        if (model.success.equals("1")) {
+                            progressDialog.dismiss();
+                            DialogBOX(model.application_id);
+                        } else {
+                            Toast.makeText(Profile_Images.this, "" + model.response_msg, Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
                         }
                     } else {
@@ -445,68 +279,25 @@ public class Profile_Images extends AppCompatActivity {
 
     }
 
-    public Bitmap getResizedBitmap(Bitmap image, int maxSize, String photoPath) {
-        int width = image.getWidth();
-        int height = image.getHeight();
-
-        float bitmapRatio = (float) width / (float) height;
-        if (bitmapRatio > 1) {
-            width = maxSize;
-            height = (int) (width / bitmapRatio);
-        } else {
-            height = maxSize;
-            width = (int) (height * bitmapRatio);
-        }
-        Bitmap resizedBitmap1 = RotateImage(photoPath, Bitmap.createScaledBitmap(image, width, height, true));
-        return resizedBitmap1;
-    }
-
-    private Bitmap RotateImage(String photoPath, Bitmap bitmap) {
-        Bitmap rotatedBitmap = null;
-        try {
-            ExifInterface ei = null;
-            ei = new ExifInterface(photoPath);
-            int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION,
-                    ExifInterface.ORIENTATION_UNDEFINED);
-
-            switch (orientation) {
-
-                case ExifInterface.ORIENTATION_ROTATE_90:
-                    rotatedBitmap = rotateImage(bitmap, 90);
-                    break;
-
-                case ExifInterface.ORIENTATION_ROTATE_180:
-                    rotatedBitmap = rotateImage(bitmap, 180);
-                    break;
-
-                case ExifInterface.ORIENTATION_ROTATE_270:
-                    rotatedBitmap = rotateImage(bitmap, 270);
-                    break;
-
-                case ExifInterface.ORIENTATION_NORMAL:
-                default:
-                    rotatedBitmap = bitmap;
-            }
-        } catch (Exception e) {
-        }
-        return rotatedBitmap;
-    }
-
     private void DialogBOX(String application_id) {
-        AlertDialog alertDialog = new AlertDialog.Builder(Profile_Images.this).create();
-        alertDialog.setTitle("Business Registration");
-        alertDialog.setMessage("Your Business Has Been Registered! Your Registration No is "+application_id);
-        alertDialog.setCancelable(false);
 
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
+        Dialog dialoguebox = new Dialog(Profile_Images.this);
+        dialoguebox.setContentView(R.layout.dialogue_box);
+        dialoguebox.setCancelable(false);
+        TextView message = dialoguebox.findViewById(R.id.txtmessage);
+        TextView ok = dialoguebox.findViewById(R.id.ok);
+        message.setText("Your Business Has Been Registered! Your Registration No is " + application_id);
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialoguebox.dismiss();
                 Intent intent = new Intent(Profile_Images.this, CoreActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
             }
         });
-        alertDialog.show();
+        dialoguebox.show();
     }
 
     public void startCrop(Uri uri) {

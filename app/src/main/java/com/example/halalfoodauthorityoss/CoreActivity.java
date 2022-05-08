@@ -19,13 +19,9 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 import com.example.halalfoodauthorityoss.adapter.PageAdapter;
-import com.example.halalfoodauthorityoss.businesslicense.Personal_Detail;
-import com.example.halalfoodauthorityoss.complaint.Complaint;
 import com.example.halalfoodauthorityoss.loginsignupforgot.Login;
 import com.example.halalfoodauthorityoss.model.AppData;
 import com.example.halalfoodauthorityoss.model.Model;
-import com.example.halalfoodauthorityoss.productregistration.ProductRegistration;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
@@ -37,10 +33,6 @@ import retrofit2.Response;
 
 public class CoreActivity extends AppCompatActivity {
 
-    FloatingActionButton fabMain, fabFeedback, fabComplaint, fabTraining, fabRegisterProduct, fabRegisterBusiness;
-    LinearLayout layoutFeedback, layoutComplaint, layoutTraining, layoutRegisterProduct, layoutRegisterBusiness;
-    boolean isFABOpen = false;
-    LinearLayout tabMenu;
     SharedPreferences sharedPreferences = null;
     SharedPreferences.Editor editor;
 
@@ -59,7 +51,7 @@ public class CoreActivity extends AppCompatActivity {
             R.drawable.ic_profile,
             R.drawable.ic_favorite
     };
-
+    public static CoreActivity fa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,40 +86,13 @@ public class CoreActivity extends AppCompatActivity {
             public void onTabReselected(TabLayout.Tab tab) {
             }
         });
+
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(layout));
-        fabMain.setOnClickListener(new View.OnClickListener() {
+
+        notification.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                if (!isFABOpen) {
-                    fabMain.animate().rotation(getResources().getDimension(R.dimen.standard_65));
-                    showFABMenu();
-                } else {
-                    fabMain.animate().rotation(getResources().getDimension(R.dimen.standard_00));
-                    closeFABMenu();
-                }
-            }
-        });
-        fabRegisterBusiness.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(CoreActivity.this, Personal_Detail.class));
-            }
-        });
-        fabRegisterProduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(CoreActivity.this, ProductRegistration.class));
-            }
-        });
-        fabComplaint.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(CoreActivity.this, Complaint.class));
-            }
-        });
-        fabFeedback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
+                startActivity(new Intent(CoreActivity.this, Notifications.class));
             }
         });
 
@@ -137,11 +102,36 @@ public class CoreActivity extends AppCompatActivity {
                 openDrawer();
             }
         });
-
-        notification.setOnClickListener(new View.OnClickListener() {
+        navSOPs.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                startActivity(new Intent(CoreActivity.this, Notifications.class));
+            public void onClick(View view) {
+                Intent intent = new Intent(CoreActivity.this, Web_View.class);
+                intent.putExtra("url", "https://halal.kpfsa.gov.pk/index.php/sops/");
+                startActivity(intent);
+            }
+        });
+        navActs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CoreActivity.this, Web_View.class);
+                intent.putExtra("url", "https://halal.kpfsa.gov.pk/wp-content/uploads/2022/03/act.pdf");
+                startActivity(intent);
+            }
+        });
+        navReports.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CoreActivity.this, Web_View.class);
+                intent.putExtra("url", "https://halal.kpfsa.gov.pk/index.php/reports/");
+                startActivity(intent);
+            }
+        });
+        navAboutus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CoreActivity.this, Web_View.class);
+                intent.putExtra("url", "https://halal.kpfsa.gov.pk/index.php/overview-2/");
+                startActivity(intent);
             }
         });
         navlogout.setOnClickListener(new View.OnClickListener() {
@@ -175,6 +165,7 @@ public class CoreActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        fa = this;
         menu = findViewById(R.id.menu);
         notification = findViewById(R.id.notification);
         notification_count = findViewById(R.id.notification_count);
@@ -190,22 +181,8 @@ public class CoreActivity extends AppCompatActivity {
         txtName = navigationView.findViewById(R.id.txtName);
         txtNumber = navigationView.findViewById(R.id.txtNumber);
 
-        layoutFeedback = (LinearLayout) findViewById(R.id.layoutFeedback);
-        layoutComplaint = (LinearLayout) findViewById(R.id.layoutComplaint);
-        layoutTraining = (LinearLayout) findViewById(R.id.layoutTraining);
-        layoutRegisterProduct = (LinearLayout) findViewById(R.id.layoutRegisterProduct);
-        layoutRegisterBusiness = (LinearLayout) findViewById(R.id.layoutRegisterBusiness);
-
-        tabMenu = (LinearLayout) findViewById(R.id.tabmenu);
-        fabMain = (FloatingActionButton) findViewById(R.id.fabMain);
-        fabFeedback = (FloatingActionButton) findViewById(R.id.fabFeedback);
-        fabComplaint = (FloatingActionButton) findViewById(R.id.fabCompliant);
-        fabTraining = (FloatingActionButton) findViewById(R.id.fabTraining);
-        fabRegisterProduct = (FloatingActionButton) findViewById(R.id.fabRegisterProduct);
-        fabRegisterBusiness = (FloatingActionButton) findViewById(R.id.fabRegisterBusiness);
-
         if (AppData.photo != "0") {
-            String path = "https://halalfoods.testportal.famzsolutions.com/assets/customer_images/" + AppData.photo;
+            String path = "" + AppData.photo;
             Glide.with(CoreActivity.this).load(path).into(profilePic);
         } else {
             profilePic.setImageResource(R.drawable.ic_human);
@@ -213,11 +190,6 @@ public class CoreActivity extends AppCompatActivity {
         txtName.setText(AppData.name);
         txtNumber.setText(AppData.mobileNumber);
 
-
-      /*  one=findViewById(R.id.one);
-        two=findViewById(R.id.two);
-        four=findViewById(R.id.four);
-        five=findViewById(R.id.five);*/
     }
 
     private void Count_Notifications() {
@@ -249,34 +221,11 @@ public class CoreActivity extends AppCompatActivity {
 
     }
 
-    private void showFABMenu() {
-        isFABOpen = true;
-        tabMenu.setVisibility(View.VISIBLE);
-        layoutFeedback.setVisibility(View.VISIBLE);
-        layoutComplaint.setVisibility(View.VISIBLE);
-        layoutTraining.setVisibility(View.VISIBLE);
-        layoutRegisterProduct.setVisibility(View.VISIBLE);
-        layoutRegisterBusiness.setVisibility(View.VISIBLE);
-    }
-
-    private void closeFABMenu() {
-        isFABOpen = false;
-        tabMenu.setVisibility(View.INVISIBLE);
-      /*  layoutFeedback.setVisibility(View.GONE);
-        layoutComplaint.setVisibility(View.GONE);
-        layoutTraining.setVisibility(View.GONE);
-        layoutRegisterProduct.setVisibility(View.GONE);
-        layoutRegisterBusiness.setVisibility(View.GONE);*/
-    }
-
     @Override
     public void onBackPressed() {
-        if (isFABOpen) {
-            closeFABMenu();
-        } else {
-            super.onBackPressed();
-            finish();
-        }
+        super.onBackPressed();
+        finish();
+
     }
 
     @SuppressLint("WrongConstant")

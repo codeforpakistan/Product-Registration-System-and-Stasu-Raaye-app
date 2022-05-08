@@ -14,7 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.halalfoodauthorityoss.BaseClass;
 import com.example.halalfoodauthorityoss.CoreActivity;
@@ -134,7 +133,7 @@ public class Login extends AppCompatActivity {
                         return;
                     }
                 }
-                LoginFunction(cnic,password);
+                LoginFunction(cnic, password);
             }
         });
 

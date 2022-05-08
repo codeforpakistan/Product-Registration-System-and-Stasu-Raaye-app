@@ -12,7 +12,4 @@ public class Product_Detail_Model {
     @SerializedName("product_detail")
     public Model product_detail;
 
-    public Model getProduct_detail() {
-        return product_detail;
-    }
 }

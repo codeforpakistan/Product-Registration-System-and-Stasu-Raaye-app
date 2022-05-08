@@ -3,7 +3,9 @@ package com.example.halalfoodauthorityoss.searchresult;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,10 +18,7 @@ import com.example.halalfoodauthorityoss.adapter.Search_Business_Adapter;
 import com.example.halalfoodauthorityoss.fragments.Home;
 import com.example.halalfoodauthorityoss.model.Model;
 import com.example.halalfoodauthorityoss.model.SearchResponseModel;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +32,7 @@ public class SearchResult extends AppCompatActivity {
     Search_Business_Adapter search_business_adapter;
     List<Model> modelList = new ArrayList<>();
     ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,41 +40,51 @@ public class SearchResult extends AppCompatActivity {
 
         Initilizaiton();
 
+        ImageView ic_back=findViewById(R.id.ic_back);
+        ic_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Home.category_id = 0;
+                Home.district_id = 0;
+                Home.name = " ";
+                finish();
+            }
+        });
+
         Call<SearchResponseModel> call = BaseClass
                 .getInstance()
                 .getApi()
-                .SearchResult(Home.category_id,Home.district_id, Home.name);
+                .SearchResult(Home.category_id, Home.district_id, Home.name);
 
         call.enqueue(new Callback<SearchResponseModel>() {
             @Override
             public void onResponse(Call<SearchResponseModel> call, Response<SearchResponseModel> response) {
                 if (response.isSuccessful()) {
-                SearchResponseModel searchResponseModel = response.body();
-                List<Model> list = searchResponseModel.getBusinesses();
-                if (list!=null)
-                {
-                    int size = list.size();
-                    if (searchResponseModel.success.equals("1")) {
-                        Toast.makeText(SearchResult.this, ""+searchResponseModel.message, Toast.LENGTH_SHORT).show();
-                        for (int i = 0; i < size; i++) {
-                            modelList.add(new Model(list.get(i).business_id, list.get(i).business_name, list.get(i).Address,
-                                    list.get(i).Register_Date, list.get(i).distric_name,list.get(i).AverageRating
-                            ));
+                    SearchResponseModel searchResponseModel = response.body();
+                    List<Model> list = searchResponseModel.getBusinesses();
+                    if (list != null) {
+                        int size = list.size();
+                        if (searchResponseModel.success.equals("1")) {
+                            Toast.makeText(SearchResult.this, "" + searchResponseModel.message, Toast.LENGTH_SHORT).show();
+                            for (int i = 0; i < size; i++) {
+                                modelList.add(new Model(list.get(i).business_id, list.get(i).business_name, list.get(i).Address,
+                                        list.get(i).Register_Date, list.get(i).distric_name, list.get(i).AverageRating
+                                ));
+                            }
+                            recyclerView.setHasFixedSize(true);
+                            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(SearchResult.this, RecyclerView.VERTICAL, false);
+                            search_business_adapter = new Search_Business_Adapter(modelList, SearchResult.this);
+                            recyclerView.setLayoutManager(layoutManager);
+                            recyclerView.setAdapter(search_business_adapter);
+                            progressDialog.dismiss();
+                        } else {
+                            progressDialog.dismiss();
+                            Toast.makeText(SearchResult.this, "No Record Found", Toast.LENGTH_LONG).show();
                         }
-                        recyclerView.setHasFixedSize(true);
-                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(SearchResult.this, RecyclerView.VERTICAL, false);
-                        search_business_adapter = new Search_Business_Adapter(modelList, SearchResult.this);
-                        recyclerView.setLayoutManager(layoutManager);
-                        recyclerView.setAdapter(search_business_adapter);
-                        progressDialog.dismiss();
                     } else {
                         progressDialog.dismiss();
                         Toast.makeText(SearchResult.this, "No Record Found", Toast.LENGTH_LONG).show();
                     }
-                }else {
-                    progressDialog.dismiss();
-                    Toast.makeText(SearchResult.this, "No Record Found", Toast.LENGTH_LONG).show();
-                }
                 } else {
                     Toast.makeText(SearchResult.this, "Not Successful", Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
@@ -106,8 +116,8 @@ public class SearchResult extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Home.category_id=0;
-        Home.district_id=0;
-        Home.name=" ";
+        Home.category_id = 0;
+        Home.district_id = 0;
+        Home.name = " ";
     }
 }

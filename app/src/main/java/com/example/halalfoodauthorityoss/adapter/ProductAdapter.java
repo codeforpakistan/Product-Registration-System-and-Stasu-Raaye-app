@@ -13,6 +13,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.halalfoodauthorityoss.R;
+import com.example.halalfoodauthorityoss.productregistration.MyProducts;
 import com.example.halalfoodauthorityoss.productregistration.Product_Details;
 import com.example.halalfoodauthorityoss.model.Model;
 
@@ -83,4 +84,5 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             Linearlayout=itemView.findViewById(R.id.Linearlayout);
         }
     }
+
 }

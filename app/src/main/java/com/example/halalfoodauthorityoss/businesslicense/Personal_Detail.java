@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +47,14 @@ public class Personal_Detail extends AppCompatActivity {
         setContentView(R.layout.activity_personal_details);
 
         initialization();
+
+        ImageView ic_back=findViewById(R.id.ic_back);
+        ic_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -158,8 +167,6 @@ public class Personal_Detail extends AppCompatActivity {
                     intent.putExtra("contact", contact);
                     intent.putExtra("cnic", cnic);
                     intent.putExtra("check", "0");
-
-
                     startActivity(intent);
                 } else {
                     if (find) {
@@ -241,12 +248,5 @@ public class Personal_Detail extends AppCompatActivity {
 
         CNIC_PATTERN = Pattern.compile("^" + "[0-9]{5}-[0-9]{7}-[0-9]{1}" + "$");
         AFG_CNIC_PATTERN = Pattern.compile("^" + "[0-9]{4}-[0-9]{4}-[0-9]{5}" + "$");
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        startActivity(new Intent(Personal_Detail.this, CoreActivity.class));
-        finish();
     }
 }

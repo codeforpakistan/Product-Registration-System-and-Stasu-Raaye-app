@@ -77,6 +77,10 @@ public class Model implements Serializable {
     public String product_license_expiry;
     @SerializedName("eng_comment")
     public String eng_comment;
+    @SerializedName("renewal_application")
+    public String renewal_application;
+    @SerializedName("product_name")
+    public String product_name;
 
     @SerializedName("notification_id")
     public String notification_id;
@@ -189,7 +193,7 @@ public class Model implements Serializable {
         this.eng_comment = eng_comment;
     }
 
-    public Model(String userId, String owner_name, String FName, String CNIC, String mobile, String address, String bussnie_name, String register_Date, String type, String startDate, String licNo, String expireDate, String issueDate, String distric_name, String expiry_days_remaining, String r_application_id) {
+    public Model(String userId, String owner_name, String FName, String CNIC, String mobile, String address, String bussnie_name, String register_Date, String type, String startDate, String licNo, String expireDate, String issueDate, String distric_name, String expiry_days_remaining, String r_application_id, String renewal_application) {
         UserId = userId;
         this.owner_name = owner_name;
         this.FName = FName;
@@ -206,6 +210,7 @@ public class Model implements Serializable {
         this.distric_name = distric_name;
         this.expiry_days_remaining = expiry_days_remaining;
         this.r_application_id = r_application_id;
+        this.renewal_application = renewal_application;
     }
 
     public Model(String business_id, String business_name, String address, String register_Date, String distric_name, String AverageRating) {
@@ -268,6 +273,10 @@ public class Model implements Serializable {
         Path = path;
     }
 
+    public Model(String business_name, String a1) {
+        this.business_name = business_name;
+    }
+
     public String getPath() {
         return Path;
     }
@@ -319,4 +328,5 @@ public class Model implements Serializable {
     public String getPassword() {
         return password;
     }
+
 }

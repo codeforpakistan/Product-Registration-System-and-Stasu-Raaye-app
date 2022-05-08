@@ -14,25 +14,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.halalfoodauthorityoss.R;
 import com.example.halalfoodauthorityoss.fragments.Home;
+import com.example.halalfoodauthorityoss.model.Model;
 import com.example.halalfoodauthorityoss.searchresult.SearchResult;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class QuickSearchAdapter extends RecyclerView.Adapter<QuickSearchAdapter.ViewHolder> implements Filterable {
-    ArrayList<String> list = new ArrayList<>();
+    List<Model> list = new ArrayList<>();
     Context context;
-    List<String> filter;
+    List<Model> filter;
+
     private Filter exampleFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-            List<String> filteredList = new ArrayList<>();
+            List<Model> filteredList = new ArrayList<>();
             if (constraint == null || constraint.length() == 0) {
                 filteredList.addAll(filter);
             } else {
                 String filterPattern = constraint.toString().toLowerCase().trim();
-                for (String item : filter) {
-                    if (item.toLowerCase().contains(filterPattern)) {
+                for (Model item : filter) {
+                    if (item.business_name.toLowerCase().contains(filterPattern)) {
                         filteredList.add(item);
                     }
                 }
@@ -50,10 +52,10 @@ public class QuickSearchAdapter extends RecyclerView.Adapter<QuickSearchAdapter.
         }
     };
 
-    public QuickSearchAdapter(ArrayList<String> list, Context context) {
+    public QuickSearchAdapter(List<Model> list, Context context) {
         this.list = list;
         this.context = context;
-        filter = new ArrayList<>(list);
+        filter=new ArrayList<>(list);
     }
 
     @NonNull
@@ -66,12 +68,12 @@ public class QuickSearchAdapter extends RecyclerView.Adapter<QuickSearchAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        String model = list.get(position);
-        holder.model.setText(model);
+        Model model = list.get(position);
+        holder.model.setText(model.business_name);
         holder.model.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Home.name = model;
+                Home.name = model.business_name;
                 context.startActivity(new Intent(context, SearchResult.class));
             }
         });

@@ -44,4 +44,6 @@
     <dimen name="dp170">170dp</dimen>
     <dimen name="dp165">165dp</dimen>
     <dimen name="dp15">15dp</dimen>
+    <dimen name="sp13">13sp</dimen>
+    <dimen name="dp130">130dp</dimen>
 </resources>

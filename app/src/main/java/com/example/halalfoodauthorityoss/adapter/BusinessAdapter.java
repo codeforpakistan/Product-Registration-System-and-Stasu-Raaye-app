@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.halalfoodauthorityoss.R;
 import com.example.halalfoodauthorityoss.model.Model;
-import com.example.halalfoodauthorityoss.useractivity.Business_License_Details;
-import com.example.halalfoodauthorityoss.useractivity.MyBusinesses;
+import com.example.halalfoodauthorityoss.mybusinesses.Business_License_Details;
+import com.example.halalfoodauthorityoss.mybusinesses.MyBusinesses;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -63,7 +63,6 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.ViewHo
                 Intent intent = new Intent(context, Business_License_Details.class);
                 intent.putExtras(bundle);
                 context.startActivity(intent);
-
             }
         });
 

@@ -48,7 +48,6 @@
         <item>Serivice matter</item>
     </string-array>
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCWP7qm8q0ctWka5SLB-QgK3ogYLOTyxdk</string>
-    <string name="safe_food_healthy_people">Safe Food, Healthy People</string>
     <string name="Owner_profile_image">Owner Profile Image</string>
     <string name="cnic_front_image">CNIC Front Image</string>
     <string name="complaint_details">Complaint Details</string>

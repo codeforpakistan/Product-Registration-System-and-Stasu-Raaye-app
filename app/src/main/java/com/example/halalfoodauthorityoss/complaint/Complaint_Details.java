@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.RatingBar;
@@ -49,6 +50,14 @@ public class Complaint_Details extends AppCompatActivity {
 
         Initialization();
 
+        ImageView ic_back=findViewById(R.id.ic_back);
+        ic_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         Bundle bundle = getIntent().getExtras();
         model = (Model) bundle.getSerializable("Model");
         Ctitle.setText(model.ComplaintTitle);
@@ -57,7 +66,6 @@ public class Complaint_Details extends AppCompatActivity {
         details.setText(model.ComplaintDescription);
         bName.setText(model.comp_buss_name);
         status.setText(model.status);
-
 
         if (model.status.toLowerCase().equals("close")) {
             remarks.setText(model.eng_comment);
@@ -80,11 +88,9 @@ public class Complaint_Details extends AppCompatActivity {
                         switch (checkedId) {
                             case R.id.no:
                                 satisfaction = 0;
-                                Toast.makeText(Complaint_Details.this, "" + satisfaction, Toast.LENGTH_SHORT).show();
                                 break;
                             case R.id.yes:
                                 satisfaction = 1;
-                                Toast.makeText(Complaint_Details.this, "" + satisfaction, Toast.LENGTH_SHORT).show();
                                 break;
                         }
                     }
@@ -123,16 +129,19 @@ public class Complaint_Details extends AppCompatActivity {
                                     if (model.getSuccess().equals("1")) {
                                         int rating_value = 0;
                                         int satisfaction = 111;
-                                        Toast.makeText(Complaint_Details.this, "Feeback Submitted", Toast.LENGTH_SHORT).show();
+                                        rankDialog.dismiss();
+                                        Toast.makeText(Complaint_Details.this, "Feeback Submitted", Toast.LENGTH_LONG).show();
                                     } else {
-                                        Toast.makeText(Complaint_Details.this, "Not Submitted", Toast.LENGTH_SHORT).show();
+                                        rankDialog.dismiss();
+                                        Toast.makeText(Complaint_Details.this, ""+model.response_msg, Toast.LENGTH_LONG).show();
                                     }
                                 }
                             }
 
                             @Override
                             public void onFailure(Call<Model> call, Throwable t) {
-                                Toast.makeText(Complaint_Details.this, "No Response", Toast.LENGTH_SHORT).show();
+                                rankDialog.dismiss();
+                                Toast.makeText(Complaint_Details.this, "No Response", Toast.LENGTH_LONG).show();
                             }
                         });
                     }
@@ -157,11 +166,11 @@ public class Complaint_Details extends AppCompatActivity {
         call.enqueue(new Callback<UserResponseModel>() {
             @Override
             public void onResponse(Call<UserResponseModel> call, Response<UserResponseModel> response) {
-                UserResponseModel userResponseModel = response.body();
-                List<Model> list = userResponseModel.getMessage();
-                int size = list.size();
                 if (response.isSuccessful()) {
+                    UserResponseModel userResponseModel = response.body();
                     if (userResponseModel.success.equals("1")) {
+                        List<Model> list = userResponseModel.getMessage();
+                        int size = list.size();
                         for (int i = 0; i < size; i++) {
                             imagesUriArrayList.add(Uri.parse(list.get(i).Path));
                         }

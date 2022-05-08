@@ -26,36 +26,4 @@ public class Business_Reviews_Response_Model {
     public String longitude;
     @SerializedName("ratings_arr")
     public List<Model> ratings_arr;
-
-    public String getSuccess() {
-        return success;
-    }
-
-    public String getResponse_msg() {
-        return response_msg;
-    }
-
-    public String getBusiness_id() {
-        return business_id;
-    }
-
-    public String getBusiness_name() {
-        return business_name;
-    }
-
-    public String getBusiness_address() {
-        return business_address;
-    }
-
-    public String getAverage_rating() {
-        return average_rating;
-    }
-
-    public String getTotal_ratings() {
-        return total_ratings;
-    }
-
-    public List<Model> getRatings_arr() {
-        return ratings_arr;
-    }
 }

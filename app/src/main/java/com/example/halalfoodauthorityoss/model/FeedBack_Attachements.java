@@ -12,14 +12,6 @@ public class FeedBack_Attachements {
     @SerializedName("attachments")
     public List<Model> attachments;
 
-    public String getSuccess() {
-        return success;
-    }
-
-    public String getResponse_msg() {
-        return response_msg;
-    }
-
     public List<Model> getAttachments() {
         return attachments;
     }

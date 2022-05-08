@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,18 +22,12 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.halalfoodauthorityoss.adapter.Search_Business_Adapter;
-import com.example.halalfoodauthorityoss.fragments.Home;
 import com.example.halalfoodauthorityoss.loginsignupforgot.Login;
 import com.example.halalfoodauthorityoss.model.AppData;
+import com.example.halalfoodauthorityoss.model.BusinessNameForSearch;
 import com.example.halalfoodauthorityoss.model.LoginResponse;
 import com.example.halalfoodauthorityoss.model.Model;
-import com.example.halalfoodauthorityoss.model.RoomModel;
-import com.example.halalfoodauthorityoss.model.BusinessNameForRoom;
-import com.example.halalfoodauthorityoss.searchresult.SearchResult;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,6 +41,7 @@ import retrofit2.Response;
 public class Splash_Screen extends AppCompatActivity {
 
     public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 7;
+    public static List<Model> modelList = new ArrayList<>();
     ProgressDialog progressDialog;
     SharedPreferences sharedPreferences = null;
 
@@ -57,19 +53,17 @@ public class Splash_Screen extends AppCompatActivity {
         getSupportActionBar().hide();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Please Wait...");
-        progressDialog.setCancelable(false);
-
-        getBusinessNames();
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                progressDialog = new ProgressDialog(Splash_Screen.this);
+                progressDialog = ProgressDialog.show(Splash_Screen.this, "Loading", "Please wait...", true);
+                progressDialog.setCancelable(false);
                 checkAndroidVersion();
             }
-        }, 2500);
+        }, 1500);
     }
 
     private void checkAndroidVersion() {
@@ -208,7 +202,7 @@ public class Splash_Screen extends AppCompatActivity {
             public void run() {
                 CheckInternet();
             }
-        }, 7000);
+        }, 5000);
     }
 
     private boolean isOnline() {
@@ -233,11 +227,12 @@ public class Splash_Screen extends AppCompatActivity {
         final String CNIC = sharedPreferences.getString("CNIC", "Nothing");
         final String PASSWORD = sharedPreferences.getString("PASSWORD", "Nothing");
         if (!CNIC.equals("Nothing") && !PASSWORD.equals("Nothing")) {
-            LoginFunction(CNIC, PASSWORD);
+            getBusinessNames(CNIC, PASSWORD);
+
         } else {
+            new DownloadFilesTask().execute(null, null, null);
             progressDialog.dismiss();
             Intent intent = new Intent(Splash_Screen.this, Login.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
         }
@@ -289,54 +284,61 @@ public class Splash_Screen extends AppCompatActivity {
         });
     }
 
-    private  void getBusinessNames()
-    {
-        Call<BusinessNameForRoom> call = BaseClass
+    private void getBusinessNames(String CNIC, String PASSWORD) {
+        Call<BusinessNameForSearch> call = BaseClass
                 .getInstance()
                 .getApi()
                 .BusinessNameSave("");
 
-        call.enqueue(new Callback<BusinessNameForRoom>() {
+        call.enqueue(new Callback<BusinessNameForSearch>() {
             @Override
-            public void onResponse(Call<BusinessNameForRoom> call, Response<BusinessNameForRoom> response) {
+            public void onResponse(Call<BusinessNameForSearch> call, Response<BusinessNameForSearch> response) {
                 if (response.isSuccessful()) {
-                    BusinessNameForRoom businessNameForRoom = response.body();
-                    List<Model> list = businessNameForRoom.getBusinesses();
-                    if (list!=null)
-                    {
-                        DatabaseClass.getDatabase(getApplicationContext()).getDao().deleteData();
+                    BusinessNameForSearch businessNameForSearch = response.body();
+                    List<Model> list = businessNameForSearch.getBusinesses();
+                    if (list != null) {
                         int size = list.size();
-                        if (businessNameForRoom.success.equals("1")) {
+                        if (businessNameForSearch.success.equals("1")) {
                             for (int i = 0; i < size; i++) {
-                                saveData(list.get(i).business_name);
+                                modelList.add(new Model(list.get(i).business_name, ""));
+
                             }
-                            progressDialog.dismiss();
+                            if (!CNIC.equals("aaa") && !PASSWORD.equals("bbb")) {
+                                LoginFunction(CNIC, PASSWORD);
+                            }
                         } else {
-                            progressDialog.dismiss();
                             Toast.makeText(Splash_Screen.this, "No Record Found", Toast.LENGTH_LONG).show();
                         }
-                    }else {
-                        progressDialog.dismiss();
+                    } else {
                         Toast.makeText(Splash_Screen.this, "No Record Found", Toast.LENGTH_LONG).show();
                     }
                 } else {
                     Toast.makeText(Splash_Screen.this, "Not Successful", Toast.LENGTH_SHORT).show();
-                    progressDialog.dismiss();
                 }
             }
 
             @Override
-            public void onFailure(Call<BusinessNameForRoom> call, Throwable t) {
+            public void onFailure(Call<BusinessNameForSearch> call, Throwable t) {
                 Toast.makeText(Splash_Screen.this, "No Response", Toast.LENGTH_SHORT).show();
-                progressDialog.dismiss();
                 Log.d("aaaaaa", call.request().toString());
             }
         });
     }
 
-    private void saveData(String business_name) {
-        RoomModel model = new RoomModel();
-        model.setName(business_name);
-        DatabaseClass.getDatabase(getApplicationContext()).getDao().insertAllData(model);
+    private class DownloadFilesTask extends AsyncTask<Void, Void, Void> {
+        protected void onProgressUpdate(Integer... progress) {
+
+        }
+
+        protected void onPostExecute(Long result) {
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            getBusinessNames("aaa", "bbb");
+
+            return null;
+        }
     }
 }

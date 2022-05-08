@@ -39,7 +39,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.textfield.TextInputEditText;
 
-import java.io.IOException;
+import java.lang.Exception;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -62,10 +62,10 @@ public class Bussiness_Details extends FragmentActivity implements OnMapReadyCal
     List<String> ListCategoryId;
     String categoryID;
 
-    ImageView ic_back, currentLocation, icSearch;
+    ImageView currentLocation, icSearch;
     GoogleMap mMap;
     TextInputEditText edtlocation;
-    double latitude, longitude;
+    double latitude = 000000, longitude = 000000;
     LocationManager locationManager;
 
     @Override
@@ -111,21 +111,13 @@ public class Bussiness_Details extends FragmentActivity implements OnMapReadyCal
                         longitude = Address.getLongitude();
                         LatLng latLng = new LatLng(latitude, longitude);
                         mMap.addMarker(new MarkerOptions().position(latLng).title(Location));
-                        // mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
                         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15), 2500, null);
                     } else {
                         Toast.makeText(Bussiness_Details.this, "Invalid Address Location", Toast.LENGTH_SHORT).show();
                     }
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }
-        });
-
-        ic_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Bussiness_Details.this, Personal_Detail.class));
             }
         });
 
@@ -134,27 +126,22 @@ public class Bussiness_Details extends FragmentActivity implements OnMapReadyCal
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 districtID = ListDistrictID.get(i);
                 districtName = ListDistrictName.get(i);
-                if (!districtName.equals("Select District")) {
-                    Geocoder geocoder = new Geocoder(Bussiness_Details.this);
-                    try {
-                        mMap.clear();
-                        List<Address> AddressList = geocoder.getFromLocationName(districtName, 1);
-                        if (AddressList.size() != 0) {
-                            Address Address = AddressList.get(0);
-                            latitude = Address.getLatitude();
-                            longitude = Address.getLongitude();
-                            LatLng latLng = new LatLng(latitude, longitude);
-                            mMap.addMarker(new MarkerOptions().position(latLng).title(districtName));
-                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15), 2500, null);
-                        } else {
-                            Toast.makeText(Bussiness_Details.this, "Invalid Address Location", Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
+               /* Geocoder geocoder = new Geocoder(Bussiness_Details.this);
+                try {
+                    mMap.clear();
+                    List<Address> AddressList = geocoder.getFromLocationName(districtName, 1);
+                    if (AddressList.size() != 0) {
+                        Address Address = AddressList.get(0);
+                        latitude = Address.getLatitude();
+                        longitude = Address.getLongitude();
+                        LatLng latLng = new LatLng(latitude, longitude);
+                        mMap.addMarker(new MarkerOptions().position(latLng).title(districtName));
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15), 2500, null);
+                    } else {
                     }
-                } else {
-                }
-
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }*/
             }
 
             @Override
@@ -194,11 +181,16 @@ public class Bussiness_Details extends FragmentActivity implements OnMapReadyCal
                     return;
                 }
 
+                if (latitude == 000000 && longitude == 000000) {
+                    Toast.makeText(Bussiness_Details.this, "Please Add Location ", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 if (getIntent().getStringExtra("check").equals("1")) {
                     String lat1 = String.valueOf(latitude);
                     String lng1 = String.valueOf(longitude);
-                    float lat = Float.parseFloat(lat1);
-                    float lng = Float.parseFloat(lng1);
+                    double lat = Double.parseDouble(lat1);
+                    double lng = Double.parseDouble(lng1);
                     int CategoryID = Integer.parseInt(categoryID);
                     int DistrictID = Integer.parseInt(districtID);
                     int userid = Integer.parseInt(getIntent().getStringExtra("userid"));
@@ -213,7 +205,7 @@ public class Bussiness_Details extends FragmentActivity implements OnMapReadyCal
                             if (response.isSuccessful()) {
                                 if (model.success.equals("1")) {
                                     DialogBOX(model.application_id);
-                                   }
+                                }
                             } else {
                                 Toast.makeText(Bussiness_Details.this, "Business Not Registered", Toast.LENGTH_SHORT).show();
                             }
@@ -224,8 +216,6 @@ public class Bussiness_Details extends FragmentActivity implements OnMapReadyCal
                             Toast.makeText(Bussiness_Details.this, "No Response", Toast.LENGTH_SHORT).show();
                         }
                     });
-
-
                 }
                 if (getIntent().getStringExtra("check").equals("0")) {
                     Intent intent = new Intent(Bussiness_Details.this, Profile_Images.class);
@@ -252,12 +242,10 @@ public class Bussiness_Details extends FragmentActivity implements OnMapReadyCal
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        ic_back = findViewById(R.id.ic_back);
         btnNext = findViewById(R.id.btnNext);
         edtBusinessName = findViewById(R.id.edtBusinessName);
         edtBusinessAdress = findViewById(R.id.edtBusinessAddress);
-        //  edtlatitude=findViewById(R.id.edtlatitude);
-        //  edtlongitude=findViewById(R.id.edtlongitude);
+
         edtlocation = findViewById(R.id.edtlocation);
         currentLocation = findViewById(R.id.currentLocation);
         icSearch = findViewById(R.id.icSearch);
@@ -399,36 +387,24 @@ public class Bussiness_Details extends FragmentActivity implements OnMapReadyCal
 
                 latitude = lat;
                 longitude = longi;
-                LatLngConversion(lat, longi);
-                Toast.makeText(this, "First" + latitude + "," + longitude, Toast.LENGTH_SHORT).show();
-                // showLocationTxt.setText("Your Location:"+"\n"+"Latitude= "+latitude+"\n"+"Longitude= "+longitude);
+                LatLngConversion(latitude,longitude);
             } else if (LocationNetwork != null) {
                 double lat = LocationNetwork.getLatitude();
                 double longi = LocationNetwork.getLongitude();
 
                 latitude = lat;
                 longitude = longi;
-                LatLngConversion(lat, longi);
-                Toast.makeText(this, "Second" + latitude + "," + longitude, Toast.LENGTH_SHORT).show();
-
-
-                //  showLocationTxt.setText("Your Location:"+"\n"+"Latitude= "+latitude+"\n"+"Longitude= "+longitude);
+                LatLngConversion(latitude,longitude);
             } else if (LocationPassive != null) {
                 double lat = LocationPassive.getLatitude();
                 double longi = LocationPassive.getLongitude();
 
                 latitude = lat;
                 longitude = longi;
-                LatLngConversion(lat, longi);
-                Toast.makeText(this, "Third" + latitude + "," + longitude, Toast.LENGTH_SHORT).show();
-
-
-                //  showLocationTxt.setText("Your Location:"+"\n"+"Latitude= "+latitude+"\n"+"Longitude= "+longitude);
+                LatLngConversion(latitude,longitude);
             } else {
-                Toast.makeText(this, "Can't Get Your Location", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Please Wait, Can't Get Your Location", Toast.LENGTH_SHORT).show();
             }
-
-            //Thats All Run Your App
         }
     }
 
@@ -436,17 +412,21 @@ public class Bussiness_Details extends FragmentActivity implements OnMapReadyCal
         Geocoder geocoder;
         List<Address> addresses;
         geocoder = new Geocoder(this, Locale.getDefault());
-
         try {
             addresses = geocoder.getFromLocation(lat, lng, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
-            String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-            String city = addresses.get(0).getLocality();
-            String state = addresses.get(0).getAdminArea();
-            String country = addresses.get(0).getCountryName();
-            String postalCode = addresses.get(0).getPostalCode();
-            String knownName = addresses.get(0).getFeatureName(); // Only if available else return NULL
-            Toast.makeText(this, "Address:" + address, Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
+            String address = addresses.get(0).getAddressLine(0);// If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+            edtlocation.setText(address);
+            String city=addresses.get(0).getLocality();
+            try {
+                mMap.clear();
+                    LatLng latLng = new LatLng(latitude, longitude);
+                    mMap.addMarker(new MarkerOptions().position(latLng).title(city));
+                    mMap.addMarker(new MarkerOptions().position(latLng).title(address));
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15), 2500, null);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -454,7 +434,7 @@ public class Bussiness_Details extends FragmentActivity implements OnMapReadyCal
     private void DialogBOX(String application_id) {
         AlertDialog alertDialog = new AlertDialog.Builder(Bussiness_Details.this).create();
         alertDialog.setTitle("Business Registration");
-        alertDialog.setMessage("Your Business Has Been Registered! Your Registration No is "+application_id);
+        alertDialog.setMessage("Your Business Has Been Registered! Your Registration No is " + application_id);
         alertDialog.setCancelable(false);
 
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {

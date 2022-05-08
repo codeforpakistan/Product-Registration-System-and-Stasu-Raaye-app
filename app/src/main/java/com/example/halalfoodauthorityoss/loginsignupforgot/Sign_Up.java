@@ -9,12 +9,8 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,8 +22,6 @@ import com.example.halalfoodauthorityoss.model.Model;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Pattern;
 
 import retrofit2.Call;
@@ -55,11 +49,9 @@ public class Sign_Up extends AppCompatActivity {
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (checkBox.isChecked())
-                {
+                if (checkBox.isChecked()) {
                     layout.setHint("AFG No(without-dashes)");
-                }
-                else {
+                } else {
                     layout.setHint("CNIC(without-dashes)");
                 }
             }
@@ -199,7 +191,7 @@ public class Sign_Up extends AppCompatActivity {
 
         Dialog dialoguebox = new Dialog(Sign_Up.this);
         dialoguebox.setContentView(R.layout.dialogue_box);
-        dialoguebox.setCancelable(true);
+        dialoguebox.setCancelable(false);
         TextView message = dialoguebox.findViewById(R.id.txtmessage);
         TextView ok = dialoguebox.findViewById(R.id.ok);
         message.setText("Your Profile has been Created.");

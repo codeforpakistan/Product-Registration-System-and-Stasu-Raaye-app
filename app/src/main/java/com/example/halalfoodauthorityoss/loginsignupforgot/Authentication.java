@@ -143,7 +143,7 @@ public class Authentication extends AppCompatActivity {
     private void DialogBOX(String number) {
         Dialog dialoguebox = new Dialog(Authentication.this);
         dialoguebox.setContentView(R.layout.dialogue_box);
-        dialoguebox.setCancelable(true);
+        dialoguebox.setCancelable(false);
         TextView txtalert = dialoguebox.findViewById(R.id.txtalert);
         TextView message = dialoguebox.findViewById(R.id.txtmessage);
         TextView ok = dialoguebox.findViewById(R.id.ok);

@@ -27,12 +27,16 @@ public class Complaint_Status extends AppCompatActivity {
 
         Initialization();
 
+        ImageView ic_back=findViewById(R.id.ic_back);
+        ic_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         Bundle bundle = getIntent().getExtras();
         model = (Model) bundle.getSerializable("Model");
-        /*Ctitle.setText(model.ComplaintTitle);
-        district.setText(model.district);
-        address.setText(model.Address);
-        details.setText(model.ComplaintDescription);*/
         BusinessName.setText(model.comp_buss_name);
         String firstWord = model.create_date;
         if(firstWord.contains(" ")){
